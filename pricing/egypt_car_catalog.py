@@ -867,6 +867,26 @@ CATALOG: dict[str, dict] = {
             "trims_egypt": ["EX", "SX"],
             "notes": "Premium large SUV; competes with Palisade/Explorer",
         },
+        "Seltos": {
+            "first_year_global": 2019,
+            "egypt_from": 2022,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV crossover"],
+            "segments": ["B-SUV"],
+            "generations": [
+                {"gen": "1st gen", "years": "2019-2023"},
+                {"gen": "2nd gen", "years": "2023-present"},
+            ],
+            "engines_egypt": [
+                {"cc": 1591, "label": "1.6 MPI naturally aspirated", "hp": 123, "torque_nm": 151, "trans": ["auto 6-spd IVT"]},
+                {"cc": 1353, "label": "1.4T turbo", "hp": 140, "torque_nm": 242, "trans": ["auto 7-spd DCT"]},
+            ],
+            "new_price_egp_2025": {"min": 700_000, "max": 950_000},
+            "new_price_egp_2024": {"min": 609_000, "max": 826_000},
+            "trims_egypt": ["EX", "GT Line"],
+            "notes": "Growing B-SUV segment; competes with Creta and Captur",
+        },
     },
 
     # ════════════════════════════════════════════════════════════════════
@@ -1793,6 +1813,37 @@ CATALOG: dict[str, dict] = {
             "new_price_egp_2025": {"min": 1_100_000, "max": 1_400_000},
             "new_price_egp_2024": {"min": 960_000, "max": 1_220_000},
             "trims_egypt": ["Boost"],
+        },
+        "Shark 6": {
+            "first_year_global": 2024,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["pickup truck", "PHEV"],
+            "segments": ["pickup", "hybrid"],
+            "generations": [{"gen": "1st gen", "years": "2024-present"}],
+            "engines_egypt": [
+                {"cc": 1994, "label": "2.0T + EV PHEV", "hp": 433, "torque_nm": 650, "trans": ["auto 3-spd DHT"]},
+            ],
+            "new_price_egp_2025": {"min": 1_600_000, "max": 2_000_000},
+            "new_price_egp_2024": {"min": 1_392_000, "max": 1_740_000},
+            "trims_egypt": ["Standard", "Premium"],
+            "notes": "First PHEV pickup in Egypt; competes with Hilux/Ranger",
+        },
+        "Sealion 5": {
+            "first_year_global": 2023,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV", "PHEV"],
+            "segments": ["C-SUV", "hybrid"],
+            "generations": [{"gen": "1st gen", "years": "2023-present"}],
+            "engines_egypt": [
+                {"cc": 1497, "label": "1.5T DM-i PHEV", "hp": 177, "torque_nm": 231, "trans": ["auto e-CVT"]},
+            ],
+            "new_price_egp_2025": {"min": 1_100_000, "max": 1_400_000},
+            "new_price_egp_2024": {"min": 960_000, "max": 1_220_000},
+            "trims_egypt": ["DM-i Active", "DM-i Comfort"],
         },
     },
 
@@ -3142,6 +3193,37 @@ CATALOG: dict[str, dict] = {
             "new_price_egp_2025": {"min": 2_000_000, "max": 2_700_000},
             "new_price_egp_2024": {"min": 1_740_000, "max": 2_349_000},
             "trims_egypt": ["Luxury", "Explorer"],
+        },
+        "BJ30": {
+            "first_year_global": 2022,
+            "egypt_from": 2023,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["off-road SUV", "compact"],
+            "segments": ["off-road", "B-SUV"],
+            "generations": [{"gen": "1st gen", "years": "2022-present"}],
+            "engines_egypt": [
+                {"cc": 1498, "label": "1.5T turbo", "hp": 147, "torque_nm": 220, "trans": ["auto 7-spd DCT"]},
+            ],
+            "new_price_egp_2025": {"min": 560_000, "max": 750_000},
+            "new_price_egp_2024": {"min": 487_000, "max": 653_000},
+            "trims_egypt": ["Standard", "Luxury"],
+            "notes": "Compact off-road SUV; rugged styling",
+        },
+        "X7": {
+            "first_year_global": 2023,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV", "7-seater"],
+            "segments": ["D-SUV"],
+            "generations": [{"gen": "1st gen", "years": "2023-present"}],
+            "engines_egypt": [
+                {"cc": 1997, "label": "2.0T turbo", "hp": 224, "torque_nm": 350, "trans": ["auto 8-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 1_200_000, "max": 1_600_000},
+            "new_price_egp_2024": {"min": 1_044_000, "max": 1_392_000},
+            "trims_egypt": ["Luxury", "Premium"],
         },
     },
 
@@ -5206,6 +5288,53 @@ CATALOG: dict[str, dict] = {
             "new_price_egp_2024": {"min": 479_000, "max": 635_000},
             "trims_egypt": ["Luxury", "Elite"],
         },
+        "T8": {
+            "first_year_global": 2021,
+            "egypt_from": 2023,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["pickup truck"],
+            "segments": ["pickup"],
+            "generations": [{"gen": "1st gen", "years": "2021-present"}],
+            "engines_egypt": [
+                {"cc": 1997, "label": "2.0T turbo diesel", "hp": 190, "torque_nm": 400, "trans": ["auto 6-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 900_000, "max": 1_200_000},
+            "new_price_egp_2024": {"min": 783_000, "max": 1_044_000},
+            "trims_egypt": ["Sport", "Luxury"],
+            "notes": "Chinese pickup; competes with Hilux in price",
+        },
+        "T9": {
+            "first_year_global": 2022,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["pickup truck"],
+            "segments": ["pickup"],
+            "generations": [{"gen": "1st gen", "years": "2022-present"}],
+            "engines_egypt": [
+                {"cc": 1997, "label": "2.0T turbo", "hp": 224, "torque_nm": 380, "trans": ["auto 8-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 1_050_000, "max": 1_350_000},
+            "new_price_egp_2024": {"min": 914_000, "max": 1_175_000},
+            "trims_egypt": ["Premium", "Flagship"],
+        },
+        "Sei 7": {
+            "first_year_global": 2023,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV EV", "7-seater"],
+            "segments": ["C-SUV", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2023-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 75kWh", "hp": 218, "torque_nm": 340, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 1_100_000, "max": 1_400_000},
+            "new_price_egp_2024": {"min": 960_000, "max": 1_220_000},
+            "trims_egypt": ["Standard Range", "Long Range"],
+            "notes": "JAC electric SUV entering Egypt market 2024",
+        },
     },
 
     # ════════════════════════════════════════════════════════════════════
@@ -5246,6 +5375,54 @@ CATALOG: dict[str, dict] = {
             "new_price_egp_2025": {"min": 950_000, "max": 1_300_000},
             "new_price_egp_2024": {"min": 827_000, "max": 1_131_000},
             "trims_egypt": ["Luxury", "Flagship"],
+        },
+        "X95": {
+            "first_year_global": 2022,
+            "egypt_from": 2023,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV", "7-seater"],
+            "segments": ["E-SUV"],
+            "generations": [{"gen": "1st gen", "years": "2022-present"}],
+            "engines_egypt": [
+                {"cc": 1997, "label": "2.0T turbo", "hp": 268, "torque_nm": 400, "trans": ["auto 8-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 1_200_000, "max": 1_600_000},
+            "new_price_egp_2024": {"min": 1_044_000, "max": 1_392_000},
+            "trims_egypt": ["Luxury", "Flagship"],
+            "notes": "Flagship 7-seat SUV; competes with Palisade/Fortuner",
+        },
+        "Dashing": {
+            "first_year_global": 2021,
+            "egypt_from": 2023,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["coupe SUV"],
+            "segments": ["C-SUV"],
+            "generations": [{"gen": "1st gen", "years": "2021-present"}],
+            "engines_egypt": [
+                {"cc": 1498, "label": "1.5T turbo", "hp": 181, "torque_nm": 290, "trans": ["auto 7-spd DCT"]},
+            ],
+            "new_price_egp_2025": {"min": 750_000, "max": 1_000_000},
+            "new_price_egp_2024": {"min": 653_000, "max": 870_000},
+            "trims_egypt": ["Sport", "Elite"],
+            "notes": "Sporty fastback SUV styling; among newer JETOUR entries",
+        },
+        "T2": {
+            "first_year_global": 2022,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV crossover"],
+            "segments": ["B-SUV"],
+            "generations": [{"gen": "1st gen", "years": "2022-present"}],
+            "engines_egypt": [
+                {"cc": 1498, "label": "1.5T turbo", "hp": 156, "torque_nm": 230, "trans": ["auto 7-spd DCT"]},
+            ],
+            "new_price_egp_2025": {"min": 580_000, "max": 780_000},
+            "new_price_egp_2024": {"min": 505_000, "max": 679_000},
+            "trims_egypt": ["Comfort", "Luxury"],
+            "notes": "Entry-level JETOUR; budget-friendly B-segment",
         },
     },
 
@@ -6380,6 +6557,719 @@ CATALOG: dict[str, dict] = {
             "new_price_egp_2024": {"min": 1_565_000, "max": 2_090_000},
             "trims_egypt": ["Premium"],
             "notes": "Developed with Huawei; growing premium EV brand in Egypt",
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # ROX (independent Chinese EV — JV with El Sewedy / ESI in Egypt)
+    # ════════════════════════════════════════════════════════════════════
+
+    "ROX": {
+        "ROX 01": {
+            "first_year_global": 2023,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": "ESI (El Sewedy Industrial, future assembly planned 2027)",
+            "body_types": ["SUV", "REEV"],
+            "segments": ["C-SUV", "extended-range EV"],
+            "generations": [{"gen": "1st gen", "years": "2023-present"}],
+            "engines_egypt": [
+                {"cc": 1199, "label": "1.2T REEV range extender + EV", "hp": 326, "torque_nm": 500, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 1_300_000, "max": 1_700_000},
+            "new_price_egp_2024": {"min": 1_131_000, "max": 1_479_000},
+            "trims_egypt": ["Standard", "Premium"],
+            "notes": "Range-extended EV; distributed via Nour ElDin ElSherif Group; JV factory planned for 6th October City 2027",
+        },
+        "Adamas": {
+            "first_year_global": 2024,
+            "egypt_from": 2025,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV", "REEV", "7-seater"],
+            "segments": ["D-SUV", "extended-range EV"],
+            "generations": [{"gen": "1st gen", "years": "2024-present"}],
+            "engines_egypt": [
+                {"cc": 1199, "label": "1.2T REEV + dual motor EV AWD", "hp": 476, "torque_nm": 750, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 2_000_000, "max": 2_600_000},
+            "new_price_egp_2024": {"min": 1_740_000, "max": 2_262_000},
+            "trims_egypt": ["Flagship"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # XIAOMI (grey market only — no official importer in Egypt)
+    # ════════════════════════════════════════════════════════════════════
+
+    "Xiaomi": {
+        "SU7": {
+            "first_year_global": 2024,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["sedan", "EV"],
+            "segments": ["D-segment", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2024-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 73.6kWh RWD", "hp": 299, "torque_nm": 400, "trans": ["single-speed"]},
+                {"cc": 0, "label": "Electric 101kWh AWD Ultra", "hp": 673, "torque_nm": 838, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 2_300_000, "max": 3_000_000},
+            "new_price_egp_2024": {"min": 2_000_000, "max": 2_610_000},
+            "trims_egypt": ["Standard", "Pro", "Ultra"],
+            "notes": "Grey market / parallel import only; no official dealer in Egypt as of 2025",
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # SOUEAST (major volume brand — distributed via AHC group)
+    # ════════════════════════════════════════════════════════════════════
+
+    "Soueast": {
+        "DX5": {
+            "first_year_global": 2016,
+            "egypt_from": 2019,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV"],
+            "segments": ["B-SUV", "C-SUV"],
+            "generations": [
+                {"gen": "1st gen", "years": "2016-2021"},
+                {"gen": "2nd gen", "years": "2021-present"},
+            ],
+            "engines_egypt": [
+                {"cc": 1498, "label": "1.5T turbo", "hp": 150, "torque_nm": 230, "trans": ["auto 6-spd DCT"]},
+                {"cc": 1997, "label": "2.0T turbo", "hp": 200, "torque_nm": 330, "trans": ["auto 6-spd DCT"]},
+            ],
+            "new_price_egp_2025": {"min": 550_000, "max": 750_000},
+            "new_price_egp_2024": {"min": 479_000, "max": 653_000},
+            "trims_egypt": ["Comfort", "Luxury", "Elite"],
+            "notes": "High-volume brand; one of fastest-selling Chinese SUVs in Egypt",
+        },
+        "DX7": {
+            "first_year_global": 2017,
+            "egypt_from": 2020,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV", "7-seater"],
+            "segments": ["C-SUV", "D-SUV"],
+            "generations": [
+                {"gen": "1st gen", "years": "2017-2022"},
+                {"gen": "2nd gen DX7S", "years": "2022-present"},
+            ],
+            "engines_egypt": [
+                {"cc": 1997, "label": "2.0T turbo", "hp": 218, "torque_nm": 350, "trans": ["auto 6-spd DCT"]},
+            ],
+            "new_price_egp_2025": {"min": 700_000, "max": 950_000},
+            "new_price_egp_2024": {"min": 609_000, "max": 826_000},
+            "trims_egypt": ["Luxury", "Elite"],
+        },
+        "A5": {
+            "first_year_global": 2018,
+            "egypt_from": 2020,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["sedan"],
+            "segments": ["C-segment"],
+            "generations": [{"gen": "1st gen", "years": "2018-present"}],
+            "engines_egypt": [
+                {"cc": 1498, "label": "1.5T turbo", "hp": 143, "torque_nm": 210, "trans": ["auto 6-spd CVT"]},
+            ],
+            "new_price_egp_2025": {"min": 480_000, "max": 650_000},
+            "new_price_egp_2024": {"min": 418_000, "max": 566_000},
+            "trims_egypt": ["Comfort", "Luxury"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # DEEPAL (Changan EV sub-brand — entered Egypt 2024)
+    # ════════════════════════════════════════════════════════════════════
+
+    "Deepal": {
+        "S7": {
+            "first_year_global": 2022,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV EV"],
+            "segments": ["C-SUV", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2022-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 66.8kWh", "hp": 218, "torque_nm": 320, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 1_000_000, "max": 1_350_000},
+            "new_price_egp_2024": {"min": 870_000, "max": 1_175_000},
+            "trims_egypt": ["Standard Range", "Long Range"],
+        },
+        "L07": {
+            "first_year_global": 2023,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["sedan EV"],
+            "segments": ["C-segment", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2023-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 66.8kWh", "hp": 218, "torque_nm": 320, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 950_000, "max": 1_250_000},
+            "new_price_egp_2024": {"min": 827_000, "max": 1_088_000},
+            "trims_egypt": ["Standard", "Long Range"],
+        },
+        "SL03": {
+            "first_year_global": 2022,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["coupe sedan EV/REEV"],
+            "segments": ["D-segment", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2022-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 77.4kWh / REEV PHEV", "hp": 249, "torque_nm": 360, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 1_200_000, "max": 1_600_000},
+            "new_price_egp_2024": {"min": 1_044_000, "max": 1_392_000},
+            "trims_egypt": ["EV", "REEV"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # ZEEKR (Geely premium EV — entered Egypt 2024/25)
+    # ════════════════════════════════════════════════════════════════════
+
+    "Zeekr": {
+        "001": {
+            "first_year_global": 2021,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["shooting brake EV"],
+            "segments": ["D-segment", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2021-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 100kWh AWD", "hp": 544, "torque_nm": 768, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 2_500_000, "max": 3_200_000},
+            "new_price_egp_2024": {"min": 2_175_000, "max": 2_784_000},
+            "trims_egypt": ["WE", "YOU"],
+        },
+        "X": {
+            "first_year_global": 2023,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV EV", "compact"],
+            "segments": ["B-SUV", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2023-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 66kWh AWD", "hp": 422, "torque_nm": 543, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 1_500_000, "max": 2_000_000},
+            "new_price_egp_2024": {"min": 1_305_000, "max": 1_740_000},
+            "trims_egypt": ["Premium", "Premium Pro"],
+        },
+        "7X": {
+            "first_year_global": 2024,
+            "egypt_from": 2025,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV EV"],
+            "segments": ["C-SUV", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2024-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 100kWh AWD", "hp": 641, "torque_nm": 710, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 2_200_000, "max": 2_800_000},
+            "new_price_egp_2024": {"min": 1_914_000, "max": 2_436_000},
+            "trims_egypt": ["Long Range", "Ultra"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # XPENG (entered Egypt via parallel/grey-market channels)
+    # ════════════════════════════════════════════════════════════════════
+
+    "XPeng": {
+        "G9": {
+            "first_year_global": 2022,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV EV"],
+            "segments": ["D-SUV", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2022-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 98kWh AWD", "hp": 551, "torque_nm": 717, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 2_000_000, "max": 2_600_000},
+            "new_price_egp_2024": {"min": 1_740_000, "max": 2_262_000},
+            "trims_egypt": ["Standard", "Pro"],
+        },
+        "P7": {
+            "first_year_global": 2020,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["sedan EV"],
+            "segments": ["D-segment", "electric"],
+            "generations": [
+                {"gen": "1st gen", "years": "2020-2022"},
+                {"gen": "2nd gen", "years": "2022-present"},
+            ],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 80.7kWh RWD", "hp": 310, "torque_nm": 430, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 1_600_000, "max": 2_100_000},
+            "new_price_egp_2024": {"min": 1_392_000, "max": 1_827_000},
+            "trims_egypt": ["Standard Range", "Long Range"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # IM MOTORS (SAIC premium EV — entered Egypt 2024)
+    # ════════════════════════════════════════════════════════════════════
+
+    "IM Motors": {
+        "L7": {
+            "first_year_global": 2022,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["sedan EV"],
+            "segments": ["E-segment", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2022-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 90kWh AWD", "hp": 536, "torque_nm": 725, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 2_200_000, "max": 2_800_000},
+            "new_price_egp_2024": {"min": 1_914_000, "max": 2_436_000},
+            "trims_egypt": ["Premium", "Performance"],
+        },
+        "LS7": {
+            "first_year_global": 2023,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV EV"],
+            "segments": ["D-SUV", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2023-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 93kWh AWD", "hp": 582, "torque_nm": 725, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 2_500_000, "max": 3_200_000},
+            "new_price_egp_2024": {"min": 2_175_000, "max": 2_784_000},
+            "trims_egypt": ["Premium", "Top"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # JAECOO (Chery off-road sub-brand — launched Egypt 2024)
+    # ════════════════════════════════════════════════════════════════════
+
+    "JAECOO": {
+        "J7": {
+            "first_year_global": 2023,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV", "off-road"],
+            "segments": ["C-SUV"],
+            "generations": [{"gen": "1st gen", "years": "2023-present"}],
+            "engines_egypt": [
+                {"cc": 1498, "label": "1.5T turbo", "hp": 147, "torque_nm": 220, "trans": ["auto 7-spd DCT"]},
+            ],
+            "new_price_egp_2025": {"min": 700_000, "max": 950_000},
+            "new_price_egp_2024": {"min": 609_000, "max": 826_000},
+            "trims_egypt": ["Standard", "Luxury"],
+            "notes": "Positioned as rugged off-road alternative; Chery off-road sub-brand",
+        },
+        "J8": {
+            "first_year_global": 2023,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV", "7-seater", "off-road"],
+            "segments": ["D-SUV"],
+            "generations": [{"gen": "1st gen", "years": "2023-present"}],
+            "engines_egypt": [
+                {"cc": 1997, "label": "2.0T turbo", "hp": 268, "torque_nm": 390, "trans": ["auto 8-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 950_000, "max": 1_300_000},
+            "new_price_egp_2024": {"min": 826_000, "max": 1_131_000},
+            "trims_egypt": ["Luxury", "Flagship"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # WULING (SAIC-GM-Wuling — budget mini EV segment)
+    # ════════════════════════════════════════════════════════════════════
+
+    "Wuling": {
+        "Mini EV": {
+            "first_year_global": 2020,
+            "egypt_from": 2023,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["city car EV"],
+            "segments": ["A-segment", "electric"],
+            "generations": [{"gen": "1st gen Hongguang Mini", "years": "2020-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 9.2kWh / 26.5kWh", "hp": 26, "torque_nm": 85, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 200_000, "max": 350_000},
+            "new_price_egp_2024": {"min": 174_000, "max": 305_000},
+            "trims_egypt": ["Base", "Macaron"],
+            "notes": "Ultra-budget 4-seat city EV; most affordable EV in Egypt",
+        },
+        "Yep": {
+            "first_year_global": 2023,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["mini SUV EV"],
+            "segments": ["A-SUV", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2023-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 30kWh", "hp": 68, "torque_nm": 130, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 350_000, "max": 500_000},
+            "new_price_egp_2024": {"min": 305_000, "max": 435_000},
+            "trims_egypt": ["Standard"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # LEAPMOTOR (Stellantis-partnered Chinese EV — Egypt 2024)
+    # ════════════════════════════════════════════════════════════════════
+
+    "Leapmotor": {
+        "C10": {
+            "first_year_global": 2023,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV EV"],
+            "segments": ["C-SUV", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2023-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 69.9kWh RWD", "hp": 218, "torque_nm": 320, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 950_000, "max": 1_300_000},
+            "new_price_egp_2024": {"min": 826_000, "max": 1_131_000},
+            "trims_egypt": ["Standard Range", "Extended Range"],
+            "notes": "Stellantis partnership helps with global distribution including Egypt",
+        },
+        "C11": {
+            "first_year_global": 2021,
+            "egypt_from": 2023,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV EV/PHEV"],
+            "segments": ["C-SUV", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2021-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 90kWh AWD EREV", "hp": 422, "torque_nm": 720, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 1_100_000, "max": 1_500_000},
+            "new_price_egp_2024": {"min": 957_000, "max": 1_305_000},
+            "trims_egypt": ["Pure EV", "EREV"],
+        },
+        "T03": {
+            "first_year_global": 2020,
+            "egypt_from": 2023,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["hatchback EV", "city car"],
+            "segments": ["A-segment", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2020-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 41kWh", "hp": 95, "torque_nm": 158, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 380_000, "max": 530_000},
+            "new_price_egp_2024": {"min": 331_000, "max": 461_000},
+            "trims_egypt": ["Standard"],
+        },
+        "C16": {
+            "first_year_global": 2024,
+            "egypt_from": 2025,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV EV", "7-seater"],
+            "segments": ["D-SUV", "electric"],
+            "generations": [{"gen": "1st gen", "years": "2024-present"}],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 100kWh AWD EREV", "hp": 544, "torque_nm": 710, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 1_400_000, "max": 1_900_000},
+            "new_price_egp_2024": {"min": 1_218_000, "max": 1_653_000},
+            "trims_egypt": ["Standard", "Performance"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # GAC AION (GAC pure-EV sub-brand — fast-growing in Egypt)
+    # ════════════════════════════════════════════════════════════════════
+
+    "GAC Aion": {
+        "Y": {
+            "first_year_global": 2020,
+            "egypt_from": 2023,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV EV", "compact"],
+            "segments": ["B-SUV", "electric"],
+            "generations": [
+                {"gen": "1st gen", "years": "2020-2022"},
+                {"gen": "2nd gen Y Plus", "years": "2022-present"},
+            ],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 70.8kWh", "hp": 201, "torque_nm": 350, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 900_000, "max": 1_250_000},
+            "new_price_egp_2024": {"min": 783_000, "max": 1_088_000},
+            "trims_egypt": ["Standard", "Long Range Plus"],
+            "notes": "One of best-selling Chinese EVs in Egypt",
+        },
+        "V": {
+            "first_year_global": 2019,
+            "egypt_from": 2024,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["sedan EV"],
+            "segments": ["D-segment", "electric"],
+            "generations": [
+                {"gen": "1st gen", "years": "2019-2022"},
+                {"gen": "2nd gen V Plus", "years": "2022-present"},
+            ],
+            "engines_egypt": [
+                {"cc": 0, "label": "Electric 80kWh", "hp": 245, "torque_nm": 430, "trans": ["single-speed"]},
+            ],
+            "new_price_egp_2025": {"min": 1_000_000, "max": 1_400_000},
+            "new_price_egp_2024": {"min": 870_000, "max": 1_218_000},
+            "trims_egypt": ["Standard", "Long Range"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # SEAT (Volkswagen Group — distributed via Arabiat Egypt)
+    # ════════════════════════════════════════════════════════════════════
+
+    "SEAT": {
+        "Ibiza": {
+            "first_year_global": 1984,
+            "egypt_from": 2020,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["hatchback"],
+            "segments": ["B-segment"],
+            "generations": [{"gen": "5th gen KJ", "years": "2017-present"}],
+            "engines_egypt": [
+                {"cc": 999, "label": "1.0 TSI 95hp", "hp": 95, "torque_nm": 175, "trans": ["manual 5-spd", "auto 7-spd DSG"]},
+                {"cc": 999, "label": "1.0 TSI 115hp", "hp": 115, "torque_nm": 200, "trans": ["manual 6-spd", "auto 7-spd DSG"]},
+            ],
+            "new_price_egp_2025": {"min": 500_000, "max": 700_000},
+            "new_price_egp_2024": {"min": 435_000, "max": 609_000},
+            "trims_egypt": ["Reference", "Style", "FR"],
+        },
+        "Leon": {
+            "first_year_global": 1998,
+            "egypt_from": 2020,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["hatchback", "estate"],
+            "segments": ["C-segment"],
+            "generations": [{"gen": "4th gen KL8", "years": "2020-present"}],
+            "engines_egypt": [
+                {"cc": 1498, "label": "1.5 TSI 150hp", "hp": 150, "torque_nm": 250, "trans": ["manual 6-spd", "auto 7-spd DSG"]},
+                {"cc": 1984, "label": "2.0 TDI 150hp diesel", "hp": 150, "torque_nm": 360, "trans": ["manual 6-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 700_000, "max": 950_000},
+            "new_price_egp_2024": {"min": 609_000, "max": 826_000},
+            "trims_egypt": ["Reference", "Style", "FR"],
+        },
+        "Ateca": {
+            "first_year_global": 2016,
+            "egypt_from": 2021,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV"],
+            "segments": ["C-SUV"],
+            "generations": [{"gen": "1st gen KH7", "years": "2016-present", "facelift": "2020"}],
+            "engines_egypt": [
+                {"cc": 1498, "label": "1.5 TSI 150hp", "hp": 150, "torque_nm": 250, "trans": ["auto 7-spd DSG"]},
+                {"cc": 1984, "label": "2.0 TDI 150hp diesel", "hp": 150, "torque_nm": 340, "trans": ["auto 7-spd DSG"]},
+            ],
+            "new_price_egp_2025": {"min": 850_000, "max": 1_150_000},
+            "new_price_egp_2024": {"min": 740_000, "max": 1_001_000},
+            "trims_egypt": ["Style", "Xperience"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # MINI (BMW Group — Global Auto Group Egypt)
+    # ════════════════════════════════════════════════════════════════════
+
+    "MINI": {
+        "Cooper": {
+            "first_year_global": 1959,
+            "egypt_from": 2015,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["hatchback"],
+            "segments": ["B-segment", "premium"],
+            "generations": [
+                {"gen": "3rd gen F55/F56", "years": "2014-2024"},
+                {"gen": "4th gen J01", "years": "2024-present"},
+            ],
+            "engines_egypt": [
+                {"cc": 1499, "label": "1.5T 3-cyl 136hp", "hp": 136, "torque_nm": 220, "trans": ["auto 7-spd DCT"]},
+                {"cc": 1998, "label": "2.0T 178hp Cooper S", "hp": 178, "torque_nm": 280, "trans": ["auto 7-spd DCT"]},
+            ],
+            "new_price_egp_2025": {"min": 1_200_000, "max": 1_800_000},
+            "new_price_egp_2024": {"min": 1_044_000, "max": 1_566_000},
+            "trims_egypt": ["Cooper", "Cooper S", "JCW"],
+        },
+        "Countryman": {
+            "first_year_global": 2010,
+            "egypt_from": 2018,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV crossover"],
+            "segments": ["C-SUV", "premium"],
+            "generations": [
+                {"gen": "2nd gen F60", "years": "2017-2024"},
+                {"gen": "3rd gen U25", "years": "2024-present"},
+            ],
+            "engines_egypt": [
+                {"cc": 1998, "label": "2.0T 178hp", "hp": 178, "torque_nm": 280, "trans": ["auto 7-spd DCT"]},
+                {"cc": 1998, "label": "2.0T 231hp Cooper S ALL4", "hp": 231, "torque_nm": 350, "trans": ["auto 8-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 1_800_000, "max": 2_500_000},
+            "new_price_egp_2024": {"min": 1_566_000, "max": 2_175_000},
+            "trims_egypt": ["Countryman", "Countryman S", "JCW"],
+        },
+        "Clubman": {
+            "first_year_global": 2007,
+            "egypt_from": 2018,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["estate"],
+            "segments": ["C-segment", "premium"],
+            "generations": [{"gen": "2nd gen F54", "years": "2015-2024"}],
+            "engines_egypt": [
+                {"cc": 1998, "label": "2.0T 192hp Cooper S", "hp": 192, "torque_nm": 280, "trans": ["auto 8-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 1_500_000, "max": 2_000_000},
+            "new_price_egp_2024": {"min": 1_305_000, "max": 1_740_000},
+            "trims_egypt": ["Cooper S", "JCW"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # PROTON (Malaysia — SMG Engineering Egypt)
+    # ════════════════════════════════════════════════════════════════════
+
+    "Proton": {
+        "X50": {
+            "first_year_global": 2020,
+            "egypt_from": 2022,
+            "assembled_in_egypt": False,
+            "assembler": "SMG Engineering",
+            "body_types": ["SUV crossover"],
+            "segments": ["B-SUV"],
+            "generations": [{"gen": "1st gen", "years": "2020-present"}],
+            "engines_egypt": [
+                {"cc": 1498, "label": "1.5T turbo 150hp (Geely-derived)", "hp": 150, "torque_nm": 226, "trans": ["auto 7-spd DCT"]},
+            ],
+            "new_price_egp_2025": {"min": 550_000, "max": 750_000},
+            "new_price_egp_2024": {"min": 479_000, "max": 653_000},
+            "trims_egypt": ["Standard", "Executive", "Flagship"],
+            "notes": "Uses Geely BMA platform; Geely subsidiary brand",
+        },
+        "X70": {
+            "first_year_global": 2018,
+            "egypt_from": 2022,
+            "assembled_in_egypt": False,
+            "assembler": "SMG Engineering",
+            "body_types": ["SUV", "7-seater"],
+            "segments": ["C-SUV", "D-SUV"],
+            "generations": [
+                {"gen": "1st gen", "years": "2018-2022"},
+                {"gen": "2nd gen", "years": "2022-present"},
+            ],
+            "engines_egypt": [
+                {"cc": 1799, "label": "1.8T turbo 184hp", "hp": 184, "torque_nm": 300, "trans": ["auto 6-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 700_000, "max": 950_000},
+            "new_price_egp_2024": {"min": 609_000, "max": 826_000},
+            "trims_egypt": ["Executive", "Premium"],
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # SHINERAY (Chinese utility — vans/minivans, commercial use)
+    # ════════════════════════════════════════════════════════════════════
+
+    "Shineray": {
+        "X30": {
+            "first_year_global": 2013,
+            "egypt_from": 2020,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["MPV", "van"],
+            "segments": ["commercial", "van"],
+            "generations": [{"gen": "1st gen", "years": "2013-present"}],
+            "engines_egypt": [
+                {"cc": 1497, "label": "1.5L naturally aspirated", "hp": 102, "torque_nm": 138, "trans": ["manual 5-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 250_000, "max": 380_000},
+            "new_price_egp_2024": {"min": 218_000, "max": 331_000},
+            "trims_egypt": ["Cargo", "Passenger"],
+            "notes": "Popular budget commercial MPV/van in Egyptian micro-business segment",
+        },
+    },
+
+    # ════════════════════════════════════════════════════════════════════
+    # GENESIS (Hyundai luxury — limited presence in Egypt)
+    # ════════════════════════════════════════════════════════════════════
+
+    "Genesis": {
+        "GV80": {
+            "first_year_global": 2020,
+            "egypt_from": 2023,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["SUV"],
+            "segments": ["E-SUV", "luxury"],
+            "generations": [{"gen": "1st gen JX1", "years": "2020-present"}],
+            "engines_egypt": [
+                {"cc": 2497, "label": "2.5T inline-6 300hp", "hp": 300, "torque_nm": 422, "trans": ["auto 8-spd"]},
+                {"cc": 2999, "label": "3.5T V6 375hp", "hp": 375, "torque_nm": 530, "trans": ["auto 8-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 3_500_000, "max": 5_000_000},
+            "new_price_egp_2024": {"min": 3_045_000, "max": 4_350_000},
+            "trims_egypt": ["2.5T Advanced", "3.5T Prestige"],
+            "notes": "Hyundai's ultra-premium brand; limited dealership presence in Egypt",
+        },
+        "G80": {
+            "first_year_global": 2016,
+            "egypt_from": 2023,
+            "assembled_in_egypt": False,
+            "assembler": None,
+            "body_types": ["sedan"],
+            "segments": ["E-segment", "luxury"],
+            "generations": [
+                {"gen": "1st gen DH", "years": "2016-2020"},
+                {"gen": "2nd gen RG3", "years": "2020-present"},
+            ],
+            "engines_egypt": [
+                {"cc": 2497, "label": "2.5T inline-6 300hp", "hp": 300, "torque_nm": 422, "trans": ["auto 8-spd"]},
+                {"cc": 3497, "label": "3.5T V6 375hp", "hp": 375, "torque_nm": 530, "trans": ["auto 8-spd"]},
+            ],
+            "new_price_egp_2025": {"min": 3_000_000, "max": 4_500_000},
+            "new_price_egp_2024": {"min": 2_610_000, "max": 3_915_000},
+            "trims_egypt": ["2.5T", "3.5T"],
         },
     },
 }
