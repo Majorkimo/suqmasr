@@ -12,3 +12,4 @@ venv/
 .venv/
 static/uploads/
 .vercel/
+.vercel

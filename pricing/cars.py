@@ -172,11 +172,11 @@ CAR_REFERENCE_PRICES: dict[tuple, dict] = {
     ("BMW", "X5"):              {2024: 9_500_000, 2023: 8_300_000, 2022: 7_200_000},
 
     # ── Mercedes ───────────────────────────────────────────────────────────
-    ("Mercedes", "C-Class"):    {2024: 5_500_000, 2023: 4_800_000, 2022: 4_150_000,
+    ("Mercedes-Benz", "C-Class"):    {2024: 5_500_000, 2023: 4_800_000, 2022: 4_150_000,
                                   2021: 3_550_000, 2020: 3_000_000},
-    ("Mercedes", "E-Class"):    {2024: 8_500_000, 2023: 7_500_000, 2022: 6_500_000,
+    ("Mercedes-Benz", "E-Class"):    {2024: 8_500_000, 2023: 7_500_000, 2022: 6_500_000,
                                   2021: 5_600_000},
-    ("Mercedes", "GLC"):        {2024: 9_000_000, 2023: 7_900_000, 2022: 6_850_000},
+    ("Mercedes-Benz", "GLC"):        {2024: 9_000_000, 2023: 7_900_000, 2022: 6_850_000},
 }
 
 CONDITION_FACTORS = {
@@ -190,27 +190,78 @@ MILEAGE_BASELINE = 50_000   # km — reference point for CAR_REFERENCE_PRICES
 MILEAGE_PENALTY  = 0.05     # 5% per 20,000 km above baseline
 
 
+# ── Scraped live-market data ───────────────────────────────────────────────────
+# Loaded on first access from data/all_prices.json (output of run_all.py scraper).
+# Schema: {"Make|Model": {"2024": {"median": int, "p25": int, "p75": int, "n": int}}}
+
+import json as _json
+import os as _os
+from pathlib import Path as _Path
+
+_SCRAPED_PRICES: dict | None = None
+
+
+def _load_scraped() -> dict:
+    global _SCRAPED_PRICES
+    if _SCRAPED_PRICES is not None:
+        return _SCRAPED_PRICES
+    data_file = _Path(_os.path.dirname(_os.path.dirname(__file__))) / "data" / "all_prices.json"
+    if data_file.exists():
+        try:
+            with open(data_file, encoding="utf-8") as f:
+                _SCRAPED_PRICES = _json.load(f)
+        except Exception:
+            _SCRAPED_PRICES = {}
+    else:
+        _SCRAPED_PRICES = {}
+    return _SCRAPED_PRICES
+
+
+def _scraped_price(make: str, model: str, year: int) -> int | None:
+    """Return scraped median EGP for this make/model/year, or None."""
+    data = _load_scraped()
+    key = f"{make}|{model}"
+    year_dict = data.get(key, {})
+    entry = year_dict.get(str(year))
+    if entry and entry.get("n", 0) >= 2:
+        return entry["median"]
+    # Try a close year (±2)
+    for offset in (1, -1, 2, -2):
+        entry = year_dict.get(str(year + offset))
+        if entry and entry.get("n", 0) >= 3:
+            penalty = 0.88 ** abs(offset)
+            return int(entry["median"] * penalty)
+    return None
+
+
 def get_car_market_price(make: str, model: str, year: int,
                           mileage_km: int = 50_000,
                           condition: str = "good") -> dict | None:
     """
     Return estimated market price for a car.
-    Returns None if make/model/year not in reference table.
+    Prefers live scraped data; falls back to static reference table.
+    Returns None if make/model/year is completely unknown.
     """
-    key = (make, model)
-    ref = CAR_REFERENCE_PRICES.get(key)
-    if not ref:
-        return None
-
-    # Get closest year
-    base_price = ref.get(year)
-    if base_price is None:
-        years = sorted(ref.keys())
-        closest = min(years, key=lambda y: abs(y - year))
-        base_price = ref[closest]
-        year_gap = abs(closest - year)
-        if year_gap > 0:
-            base_price = int(base_price * (0.88 ** year_gap))
+    # 1. Try live scraped prices first
+    scraped_median = _scraped_price(make, model, year)
+    if scraped_median:
+        base_price = scraped_median
+        basis = "scraped"
+    else:
+        # 2. Fall back to static reference table
+        key = (make, model)
+        ref = CAR_REFERENCE_PRICES.get(key)
+        if not ref:
+            return None
+        base_price = ref.get(year)
+        if base_price is None:
+            years = sorted(ref.keys())
+            closest = min(years, key=lambda y: abs(y - year))
+            base_price = ref[closest]
+            year_gap = abs(closest - year)
+            if year_gap > 0:
+                base_price = int(base_price * (0.88 ** year_gap))
+        basis = "reference"
 
     # Mileage adjustment
     km_diff = max(0, mileage_km - MILEAGE_BASELINE)
@@ -225,7 +276,7 @@ def get_car_market_price(make: str, model: str, year: int,
     return {
         "market_price": market_price,
         "base_price":   base_price,
-        "basis":        "reference",
+        "basis":        basis,
         "mileage_factor": round(mileage_factor, 3),
         "condition_factor": cond_factor,
     }
@@ -254,7 +305,45 @@ def score_car_asking(asking_price: int, market_price: int) -> dict:
     }
 
 
-CAR_MAKES = sorted(set(k[0] for k in CAR_REFERENCE_PRICES))
+def _all_makes() -> list[str]:
+    """Union of static reference table + catalog makes."""
+    static = set(k[0] for k in CAR_REFERENCE_PRICES)
+    try:
+        from pricing.egypt_car_catalog import CATALOG
+        catalog = set(CATALOG.keys())
+    except ImportError:
+        catalog = set()
+    return sorted(static | catalog)
+
+CAR_MAKES = _all_makes()
+
 
 def get_models_for_make(make: str) -> list[str]:
-    return sorted(m for (mk, m) in CAR_REFERENCE_PRICES if mk == make)
+    """Return all known models for a make (static + scraped + catalog)."""
+    static_models = {m for (mk, m) in CAR_REFERENCE_PRICES if mk == make}
+
+    # Include scraped models
+    scraped = _load_scraped()
+    scraped_models = {
+        key.split("|", 1)[1]
+        for key in scraped
+        if key.startswith(f"{make}|")
+    }
+
+    # Include catalog models
+    try:
+        from pricing.egypt_car_catalog import CATALOG
+        catalog_models = set(CATALOG.get(make, {}).keys())
+    except ImportError:
+        catalog_models = set()
+
+    return sorted(static_models | scraped_models | catalog_models)
+
+
+def get_car_info(make: str, model: str) -> dict | None:
+    """Return catalog entry for a make/model if available."""
+    try:
+        from pricing.egypt_car_catalog import get_model_info
+        return get_model_info(make, model)
+    except ImportError:
+        return None
