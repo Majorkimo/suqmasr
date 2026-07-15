@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>{{ listing.title }} — SuqMasr</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#F2F2F7;--card:#fff;--fill:rgba(120,120,128,.12);--fill2:rgba(120,120,128,.06);
+      --text:#000;--text2:rgba(60,60,67,.6);--text3:rgba(60,60,67,.3);
+      --sep:rgba(60,60,67,.12);--sep2:rgba(60,60,67,.08);
+      --blue:#007AFF;--green:#34C759;--orange:#FF9500;--red:#FF3B30;
+      --shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.04);
+      --shadow-lg:0 4px 16px rgba(0,0,0,.1),0 0 0 .5px rgba(0,0,0,.04);
+      --r:12px;--r-sm:8px;
+      --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    }
+    @media(prefers-color-scheme:dark){
+      :root{
+        --bg:#000;--card:#1C1C1E;--fill:rgba(118,118,128,.24);--fill2:rgba(118,118,128,.12);
+        --text:#fff;--text2:rgba(235,235,245,.6);--text3:rgba(235,235,245,.3);
+        --sep:rgba(84,84,88,.6);--sep2:rgba(84,84,88,.3);
+        --shadow:0 1px 3px rgba(0,0,0,.4),0 0 0 .5px rgba(255,255,255,.05);
+        --shadow-lg:0 4px 20px rgba(0,0,0,.5),0 0 0 .5px rgba(255,255,255,.05);
+      }
+    }
+    body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px}
+
+    nav{position:sticky;top:0;z-index:100;height:52px;display:flex;align-items:center;padding:0 20px;gap:12px;background:rgba(242,242,247,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid var(--sep)}
+    @media(prefers-color-scheme:dark){nav{background:rgba(0,0,0,.8)}}
+    .logo{font-size:1.05rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.3px}
+    a.back{font-size:.85rem;color:var(--blue);text-decoration:none}
+    .nav-r{margin-left:auto}
+    .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;text-decoration:none;font-family:var(--font);transition:opacity .15s}
+    .btn-blue{background:var(--blue);color:#fff}
+    .btn-blue:hover{opacity:.88}
+    .btn-full{width:100%;justify-content:center;border-radius:var(--r-sm);padding:12px 16px;font-size:.93rem}
+    .btn-outline{background:var(--fill);color:var(--text);border-radius:var(--r-sm);padding:10px 14px}
+    .btn-outline:hover{opacity:.8}
+
+    .wrap{max-width:900px;margin:0 auto;padding:20px}
+    .layout{display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:start}
+    @media(max-width:700px){.layout{grid-template-columns:1fr}}
+
+    /* GALLERY */
+    .gallery{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:12px}
+    .main-photo{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;background:var(--fill)}
+    .main-empty{width:100%;aspect-ratio:16/10;background:var(--fill);display:flex;align-items:center;justify-content:center;font-size:4rem}
+    .thumbs{display:flex;gap:6px;padding:10px;overflow-x:auto}
+    .thumb{width:72px;height:52px;object-fit:cover;border-radius:var(--r-sm);cursor:pointer;opacity:.55;transition:.15s;flex-shrink:0;border:2px solid transparent}
+    .thumb.active,.thumb:hover{opacity:1;border-color:var(--blue)}
+
+    /* GROUP (iOS grouped table) */
+    .group{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:12px}
+    .group-header{padding:10px 16px;font-size:.72rem;font-weight:600;color:var(--text2);letter-spacing:.3px;text-transform:uppercase;border-bottom:.5px solid var(--sep2)}
+    .row{padding:13px 16px;border-bottom:.5px solid var(--sep2);display:flex;align-items:center;gap:8px}
+    .row:last-child{border-bottom:none}
+    .row .lbl{font-size:.78rem;color:var(--text2);min-width:90px}
+    .row .val{font-size:.88rem;font-weight:600;flex:1;text-align:right}
+
+    /* TITLE BLOCK */
+    .title-block{padding:16px 16px 12px}
+    .pills{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+    .pill{font-size:.7rem;font-weight:600;padding:3px 9px;border-radius:6px}
+    .p-car{background:rgba(0,122,255,.1);color:var(--blue)}
+    .p-property{background:rgba(255,149,0,.1);color:var(--orange)}
+    .p-auction{background:rgba(255,149,0,.12);color:var(--orange)}
+    .p-offer{background:rgba(52,199,89,.1);color:var(--green)}
+    .p-deal{background:rgba(52,199,89,.12);color:var(--green)}
+    .p-fair{background:var(--fill);color:var(--text2)}
+    .p-above{background:rgba(255,149,0,.1);color:var(--orange)}
+    .p-overpriced{background:rgba(255,59,48,.1);color:var(--red)}
+    .listing-title{font-size:1.25rem;font-weight:700;letter-spacing:-.3px;margin-bottom:8px}
+    .price-line{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+    .price-main{font-size:1.45rem;font-weight:700}
+    .pct{font-size:.8rem;font-weight:600}
+    .pct-below{color:var(--green)}
+    .pct-above{color:var(--orange)}
+    .city-line{font-size:.82rem;color:var(--text2)}
+    .desc{padding:12px 16px;border-top:.5px solid var(--sep2);font-size:.88rem;color:var(--text2);line-height:1.6;white-space:pre-wrap}
+
+    /* SIDEBAR */
+    .sidebar{display:flex;flex-direction:column;gap:12px}
+
+    /* Assessment */
+    .assess-group{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px}
+    .assess-label{font-size:.72rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px}
+    .assess-market{font-size:.93rem;font-weight:600;margin-bottom:6px}
+    .assess-verdict{display:inline-block;font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:7px;margin-bottom:6px}
+    .av-deal{background:rgba(52,199,89,.12);color:var(--green)}
+    .av-fair{background:var(--fill);color:var(--text2)}
+    .av-above{background:rgba(255,149,0,.12);color:var(--orange)}
+    .av-overpriced{background:rgba(255,59,48,.1);color:var(--red)}
+    .assess-note{font-size:.75rem;color:var(--text2);line-height:1.5}
+
+    /* Action card */
+    .action-group{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:16px}
+    .action-label{font-size:.72rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.3px;margin-bottom:12px}
+    .field{margin-bottom:10px}
+    .field label{display:block;font-size:.74rem;font-weight:600;color:var(--text2);margin-bottom:4px}
+    .field input,.field textarea{width:100%;background:var(--fill);border:none;color:var(--text);padding:10px 12px;border-radius:var(--r-sm);font-size:.88rem;font-family:var(--font);-webkit-appearance:none;outline:none}
+    .field input:focus,.field textarea:focus{background:var(--fill2);box-shadow:0 0 0 2px var(--blue)}
+    .field textarea{resize:vertical;min-height:68px}
+    .min-bid-hint{font-size:.74rem;color:var(--text2);margin-bottom:4px}
+
+    /* Auction */
+    .auction-header{background:rgba(255,149,0,.07);border-bottom:.5px solid rgba(255,149,0,.15);padding:12px 16px;display:flex;align-items:center;gap:8px}
+    .auction-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:blink 1.2s ease-in-out infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+    .auction-label{font-size:.78rem;font-weight:700;color:var(--orange)}
+    .timer{font-size:.78rem;color:var(--text2);margin-left:auto}
+    .current-bid{padding:12px 16px 0;font-size:1.4rem;font-weight:700}
+    .bid-count{padding:2px 16px 12px;font-size:.78rem;color:var(--text2)}
+
+    /* Bid history */
+    .bid-row{padding:11px 16px;border-bottom:.5px solid var(--sep2);display:flex;align-items:center;gap:10px}
+    .bid-row:last-child{border-bottom:none}
+    .bid-rank{width:24px;height:24px;border-radius:50%;background:var(--fill);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0}
+    .bid-rank.top{background:rgba(255,149,0,.15);color:var(--orange)}
+    .bid-name{flex:1;font-size:.85rem;font-weight:600}
+    .bid-phone{font-size:.74rem;color:var(--text2)}
+    .bid-amount{font-size:.93rem;font-weight:700;text-align:right}
+    .bid-time{font-size:.7rem;color:var(--text3);text-align:right}
+
+    /* Seller */
+    .seller-group{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px}
+    .seller-name{font-size:.95rem;font-weight:600;margin-bottom:2px}
+    .seller-date{font-size:.75rem;color:var(--text2);margin-bottom:10px}
+    .phone-pill{display:flex;align-items:center;gap:8px;background:var(--fill);padding:11px 12px;border-radius:var(--r-sm);font-size:.88rem;font-weight:600}
+
+    /* Toast */
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);border-radius:var(--r);box-shadow:var(--shadow-lg);padding:11px 18px;font-size:.85rem;font-weight:600;display:none;z-index:999;min-width:220px;text-align:center;border:.5px solid var(--sep)}
+    .toast.show{display:block}
+    .toast.success{color:var(--green)}
+    .toast.error{color:var(--red)}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">SuqMasr</a>
+  <a class="back" href="/">← All</a>
+  <div class="nav-r">
+    <a class="btn btn-blue" href="/post">+ Post</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="layout">
+    <!-- LEFT COL -->
+    <div>
+      <!-- Gallery -->
+      <div class="gallery">
+        {% if listing.photos %}
+        <img class="main-photo" id="mainPhoto" src="{{ listing.photos[0] | photo_url }}" alt="{{ listing.title }}"/>
+        {% if listing.photos|length > 1 %}
+        <div class="thumbs">
+          {% for ph in listing.photos %}
+          <img class="thumb {% if loop.first %}active{% endif %}" src="{{ ph | photo_url }}"
+               onclick="switchPhoto(this, '{{ ph | photo_url }}')"/>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="main-empty">{{ '🚗' if listing.type=='car' else '🏠' }}</div>
+        {% endif %}
+      </div>
+
+      <!-- Title / price -->
+      <div class="group">
+        <div class="title-block">
+          <div class="pills">
+            <span class="pill p-{{ listing.type }}">{{ 'Car' if listing.type=='car' else 'Property' }}</span>
+            <span class="pill p-{{ listing.mode }}">{{ 'Auction' if listing.mode=='auction' else 'Offers' }}</span>
+            {% if listing.assessment %}{% set v=listing.assessment.verdict %}
+            <span class="pill p-{{ v }}">
+              {% if v=='deal' %}Great Deal{% elif v=='fair' %}Fair Price{% elif v=='above' %}Above Market{% else %}Overpriced{% endif %}
+            </span>
+            {% endif %}
+          </div>
+          <div class="listing-title">{{ listing.title }}</div>
+          <div class="price-line">
+            <span class="price-main">{{ fmt_egp(listing.asking_price) }}</span>
+            {% if listing.assessment and listing.assessment.pct_vs_market %}
+            {% set pct=listing.assessment.pct_vs_market %}
+            {% if pct < 0 %}<span class="pct pct-below">{{ "%.0f"|format(pct) }}% below market</span>
+            {% elif pct > 2 %}<span class="pct pct-above">+{{ "%.0f"|format(pct) }}% above market</span>
+            {% endif %}{% endif %}
+          </div>
+          {% if listing.city %}<div class="city-line">📍 {{ listing.city }}</div>{% endif %}
+        </div>
+        {% if listing.description %}
+        <div class="desc">{{ listing.description }}</div>
+        {% endif %}
+      </div>
+
+      <!-- Specs -->
+      {% set det=listing.details %}
+      <div class="group">
+        <div class="group-header">{{ 'Car Details' if listing.type=='car' else 'Property Details' }}</div>
+        {% if listing.type=='car' %}
+          {% if det.make    %}<div class="row"><span class="lbl">Make</span><span class="val">{{ det.make }}</span></div>{% endif %}
+          {% if det.model   %}<div class="row"><span class="lbl">Model</span><span class="val">{{ det.model }}</span></div>{% endif %}
+          {% if det.year    %}<div class="row"><span class="lbl">Year</span><span class="val">{{ det.year }}</span></div>{% endif %}
+          {% if det.mileage_km %}<div class="row"><span class="lbl">Mileage</span><span class="val">{{ "{:,}".format(det.mileage_km) }} km</span></div>{% endif %}
+          {% if det.condition %}<div class="row"><span class="lbl">Condition</span><span class="val">{{ det.condition|title }}</span></div>{% endif %}
+          {% if det.fuel    %}<div class="row"><span class="lbl">Fuel</span><span class="val">{{ det.fuel|title }}</span></div>{% endif %}
+          {% if det.transmission %}<div class="row"><span class="lbl">Transmission</span><span class="val">{{ det.transmission|title }}</span></div>{% endif %}
+          {% if det.color   %}<div class="row"><span class="lbl">Color</span><span class="val">{{ det.color }}</span></div>{% endif %}
+        {% else %}
+          {% if det.area_label  %}<div class="row"><span class="lbl">Area</span><span class="val">{{ det.area_label }}</span></div>{% endif %}
+          {% if det.compound    %}<div class="row"><span class="lbl">Compound</span><span class="val">{{ det.compound }}</span></div>{% endif %}
+          {% if det.property_type %}<div class="row"><span class="lbl">Type</span><span class="val">{{ det.property_type|replace('_',' ')|title }}</span></div>{% endif %}
+          {% if det.size_m2     %}<div class="row"><span class="lbl">Size</span><span class="val">{{ det.size_m2|int }} m²</span></div>{% endif %}
+          {% if det.bedrooms    %}<div class="row"><span class="lbl">Bedrooms</span><span class="val">{{ det.bedrooms }}</span></div>{% endif %}
+          {% if det.bathrooms   %}<div class="row"><span class="lbl">Bathrooms</span><span class="val">{{ det.bathrooms }}</span></div>{% endif %}
+          {% if det.finishing   %}<div class="row"><span class="lbl">Finishing</span><span class="val">{{ det.finishing|replace('_',' ')|title }}</span></div>{% endif %}
+          {% if det.floor       %}<div class="row"><span class="lbl">Floor</span><span class="val">{{ det.floor|title }}</span></div>{% endif %}
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <!-- Assessment -->
+      {% if listing.assessment %}{% set ass=listing.assessment %}
+      <div class="assess-group">
+        <div class="assess-label">Price Assessment</div>
+        <div class="assess-market">Market: <strong>{{ fmt_egp(ass.market_price) }}</strong>{% if ass.market_ppm2 %} · {{ fmt_egp(ass.market_ppm2) }}/m²{% endif %}</div>
+        <span class="assess-verdict av-{{ ass.verdict }}">
+          {% if ass.verdict=='deal' %}Great Deal{% elif ass.verdict=='fair' %}Fair Price{% elif ass.verdict=='above' %}Above Market{% else %}Overpriced{% endif %}
+        </span>
+        {% if ass.note %}<div class="assess-note">{{ ass.note }}</div>{% endif %}
+      </div>
+      {% endif %}
+
+      <!-- AUCTION -->
+      {% if listing.mode=='auction' and listing.auction %}{% set auc=listing.auction %}
+      <div class="group" style="overflow:hidden">
+        <div class="auction-header">
+          <div class="auction-dot"></div>
+          <span class="auction-label">Live Auction</span>
+          {% if auc.end_at %}<span class="timer" id="timer" data-end="{{ auc.end_at }}"></span>{% endif %}
+        </div>
+        <div class="current-bid">{{ fmt_egp(auc.current_bid or auc.start_price) }}</div>
+        <div class="bid-count">{{ listing.bids|length }} bid(s) · Min increment {{ fmt_egp(auc.min_increment) }}</div>
+        <div style="padding:0 16px 16px;display:flex;flex-direction:column;gap:8px">
+          <div class="field">
+            <label>Your Name</label>
+            <input type="text" id="bidName" placeholder="Full name"/>
+          </div>
+          <div class="field">
+            <label>Phone / WhatsApp</label>
+            <input type="tel" id="bidPhone" placeholder="+20 1XX XXX XXXX"/>
+          </div>
+          <div class="field">
+            <div class="min-bid-hint">Min bid: {{ fmt_egp((auc.current_bid or auc.start_price) + auc.min_increment) }}</div>
+            <label>Bid Amount (EGP)</label>
+            <input type="number" id="bidAmount" placeholder="{{ (auc.current_bid or auc.start_price) + auc.min_increment }}" min="{{ (auc.current_bid or auc.start_price) + auc.min_increment }}"/>
+          </div>
+          <button class="btn btn-blue btn-full" onclick="submitBid()">Place Bid</button>
+        </div>
+
+        {% if listing.bids %}
+        <div style="border-top:.5px solid var(--sep2)">
+          <div class="group-header">Recent Bids</div>
+          {% for bid in listing.bids[:5] %}
+          <div class="bid-row">
+            <div class="bid-rank {% if loop.first %}top{% endif %}">{{ loop.index }}</div>
+            <div style="flex:1">
+              <div class="bid-name">{{ bid.bidder_name }}</div>
+            </div>
+            <div>
+              <div class="bid-amount">{{ fmt_egp(bid.amount) }}</div>
+              <div class="bid-time">{{ bid.created_at[:10] }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- OFFER -->
+      {% elif listing.mode=='offer' %}
+      <div class="action-group">
+        <div class="action-label">Make an Offer</div>
+        <div class="field">
+          <label>Your Name</label>
+          <input type="text" id="offName" placeholder="Full name"/>
+        </div>
+        <div class="field">
+          <label>Phone / WhatsApp</label>
+          <input type="tel" id="offPhone" placeholder="+20 1XX XXX XXXX"/>
+        </div>
+        <div class="field">
+          <label>Offer Amount (EGP)</label>
+          <input type="number" id="offAmount" placeholder="{{ listing.asking_price }}"/>
+        </div>
+        <div class="field">
+          <label>Message (optional)</label>
+          <textarea id="offMsg" placeholder="Any notes for the seller…"></textarea>
+        </div>
+        <button class="btn btn-blue btn-full" onclick="submitOffer()">Send Offer</button>
+      </div>
+      {% endif %}
+
+      <!-- Seller -->
+      <div class="seller-group">
+        <div class="assess-label">Seller</div>
+        <div class="seller-name">{{ listing.seller_name }}</div>
+        <div class="seller-date">Listed {{ listing.created_at[:10] }}</div>
+        <div class="phone-pill">📞 {{ listing.seller_phone }}</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const LID = "{{ listing.id }}";
+
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast show ${type}`;
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function switchPhoto(el, src) {
+  document.getElementById('mainPhoto').src = src;
+  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+async function submitOffer() {
+  const name   = document.getElementById('offName')?.value.trim();
+  const phone  = document.getElementById('offPhone')?.value.trim();
+  const amount = parseInt(document.getElementById('offAmount')?.value) || 0;
+  const msg    = document.getElementById('offMsg')?.value.trim();
+  if (!name || !phone || !amount) { showToast('Please fill in all required fields', 'error'); return; }
+  const btn = document.querySelector('[onclick="submitOffer()"]');
+  if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+  const r = await fetch(`/listing/${LID}/offer`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({buyer_name:name, buyer_phone:phone, amount, message:msg})
+  });
+  const data = await r.json();
+  if (data.ok) {
+    showToast('Offer sent! The seller will contact you.');
+    ['offName','offPhone','offAmount','offMsg'].forEach(id => document.getElementById(id).value = '');
+    if (btn) { btn.textContent = '✓ Offer Sent'; }
+  } else {
+    showToast(data.error || 'Error sending offer', 'error');
+    if (btn) { btn.disabled = false; btn.textContent = 'Send Offer'; }
+  }
+}
+
+async function submitBid() {
+  const name   = document.getElementById('bidName')?.value.trim();
+  const phone  = document.getElementById('bidPhone')?.value.trim();
+  const amount = parseInt(document.getElementById('bidAmount')?.value) || 0;
+  if (!name || !phone || !amount) { showToast('Please fill in all required fields', 'error'); return; }
+  const btn = document.querySelector('[onclick="submitBid()"]');
+  if (btn) { btn.disabled = true; btn.textContent = 'Placing bid…'; }
+  const r = await fetch(`/listing/${LID}/bid`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({bidder_name:name, bidder_phone:phone, amount})
+  });
+  const data = await r.json();
+  if (data.ok) {
+    showToast('Bid placed! Reloading…');
+    setTimeout(() => location.reload(), 1500);
+  } else {
+    showToast(data.error || 'Error placing bid', 'error');
+    if (btn) { btn.disabled = false; btn.textContent = 'Place Bid'; }
+  }
+}
+
+// Countdown
+const timerEl = document.getElementById('timer');
+if (timerEl) {
+  const end = new Date(timerEl.dataset.end);
+  function tick() {
+    const diff = end - Date.now();
+    if (diff <= 0) { timerEl.textContent = 'Ended'; return; }
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor((diff%86400000)/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+    timerEl.textContent = d > 0 ? `${d}d ${h}h left` : `${h}h ${m}m ${s}s left`;
+    setTimeout(tick, 1000);
+  }
+  tick();
+}
+</script>
+</body>
+</html>

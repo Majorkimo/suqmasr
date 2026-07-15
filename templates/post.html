@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Post a Listing — SuqMasr</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#F2F2F7;--card:#fff;--fill:rgba(120,120,128,.12);--fill2:rgba(120,120,128,.06);
+      --text:#000;--text2:rgba(60,60,67,.6);--text3:rgba(60,60,67,.3);
+      --sep:rgba(60,60,67,.12);--sep2:rgba(60,60,67,.08);
+      --blue:#007AFF;--green:#34C759;--orange:#FF9500;--red:#FF3B30;
+      --shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.04);
+      --r:12px;--r-sm:8px;
+      --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    }
+    @media(prefers-color-scheme:dark){
+      :root{
+        --bg:#000;--card:#1C1C1E;--fill:rgba(118,118,128,.24);--fill2:rgba(118,118,128,.12);
+        --text:#fff;--text2:rgba(235,235,245,.6);--text3:rgba(235,235,245,.3);
+        --sep:rgba(84,84,88,.6);--sep2:rgba(84,84,88,.3);
+        --shadow:0 1px 3px rgba(0,0,0,.4),0 0 0 .5px rgba(255,255,255,.05);
+      }
+    }
+    body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px}
+
+    nav{position:sticky;top:0;z-index:100;height:52px;display:flex;align-items:center;padding:0 20px;gap:12px;background:rgba(242,242,247,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid var(--sep)}
+    @media(prefers-color-scheme:dark){nav{background:rgba(0,0,0,.8)}}
+    .logo{font-size:1.05rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.3px}
+    a.back{font-size:.85rem;color:var(--blue);text-decoration:none;margin-left:auto}
+
+    .wrap{max-width:600px;margin:0 auto;padding:24px 20px}
+    .page-title{font-size:1.5rem;font-weight:700;letter-spacing:-.3px;margin-bottom:4px}
+    .page-sub{font-size:.85rem;color:var(--text2);margin-bottom:24px}
+
+    /* Step indicator */
+    .steps{display:flex;align-items:center;gap:0;margin-bottom:28px}
+    .step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;transition:.2s}
+    .step-dot.active{background:var(--blue);color:#fff}
+    .step-dot.done{background:var(--green);color:#fff;font-size:.8rem}
+    .step-dot.idle{background:var(--fill);color:var(--text2)}
+    .step-line{flex:1;height:2px;background:var(--sep)}
+    .step-line.done{background:var(--green)}
+    .steps-labels{display:flex;justify-content:space-between;margin-top:6px;margin-bottom:20px}
+    .step-label{font-size:.7rem;color:var(--text2);font-weight:500;text-align:center;width:28px}
+    .step-label.active{color:var(--blue);font-weight:700}
+
+    /* Sections (iOS grouped table style) */
+    .section-label{font-size:.72rem;font-weight:600;color:var(--text2);letter-spacing:.3px;text-transform:uppercase;padding:0 4px;margin-top:20px;margin-bottom:6px}
+    .section-label:first-child{margin-top:0}
+    .group{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:4px}
+    .row{display:flex;align-items:center;padding:13px 16px;border-bottom:.5px solid var(--sep2);gap:12px;cursor:default;min-height:48px}
+    .row:last-child{border-bottom:none}
+    .row-label{font-size:.9rem;flex:1;color:var(--text)}
+    .row-sub{font-size:.78rem;color:var(--text2);margin-top:1px}
+    .row-check{width:20px;height:20px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:0;transition:.15s}
+    .row-check.on{opacity:1}
+    .row-check svg{width:11px;height:11px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+    .row.tappable{cursor:pointer}
+    .row.tappable:active{background:var(--fill)}
+    /* Full-width field rows */
+    .field-row{padding:13px 16px;border-bottom:.5px solid var(--sep2)}
+    .field-row:last-child{border-bottom:none}
+    .field-label{font-size:.74rem;font-weight:600;color:var(--text2);margin-bottom:5px}
+    .field-row input,.field-row select,.field-row textarea{width:100%;background:transparent;border:none;color:var(--text);font-size:.93rem;font-family:var(--font);padding:0;-webkit-appearance:none;outline:none}
+    .field-row textarea{resize:vertical;min-height:72px}
+    .field-row select{cursor:pointer}
+    /* Inline rows (label left, value right) */
+    .row-inline{display:flex;align-items:center;padding:13px 16px;border-bottom:.5px solid var(--sep2);gap:8px;min-height:48px}
+    .row-inline:last-child{border-bottom:none}
+    .row-inline .lbl{font-size:.9rem;color:var(--text);flex:1}
+    .row-inline select,.row-inline input[type=number]{background:transparent;border:none;color:var(--blue);font-size:.9rem;font-family:var(--font);text-align:right;min-width:0;-webkit-appearance:none;outline:none;cursor:pointer}
+    .row-inline input[type=number]{text-align:right;width:120px}
+
+    /* Photo strip */
+    .photo-upload-area{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;padding:28px 16px;cursor:pointer;transition:.15s}
+    .photo-upload-area:hover{background:var(--fill2)}
+    .photo-upload-area .icon{font-size:2rem;opacity:.4}
+    .photo-upload-area p{font-size:.83rem;color:var(--text2)}
+    .photo-upload-area small{font-size:.74rem;color:var(--text3)}
+    .photo-strip{display:flex;gap:8px;padding:12px 16px;overflow-x:auto;flex-wrap:wrap}
+    .photo-thumb{position:relative;width:80px;height:60px;border-radius:8px;overflow:hidden;flex-shrink:0}
+    .photo-thumb img{width:100%;height:100%;object-fit:cover}
+    .photo-thumb .rm{position:absolute;top:3px;right:3px;width:18px;height:18px;background:rgba(0,0,0,.6);border-radius:50%;border:none;color:#fff;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+
+    /* Assessment */
+    .assess{background:var(--fill2);border-radius:var(--r-sm);padding:12px 14px;margin:8px 16px 4px}
+    .assess-header{font-size:.72rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px}
+    .assess-market{font-size:.93rem;font-weight:600;margin-bottom:4px}
+    .assess-verdict{display:inline-block;font-size:.75rem;font-weight:600;padding:3px 9px;border-radius:6px}
+    .av-deal{background:rgba(52,199,89,.12);color:var(--green)}
+    .av-fair{background:var(--fill);color:var(--text2)}
+    .av-above{background:rgba(255,149,0,.12);color:var(--orange)}
+    .av-overpriced{background:rgba(255,59,48,.1);color:var(--red)}
+    .assess-note{font-size:.75rem;color:var(--text3);margin-top:4px}
+
+    /* Auction extra fields */
+    .auction-section{display:none}
+    .auction-section.show{display:block}
+
+    /* Review */
+    .review-card{background:rgba(52,199,89,.07);border-radius:var(--r);padding:16px;border:.5px solid rgba(52,199,89,.2)}
+    .review-card p{font-size:.87rem;color:var(--text2);line-height:1.8}
+    .review-card strong{color:var(--text)}
+
+    /* Footer nav */
+    .form-nav{display:flex;gap:10px;margin-top:20px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:12px 20px;border-radius:var(--r-sm);font-size:.93rem;font-weight:600;cursor:pointer;border:none;font-family:var(--font);transition:opacity .15s;text-decoration:none}
+    .btn-blue{background:var(--blue);color:#fff;flex:1}
+    .btn-blue:hover{opacity:.88}
+    .btn-blue:disabled{opacity:.45;cursor:not-allowed}
+    .btn-secondary{background:var(--fill);color:var(--text);padding:12px 18px}
+    .btn-secondary:hover{opacity:.8}
+
+    .hidden{display:none!important}
+    .step-panel{display:none}
+    .step-panel.active{display:block}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">SuqMasr</a>
+  <a class="back" href="/">Cancel</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-title">Post a Listing</div>
+  <div class="page-sub">Fill in the details to get an instant price assessment.</div>
+
+  <!-- Step indicator -->
+  <div class="steps" id="stepDots">
+    <div class="step-dot active" id="d1">1</div>
+    <div class="step-line" id="l12"></div>
+    <div class="step-dot idle" id="d2">2</div>
+    <div class="step-line" id="l23"></div>
+    <div class="step-dot idle" id="d3">3</div>
+    <div class="step-line" id="l34"></div>
+    <div class="step-dot idle" id="d4">4</div>
+    <div class="step-line" id="l45"></div>
+    <div class="step-dot idle" id="d5">5</div>
+  </div>
+
+  <form id="mainForm" action="/post" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="listing_type" id="fType" value="car"/>
+    <input type="hidden" name="mode" id="fMode" value="offer"/>
+    <input type="hidden" name="area_id" id="fAreaId"/>
+    <input type="hidden" name="area_label" id="fAreaLabel"/>
+
+    <!-- ── STEP 1: TYPE + MODE ── -->
+    <div class="step-panel active" id="sp1">
+      <div class="section-label">What are you selling?</div>
+      <div class="group">
+        <div class="row tappable" onclick="pickType('car')" id="tCar">
+          <div>
+            <div class="row-label">Car</div>
+            <div class="row-sub">Any make, model, year</div>
+          </div>
+          <div class="row-check on" id="cCar"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,9 11,1"/></svg></div>
+        </div>
+        <div class="row tappable" onclick="pickType('property')" id="tProp">
+          <div>
+            <div class="row-label">Property</div>
+            <div class="row-sub">Apartment, villa, land</div>
+          </div>
+          <div class="row-check" id="cProp"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,9 11,1"/></svg></div>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:20px">How do you want to sell?</div>
+      <div class="group">
+        <div class="row tappable" onclick="pickMode('offer')" id="tOffer">
+          <div>
+            <div class="row-label">Offer-Based</div>
+            <div class="row-sub">Buyers send offers — you accept, reject, or counter</div>
+          </div>
+          <div class="row-check on" id="cOffer"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,9 11,1"/></svg></div>
+        </div>
+        <div class="row tappable" onclick="pickMode('auction')" id="tAuction">
+          <div>
+            <div class="row-label">Auction</div>
+            <div class="row-sub">Set a start price — buyers bid against each other</div>
+          </div>
+          <div class="row-check" id="cAuction"><svg viewBox="0 0 12 10"><polyline points="1,5 4.5,9 11,1"/></svg></div>
+        </div>
+      </div>
+
+      <!-- Auction config (shown when mode = auction) -->
+      <div class="auction-section" id="auctionFields">
+        <div class="section-label" style="margin-top:20px">Auction Settings</div>
+        <div class="group">
+          <div class="field-row">
+            <div class="field-label">Start Price (EGP)</div>
+            <input type="number" name="start_price" placeholder="e.g. 500,000"/>
+          </div>
+          <div class="field-row">
+            <div class="field-label">Reserve Price (optional)</div>
+            <input type="number" name="reserve_price" placeholder="Minimum to sell"/>
+          </div>
+          <div class="field-row">
+            <div class="field-label">Minimum Bid Increment (EGP)</div>
+            <input type="number" name="min_increment" value="5000"/>
+          </div>
+          <div class="field-row">
+            <div class="field-label">Auction End Date &amp; Time</div>
+            <input type="datetime-local" name="auction_end"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button type="button" class="btn btn-blue" onclick="goStep(2)">Continue</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: PHOTOS ── -->
+    <div class="step-panel" id="sp2">
+      <div class="section-label">Photos (up to 12)</div>
+      <div class="group">
+        <div class="photo-upload-area" onclick="document.getElementById('photoInput').click()">
+          <div class="icon">📷</div>
+          <p>Tap to add photos</p>
+          <small>JPG, PNG or WebP</small>
+        </div>
+        <div class="photo-strip" id="photoStrip" style="display:none"></div>
+      </div>
+      <input type="file" id="photoInput" name="photos" multiple accept="image/*" style="display:none"/>
+
+      <div class="form-nav">
+        <button type="button" class="btn btn-secondary" onclick="goStep(1)">Back</button>
+        <button type="button" class="btn btn-blue" onclick="goStep(3)">Continue</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: DETAILS ── -->
+    <div class="step-panel" id="sp3">
+
+      <!-- CAR -->
+      <div id="carFields">
+        <div class="section-label">Car Details</div>
+        <div class="group">
+          <div class="row-inline">
+            <span class="lbl">Make</span>
+            <select name="make" id="fMake" onchange="loadModels()">
+              <option value="">Select</option>
+              {% for m in car_makes %}<option>{{ m }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Model</span>
+            <select name="model" id="fModel"><option value="">Select make first</option></select>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Year</span>
+            <select name="year" id="fYear">
+              <option value="">Select</option>
+              {% for y in range(2025,2009,-1) %}<option>{{ y }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Mileage (km)</span>
+            <input type="number" name="mileage_km" id="fMileage" placeholder="e.g. 45,000"/>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Condition</span>
+            <select name="condition" id="fCondition">
+              <option value="excellent">Excellent</option>
+              <option value="good" selected>Good</option>
+              <option value="fair">Fair</option>
+              <option value="needs_work">Needs Work</option>
+            </select>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Fuel</span>
+            <select name="fuel">
+              <option value="petrol">Petrol</option>
+              <option value="diesel">Diesel</option>
+              <option value="electric">Electric</option>
+              <option value="hybrid">Hybrid</option>
+            </select>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Transmission</span>
+            <select name="transmission">
+              <option value="automatic">Automatic</option>
+              <option value="manual">Manual</option>
+            </select>
+          </div>
+          <div class="field-row">
+            <div class="field-label">Color</div>
+            <input type="text" name="color" placeholder="e.g. White"/>
+          </div>
+        </div>
+        <div class="section-label">Location</div>
+        <div class="group">
+          <div class="row-inline">
+            <span class="lbl">City</span>
+            <select name="city" id="fCity">
+              <option value="">Select</option>
+              {% for c in cities_data %}<option value="{{ c.label }}">{{ c.label }}</option>{% endfor %}
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROPERTY -->
+      <div id="propFields" class="hidden">
+        <div class="section-label">Location</div>
+        <div class="group">
+          <div class="row-inline">
+            <span class="lbl">City</span>
+            <select id="pCity" onchange="loadAreas()">
+              <option value="">Select</option>
+              {% for c in cities_data %}<option value="{{ c.id }}">{{ c.label }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Area</span>
+            <select id="pArea" onchange="loadCompounds()"><option value="">Select city first</option></select>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Compound</span>
+            <select name="compound" id="pCompound"><option value="">None / Standalone</option></select>
+          </div>
+        </div>
+        <div class="section-label">Property Details</div>
+        <div class="group">
+          <div class="row-inline">
+            <span class="lbl">Type</span>
+            <select name="property_type">
+              <option value="apartment">Apartment</option>
+              <option value="duplex">Duplex</option>
+              <option value="penthouse">Penthouse</option>
+              <option value="i_villa">I-Villa</option>
+              <option value="villa">Villa</option>
+              <option value="townhouse">Townhouse</option>
+              <option value="twin_house">Twin House</option>
+              <option value="land">Land / Plot</option>
+            </select>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Size (m²)</span>
+            <input type="number" name="size_m2" id="fSize" placeholder="e.g. 150"/>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Bedrooms</span>
+            <select name="bedrooms">
+              <option value="">—</option>
+              {% for n in range(1,7) %}<option value="{{ n }}">{{ n }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Bathrooms</span>
+            <select name="bathrooms">
+              <option value="">—</option>
+              {% for n in range(1,6) %}<option value="{{ n }}">{{ n }}</option>{% endfor %}
+            </select>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Floor</span>
+            <select name="floor">
+              <option value="">—</option>
+              <option value="ground">Ground</option>
+              <option value="1-3">1 – 3</option>
+              <option value="4-7">4 – 7</option>
+              <option value="8-12">8 – 12</option>
+              <option value="penthouse">Penthouse</option>
+            </select>
+          </div>
+          <div class="row-inline">
+            <span class="lbl">Finishing</span>
+            <select name="finishing" id="fFinishing">
+              <option value="fully_finished">Fully Finished</option>
+              <option value="furnished">Furnished</option>
+              <option value="semi_finished">Semi Finished</option>
+              <option value="core_shell">Core &amp; Shell</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMMON -->
+      <div class="section-label">Listing Info</div>
+      <div class="group">
+        <div class="field-row">
+          <div class="field-label">Title</div>
+          <input type="text" name="title" id="fTitle" placeholder="e.g. 2022 Toyota Corolla — Excellent Condition"/>
+        </div>
+        <div class="field-row">
+          <div class="field-label">Description (optional)</div>
+          <textarea name="description" placeholder="Any extras, history, reason for selling…"></textarea>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button type="button" class="btn btn-secondary" onclick="goStep(2)">Back</button>
+        <button type="button" class="btn btn-blue" onclick="goStep(4)">Continue</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 4: PRICING ── -->
+    <div class="step-panel" id="sp4">
+      <div class="section-label">Asking Price</div>
+      <div class="group">
+        <div class="field-row">
+          <div class="field-label">Price (EGP)</div>
+          <input type="number" name="asking_price" id="fAskingPrice" placeholder="e.g. 1,200,000" oninput="debouncedAssess()"/>
+        </div>
+        <div id="assessBox" style="display:none">
+          <div class="assess">
+            <div class="assess-header">Market Assessment</div>
+            <div class="assess-market" id="assMarket"></div>
+            <span class="assess-verdict" id="assVerdict"></span>
+            <div class="assess-note" id="assNote"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-nav">
+        <button type="button" class="btn btn-secondary" onclick="goStep(3)">Back</button>
+        <button type="button" class="btn btn-blue" onclick="goStep(5)">Continue</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 5: CONTACT + SUBMIT ── -->
+    <div class="step-panel" id="sp5">
+      <div class="section-label">Your Contact Info</div>
+      <div class="group">
+        <div class="field-row">
+          <div class="field-label">Full Name</div>
+          <input type="text" name="seller_name" placeholder="Your name"/>
+        </div>
+        <div class="field-row">
+          <div class="field-label">Phone / WhatsApp</div>
+          <input type="tel" name="seller_phone" placeholder="+20 1XX XXX XXXX"/>
+        </div>
+      </div>
+
+      <div class="section-label" style="margin-top:20px">Review</div>
+      <div class="review-card" id="reviewCard">
+        <p id="reviewSummary"></p>
+      </div>
+
+      <div class="form-nav" style="margin-top:20px">
+        <button type="button" class="btn btn-secondary" onclick="goStep(4)">Back</button>
+        <button type="button" class="btn btn-blue" id="submitBtn" onclick="validateAndSubmit()">Publish Listing</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+const AREAS_DATA     = {{ areas_data | tojson }};
+const COMPOUNDS_DATA = {{ compounds_data | tojson }};
+
+let currentStep = 1;
+let listingType = 'car';
+let listingMode = 'offer';
+let assessTimer = null;
+let photoFiles  = [];
+
+function goStep(n) {
+  document.getElementById(`sp${currentStep}`).classList.remove('active');
+  currentStep = n;
+  document.getElementById(`sp${n}`).classList.add('active');
+  // Update dots
+  for (let i = 1; i <= 5; i++) {
+    const d = document.getElementById(`d${i}`);
+    d.className = 'step-dot ' + (i < n ? 'done' : i === n ? 'active' : 'idle');
+    d.textContent = i < n ? '✓' : i;
+    if (i < 5) {
+      const l = document.getElementById(`l${i}${i+1}`);
+      l.className = 'step-line' + (i < n ? ' done' : '');
+    }
+  }
+  if (n === 5) buildReview();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function pickType(t) {
+  listingType = t;
+  document.getElementById('fType').value = t;
+  document.getElementById('tCar').style.fontWeight   = t==='car'  ? '600' : '';
+  document.getElementById('tProp').style.fontWeight  = t==='property' ? '600' : '';
+  document.getElementById('cCar').className  = 'row-check' + (t==='car'  ? ' on' : '');
+  document.getElementById('cProp').className = 'row-check' + (t==='property' ? ' on' : '');
+  document.getElementById('carFields').classList.toggle('hidden', t==='property');
+  document.getElementById('propFields').classList.toggle('hidden', t==='car');
+}
+
+function pickMode(m) {
+  listingMode = m;
+  document.getElementById('fMode').value = m;
+  document.getElementById('cOffer').className   = 'row-check' + (m==='offer'   ? ' on' : '');
+  document.getElementById('cAuction').className = 'row-check' + (m==='auction' ? ' on' : '');
+  document.getElementById('auctionFields').classList.toggle('show', m==='auction');
+}
+
+// Photos
+document.getElementById('photoInput').addEventListener('change', e => addPhotos(e.target.files));
+
+function addPhotos(files) {
+  Array.from(files).slice(0, 12 - photoFiles.length).forEach(f => {
+    photoFiles.push(f);
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const strip = document.getElementById('photoStrip');
+      strip.style.display = 'flex';
+      const div = document.createElement('div');
+      div.className = 'photo-thumb';
+      const idx = photoFiles.length - 1;
+      div.innerHTML = `<img src="${ev.target.result}"/><button type="button" class="rm" onclick="removePhoto(${idx})">✕</button>`;
+      strip.appendChild(div);
+    };
+    reader.readAsDataURL(f);
+  });
+  syncFileInput();
+}
+
+function removePhoto(i) {
+  photoFiles.splice(i, 1);
+  document.getElementById('photoStrip').innerHTML = '';
+  if (photoFiles.length === 0) document.getElementById('photoStrip').style.display = 'none';
+  const copies = [...photoFiles];
+  photoFiles = [];
+  copies.forEach(f => addPhotos([f]));
+}
+
+function syncFileInput() {
+  try {
+    const dt = new DataTransfer();
+    photoFiles.forEach(f => dt.items.add(f));
+    document.getElementById('photoInput').files = dt.files;
+  } catch(e) {}
+}
+
+// Car models
+async function loadModels() {
+  const make = document.getElementById('fMake').value;
+  const sel  = document.getElementById('fModel');
+  if (!make) { sel.innerHTML = '<option>Select make first</option>'; return; }
+  sel.innerHTML = '<option>Loading…</option>';
+  const r = await fetch(`/api/car-models?make=${encodeURIComponent(make)}`);
+  const models = await r.json();
+  sel.innerHTML = '<option value="">Select model</option>' + models.map(m=>`<option>${m}</option>`).join('');
+  debouncedAssess();
+}
+
+// Property location
+function loadAreas() {
+  const el = document.getElementById('pCity');
+  const cityId = el.value;
+  const cityLabel = el.options[el.selectedIndex]?.textContent || '';
+  document.getElementById('fCity') && (document.getElementById('fCity').value = cityLabel);
+  const areaSel = document.getElementById('pArea');
+  areaSel.innerHTML = '<option value="">Select</option>';
+  (AREAS_DATA[cityId] || []).forEach(a => {
+    const o = document.createElement('option');
+    o.value = a.id; o.textContent = a.label; o.dataset.label = a.label;
+    areaSel.appendChild(o);
+  });
+  document.getElementById('pCompound').innerHTML = '<option value="">None / Standalone</option>';
+}
+
+function loadCompounds() {
+  const areaEl = document.getElementById('pArea');
+  const opt = areaEl.options[areaEl.selectedIndex];
+  document.getElementById('fAreaId').value = opt?.value || '';
+  document.getElementById('fAreaLabel').value = opt?.dataset?.label || opt?.textContent || '';
+  const sel = document.getElementById('pCompound');
+  sel.innerHTML = '<option value="">None / Standalone</option>';
+  (COMPOUNDS_DATA[opt?.value] || []).forEach(c => {
+    const o = document.createElement('option');
+    o.value = c.label; o.textContent = c.label;
+    sel.appendChild(o);
+  });
+  debouncedAssess();
+}
+
+// Assessment
+function debouncedAssess() { clearTimeout(assessTimer); assessTimer = setTimeout(autoAssess, 700); }
+
+async function autoAssess() {
+  const asking = parseInt(document.getElementById('fAskingPrice').value) || 0;
+  if (!asking) return;
+  const payload = { listing_type: listingType, asking_price: asking };
+  if (listingType === 'car') {
+    payload.make       = document.getElementById('fMake').value;
+    payload.model      = document.getElementById('fModel').value;
+    payload.year       = parseInt(document.getElementById('fYear').value) || 0;
+    payload.mileage_km = parseInt(document.getElementById('fMileage').value) || 50000;
+    payload.condition  = document.getElementById('fCondition').value;
+    if (!payload.make || !payload.model || !payload.year) return;
+  } else {
+    payload.area_id   = document.getElementById('fAreaId').value;
+    payload.compound  = document.getElementById('pCompound')?.value || '';
+    payload.size_m2   = parseFloat(document.getElementById('fSize').value) || 0;
+    payload.finishing = document.getElementById('fFinishing').value;
+    if (!payload.size_m2) return;
+  }
+  const r    = await fetch('/api/assess', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+  const data = await r.json();
+  if (data.error) return;
+  document.getElementById('assessBox').style.display = 'block';
+  document.getElementById('assMarket').textContent = `Market: ${data.market_price_fmt}` + (data.market_ppm2_fmt ? ` · ${data.market_ppm2_fmt}` : '');
+  const pct = data.pct_vs_market;
+  const pctStr = pct > 0 ? `+${pct.toFixed(0)}% above market` : pct < 0 ? `${Math.abs(pct).toFixed(0)}% below market` : 'at market price';
+  const v = data.verdict || 'fair';
+  const labels = {deal:'Great Deal',fair:'Fair Price',above:'Above Market',overpriced:'Overpriced'};
+  const vEl = document.getElementById('assVerdict');
+  vEl.textContent = `${labels[v]} · ${pctStr}`;
+  vEl.className   = `assess-verdict av-${v}`;
+  document.getElementById('assNote').textContent = data.note || '';
+}
+
+function buildReview() {
+  const title = document.getElementById('fTitle').value || '(no title)';
+  const price = parseInt(document.getElementById('fAskingPrice').value || '0');
+  const type  = listingType === 'car' ? 'Car' : 'Property';
+  const mode  = listingMode === 'auction' ? 'Auction' : 'Offer-Based';
+  document.getElementById('reviewSummary').innerHTML =
+    `<strong>${title}</strong><br/>${type} · ${mode}<br/>Asking price: <strong>EGP ${price.toLocaleString()}</strong>`;
+}
+
+function validateAndSubmit() {
+  const errs = [];
+  if (listingType === 'car') {
+    if (!document.getElementById('fMake').value) errs.push('Select a make');
+    if (!document.getElementById('fModel').value) errs.push('Select a model');
+    if (!document.getElementById('fYear').value) errs.push('Select a year');
+    if (!document.getElementById('fMileage').value) errs.push('Enter mileage');
+  } else {
+    if (!document.getElementById('fAreaId').value) errs.push('Select an area');
+    if (!document.getElementById('fSize').value) errs.push('Enter property size');
+  }
+  if (!document.getElementById('fTitle').value.trim()) errs.push('Enter a listing title');
+  if (!document.getElementById('fAskingPrice').value) errs.push('Enter an asking price');
+  const name  = document.querySelector('[name="seller_name"]')?.value.trim();
+  const phone = document.querySelector('[name="seller_phone"]')?.value.trim();
+  if (!name)  errs.push('Enter your name');
+  if (!phone) errs.push('Enter your phone number');
+  if (listingMode === 'auction') {
+    if (!document.querySelector('[name="start_price"]')?.value)  errs.push('Enter auction start price');
+    if (!document.querySelector('[name="auction_end"]')?.value)  errs.push('Set auction end date');
+  }
+  if (errs.length) { alert('Please complete:\n• ' + errs.join('\n• ')); return; }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = 'Publishing…';
+  document.getElementById('mainForm').submit();
+}
+</script>
+</body>
+</html>

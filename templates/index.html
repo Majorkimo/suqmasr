@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SuqMasr — Buy &amp; Sell in Egypt</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#F2F2F7;--card:#fff;--card2:#F2F2F7;
+      --text:#000;--text2:rgba(60,60,67,.6);--text3:rgba(60,60,67,.3);
+      --sep:rgba(60,60,67,.12);--fill:rgba(120,120,128,.12);
+      --blue:#007AFF;--green:#34C759;--orange:#FF9500;--red:#FF3B30;
+      --shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.04);
+      --shadow-lg:0 4px 16px rgba(0,0,0,.1),0 0 0 .5px rgba(0,0,0,.04);
+      --r:12px;--r-sm:8px;
+      --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    }
+    @media(prefers-color-scheme:dark){
+      :root{
+        --bg:#000;--card:#1C1C1E;--card2:#2C2C2E;
+        --text:#fff;--text2:rgba(235,235,245,.6);--text3:rgba(235,235,245,.3);
+        --sep:rgba(84,84,88,.6);--fill:rgba(118,118,128,.24);
+        --shadow:0 1px 3px rgba(0,0,0,.4),0 0 0 .5px rgba(255,255,255,.05);
+        --shadow-lg:0 4px 16px rgba(0,0,0,.5),0 0 0 .5px rgba(255,255,255,.05);
+      }
+    }
+    body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+
+    nav{
+      position:sticky;top:0;z-index:100;height:52px;
+      display:flex;align-items:center;padding:0 20px;gap:12px;
+      background:rgba(242,242,247,.85);
+      backdrop-filter:saturate(180%) blur(20px);
+      -webkit-backdrop-filter:saturate(180%) blur(20px);
+      border-bottom:.5px solid var(--sep);
+    }
+    @media(prefers-color-scheme:dark){nav{background:rgba(0,0,0,.8);}}
+    .logo{font-size:1.05rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.3px}
+    .logo-ar{color:var(--text2);font-size:.9rem;margin-left:3px}
+    nav .space{flex:1}
+    .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;text-decoration:none;font-family:var(--font);transition:opacity .15s}
+    .btn-blue{background:var(--blue);color:#fff}
+    .btn-blue:hover{opacity:.88}
+
+    .hero{max-width:1100px;margin:0 auto;padding:28px 20px 0}
+    .hero h1{font-size:1.75rem;font-weight:700;letter-spacing:-.4px;margin-bottom:5px}
+    .hero p{font-size:.88rem;color:var(--text2);margin-bottom:16px}
+    .stats{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
+    .stat{font-size:.78rem;color:var(--text2);background:var(--card);border-radius:20px;padding:4px 11px;box-shadow:var(--shadow)}
+    .stat b{color:var(--blue)}
+
+    .filters{max-width:1100px;margin:0 auto;padding:0 20px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .seg{display:inline-flex;background:var(--fill);border-radius:10px;padding:2px}
+    .seg-btn{padding:6px 13px;border-radius:8px;font-size:.8rem;font-weight:600;border:none;background:transparent;color:var(--text2);cursor:pointer;font-family:var(--font);transition:.15s}
+    .seg-btn.active{background:var(--card);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+    select.city{appearance:none;-webkit-appearance:none;background:var(--card);border:none;border-radius:20px;color:var(--text);padding:7px 28px 7px 12px;font-size:.8rem;font-family:var(--font);box-shadow:var(--shadow);cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+    select.city:focus{outline:none}
+    a.clear{font-size:.78rem;color:var(--blue);text-decoration:none;margin-left:auto}
+
+    .grid{max-width:1100px;margin:0 auto;padding:0 20px 60px;display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:12px}
+    @media(max-width:600px){.grid{grid-template-columns:1fr}}
+
+    .card{background:var(--card);border-radius:var(--r);overflow:hidden;text-decoration:none;color:var(--text);display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
+    .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+    .card-img{width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--fill)}
+    .no-photo{width:100%;aspect-ratio:16/10;background:var(--fill);display:flex;align-items:center;justify-content:center;font-size:2.2rem}
+    .card-body{padding:13px 14px;flex:1;display:flex;flex-direction:column;gap:5px}
+    .pill-row{display:flex;gap:5px;flex-wrap:wrap}
+    .pill{font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:5px;letter-spacing:.1px}
+    .p-type{background:var(--fill);color:var(--text2)}
+    .p-auction{background:rgba(255,149,0,.12);color:var(--orange)}
+    .p-offer{background:rgba(52,199,89,.1);color:var(--green)}
+    .p-deal{background:rgba(52,199,89,.12);color:var(--green)}
+    .p-fair{background:var(--fill);color:var(--text2)}
+    .p-above{background:rgba(255,149,0,.12);color:var(--orange)}
+    .p-overpriced{background:rgba(255,59,48,.1);color:var(--red)}
+    .card-title{font-size:.92rem;font-weight:600;line-height:1.3;color:var(--text)}
+    .card-meta{font-size:.76rem;color:var(--text2);line-height:1.5}
+    .price-row{margin-top:auto;padding-top:8px;display:flex;align-items:baseline;gap:8px}
+    .card-price{font-size:1rem;font-weight:700}
+    .pct{font-size:.74rem;font-weight:600}
+    .pct-below{color:var(--green)}
+    .pct-above{color:var(--orange)}
+
+    .empty{max-width:1100px;margin:0 auto;padding:64px 20px;text-align:center}
+    .empty h3{font-size:1.05rem;font-weight:600;margin-bottom:6px}
+    .empty p{font-size:.85rem;color:var(--text2);margin-bottom:20px}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">SuqMasr <span class="logo-ar">مصر</span></a>
+  <div class="space"></div>
+  <a class="btn btn-blue" href="/post">+ Post a Listing</a>
+</nav>
+
+<div class="hero">
+  <h1>Egypt's Price-Transparent Marketplace</h1>
+  <p>Every listing comes with an AI price assessment. No more guessing.</p>
+  <div class="stats">
+    <span class="stat"><b>{{ stats.total }}</b> active listings</span>
+    <span class="stat"><b>{{ stats.cars }}</b> cars</span>
+    <span class="stat"><b>{{ stats.properties }}</b> properties</span>
+    <span class="stat"><b>{{ stats.auctions }}</b> auctions live</span>
+  </div>
+</div>
+
+<form class="filters" method="get" action="/">
+  <div class="seg">
+    <button type="button" onclick="setType('')"  class="seg-btn {% if not type_filter %}active{% endif %}">All</button>
+    <button type="button" onclick="setType('car')" class="seg-btn {% if type_filter=='car' %}active{% endif %}">Cars</button>
+    <button type="button" onclick="setType('property')" class="seg-btn {% if type_filter=='property' %}active{% endif %}">Properties</button>
+    <button type="button" onclick="setMode('auction')" class="seg-btn {% if mode_filter=='auction' %}active{% endif %}">Auctions</button>
+  </div>
+  <select class="city" name="city" onchange="this.form.submit()">
+    <option value="">All Cities</option>
+    {% for city in ["Cairo","Giza","Alexandria","North Coast","Ain Sokhna","New Capital"] %}
+    <option {% if city_filter==city %}selected{% endif %}>{{ city }}</option>
+    {% endfor %}
+  </select>
+  {% if type_filter or city_filter or mode_filter %}
+  <a class="clear" href="/">Clear</a>
+  {% endif %}
+  <input type="hidden" id="hType" name="type" value="{{ type_filter or '' }}"/>
+  <input type="hidden" id="hMode" name="mode" value="{{ mode_filter or '' }}"/>
+</form>
+
+{% if listings %}
+<div class="grid">
+  {% for l in listings %}
+  {% set det = l.details %}
+  {% set ass = l.assessment %}
+  <a class="card" href="/listing/{{ l.id }}">
+    {% if l.cover_photo %}
+    <img class="card-img" src="{{ l.cover_photo | photo_url }}" alt="{{ l.title }}" loading="lazy"/>
+    {% else %}
+    <div class="no-photo">{{ '🚗' if l.type=='car' else '🏠' }}</div>
+    {% endif %}
+    <div class="card-body">
+      <div class="pill-row">
+        <span class="pill p-type">{{ 'Car' if l.type=='car' else 'Property' }}</span>
+        <span class="pill {% if l.mode=='auction' %}p-auction{% else %}p-offer{% endif %}">
+          {{ 'Auction' if l.mode=='auction' else 'Offers' }}
+        </span>
+        {% if ass %}
+        <span class="pill p-{{ ass.verdict }}">
+          {% if ass.verdict=='deal' %}Deal
+          {% elif ass.verdict=='fair' %}Fair
+          {% elif ass.verdict=='above' %}Above Market
+          {% else %}Overpriced{% endif %}
+        </span>
+        {% endif %}
+      </div>
+      <div class="card-title">{{ l.title }}</div>
+      <div class="card-meta">
+        {% if l.type=='car' %}
+          {{ det.year }} · {{ det.make }} {{ det.model }}
+          {% if det.mileage_km %} · {{ "{:,}".format(det.mileage_km) }} km{% endif %}
+        {% else %}
+          {{ det.area_label or '' }}{% if det.compound %} · {{ det.compound }}{% endif %}
+          {% if det.size_m2 %} · {{ det.size_m2|int }} m²{% endif %}
+          {% if det.bedrooms %} · {{ det.bedrooms }} BR{% endif %}
+        {% endif %}
+      </div>
+      <div class="price-row">
+        <span class="card-price">{{ fmt_egp(l.asking_price) }}</span>
+        {% if ass and ass.pct_vs_market %}
+          {% if ass.pct_vs_market < -2 %}
+          <span class="pct pct-below">{{ "%.0f%%"|format(ass.pct_vs_market) }} below market</span>
+          {% elif ass.pct_vs_market > 5 %}
+          <span class="pct pct-above">+{{ "%.0f%%"|format(ass.pct_vs_market) }} above market</span>
+          {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty">
+  <h3>No listings yet</h3>
+  <p>Be the first to post a car or property.</p>
+  <a class="btn btn-blue" href="/post">+ Post a Listing</a>
+</div>
+{% endif %}
+
+<script>
+function setType(t){document.getElementById('hType').value=t;document.querySelector('.filters').submit()}
+function setMode(m){const h=document.getElementById('hMode');h.value=h.value===m?'':m;document.querySelector('.filters').submit()}
+</script>
+</body>
+</html>
