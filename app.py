@@ -42,9 +42,14 @@ else:
     USE_CLOUDINARY = False
 
 
-_DEFAULT_UPLOAD = Path(__file__).parent / "static" / "uploads"
-UPLOAD_FOLDER = Path(os.environ.get("UPLOAD_FOLDER", _DEFAULT_UPLOAD))
-UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
+# On Vercel the project root is read-only; use /tmp for local storage
+_ON_VERCEL     = bool(os.environ.get("VERCEL"))
+_DEFAULT_UPLOAD = Path("/tmp/uploads") if _ON_VERCEL else Path(__file__).parent / "static" / "uploads"
+UPLOAD_FOLDER  = Path(os.environ.get("UPLOAD_FOLDER", _DEFAULT_UPLOAD))
+try:
+    UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
 
 
 def photo_url_filter(value):

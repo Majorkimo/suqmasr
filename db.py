@@ -24,7 +24,9 @@ from datetime import datetime, UTC
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 _USE_PG      = bool(DATABASE_URL)
-DB_PATH      = Path(os.environ.get("DB_PATH", Path(__file__).parent / "marketplace.db"))
+_ON_VERCEL   = bool(os.environ.get("VERCEL"))
+_DEFAULT_DB  = "/tmp/marketplace.db" if _ON_VERCEL else str(Path(__file__).parent / "marketplace.db")
+DB_PATH      = Path(os.environ.get("DB_PATH", _DEFAULT_DB))
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
