@@ -313,20 +313,47 @@ def list_listings(
     type_filter=None, city_filter=None, min_price=None, max_price=None,
     mode_filter=None, limit=60,
 ) -> list[dict]:
-    q      = "SELECT * FROM listings WHERE status='active'"
-    params = []
+    where  = "l.status='active'"
+    params: list = []
     if type_filter:
-        q += " AND type=?";          params.append(type_filter)
+        where += " AND l.type=?";          params.append(type_filter)
     if city_filter:
-        q += " AND city=?";          params.append(city_filter)
+        where += " AND l.city=?";          params.append(city_filter)
     if min_price:
-        q += " AND asking_price>=?"; params.append(min_price)
+        where += " AND l.asking_price>=?"; params.append(min_price)
     if max_price:
-        q += " AND asking_price<=?"; params.append(max_price)
+        where += " AND l.asking_price<=?"; params.append(max_price)
     if mode_filter:
-        q += " AND mode=?";          params.append(mode_filter)
-    q += " ORDER BY created_at DESC LIMIT ?"
+        where += " AND l.mode=?";          params.append(mode_filter)
     params.append(limit)
+
+    # Single query: listings + offer count + cover photo + assessment
+    q = f"""
+        SELECT
+            l.*,
+            COALESCE(oc.offer_count, 0) AS offer_count,
+            ph.filename                 AS cover_photo,
+            pa.verdict                  AS assessment_verdict,
+            pa.pct_vs_market            AS assessment_pct
+        FROM listings l
+        LEFT JOIN (
+            SELECT listing_id, COUNT(*) AS offer_count
+            FROM offers
+            GROUP BY listing_id
+        ) oc ON oc.listing_id = l.id
+        LEFT JOIN (
+            SELECT listing_id, filename
+            FROM listing_photos
+            WHERE display_order = (
+                SELECT MIN(display_order) FROM listing_photos p2
+                WHERE p2.listing_id = listing_photos.listing_id
+            )
+        ) ph ON ph.listing_id = l.id
+        LEFT JOIN price_assessments pa ON pa.listing_id = l.id
+        WHERE {where}
+        ORDER BY l.created_at DESC
+        LIMIT ?
+    """
 
     with _conn() as c:
         rows = c.execute(q, params).fetchall()
@@ -334,15 +361,6 @@ def list_listings(
     result = []
     for r in rows:
         with _conn() as c:
-            photo = c.execute(
-                "SELECT filename FROM listing_photos "
-                "WHERE listing_id=? ORDER BY display_order LIMIT 1",
-                (r["id"],),
-            ).fetchone()
-            assessment = c.execute(
-                "SELECT verdict, pct_vs_market FROM price_assessments WHERE listing_id=?",
-                (r["id"],),
-            ).fetchone()
             if r["type"] == "car":
                 det = c.execute(
                     "SELECT make, model, year, mileage_km, condition "
@@ -355,10 +373,15 @@ def list_listings(
                     "FROM property_details WHERE listing_id=?",
                     (r["id"],),
                 ).fetchone()
-        r["cover_photo"] = photo["filename"] if photo else None
-        r["assessment"]  = assessment
-        r["details"]     = det or {}
-        result.append(r)
+
+        assessment = None
+        if r["assessment_verdict"]:
+            assessment = {"verdict": r["assessment_verdict"], "pct_vs_market": r["assessment_pct"]}
+
+        row_dict = dict(r)
+        row_dict["assessment"] = assessment
+        row_dict["details"]    = det or {}
+        result.append(row_dict)
     return result
 
 

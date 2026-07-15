@@ -75,6 +75,7 @@
     .p-fair{background:var(--fill);color:var(--text2)}
     .p-above{background:rgba(255,149,0,.12);color:var(--orange)}
     .p-overpriced{background:rgba(255,59,48,.1);color:var(--red)}
+    .p-offers-count{background:rgba(0,122,255,.1);color:var(--blue);margin-left:auto}
     .card-title{font-size:.92rem;font-weight:600;line-height:1.3;color:var(--text)}
     .card-meta{font-size:.76rem;color:var(--text2);line-height:1.5}
     .price-row{margin-top:auto;padding-top:8px;display:flex;align-items:baseline;gap:8px}
@@ -151,6 +152,9 @@
           {% elif ass.verdict=='above' %}Above Market
           {% else %}Overpriced{% endif %}
         </span>
+        {% endif %}
+        {% if l.offer_count %}
+        <span class="pill p-offers-count">{{ l.offer_count }} offer{{ 's' if l.offer_count != 1 else '' }}</span>
         {% endif %}
       </div>
       <div class="card-title">{{ l.title }}</div>
