@@ -258,6 +258,58 @@ def scrape_brand(brand_slug: str, max_pages: int = MAX_PAGES) -> list[dict]:
     return results
 
 
+def scrape_brand_sold(brand_slug: str, max_pages: int = MAX_PAGES) -> list[dict]:
+    """
+    Scrape SOLD/completed listings for a brand from hatla2ee /ar/car/sold/{slug}.
+    Same RSC payload extraction as active listings; marks condition='sold'.
+    """
+    results = []
+    seen_ids: set[int] = set()
+
+    for page in range(1, max_pages + 1):
+        url = f"{BASE_URL}/ar/car/sold/{brand_slug}?page={page}"
+        try:
+            log.info("Fetching SOLD %s (page %d)", brand_slug, page)
+            resp = requests.get(url, headers=HEADERS, timeout=30, allow_redirects=True)
+        except requests.RequestException as exc:
+            log.warning("Request failed for sold %s page %d: %s", brand_slug, page, exc)
+            break
+
+        if resp.status_code in (404, 403):
+            log.info("Sold page for %s not found (%d), skipping.", brand_slug, resp.status_code)
+            break
+        if resp.status_code != 200:
+            log.warning("HTTP %d for sold %s page %d", resp.status_code, brand_slug, page)
+            break
+
+        items_raw = _extract_admetrics(resp.text)
+        if not items_raw:
+            log.info("No more sold listings for %s (page %d empty)", brand_slug, page)
+            break
+
+        new_count = 0
+        for raw in items_raw:
+            listing_id = raw.get("listing_id") or raw.get("id")
+            if listing_id and listing_id in seen_ids:
+                continue
+            if listing_id:
+                seen_ids.add(listing_id)
+            parsed = _parse_item(raw)
+            if parsed:
+                parsed["condition"] = "sold"
+                results.append(parsed)
+                new_count += 1
+
+        log.info("  → %d new sold listings (total so far: %d)", new_count, len(results))
+
+        if len(items_raw) < 10:
+            break
+        if page < max_pages:
+            _sleep()
+
+    return results
+
+
 def scrape_all_brands(
     brands: list[str] = BRANDS, max_pages: int = MAX_PAGES
 ) -> list[dict]:
@@ -280,6 +332,21 @@ def scrape_all_brands(
 
     log.info("Total listings collected: %d", len(all_listings))
     return all_listings
+
+
+def scrape_all_brands_sold(
+    brands: list[str] = BRANDS, max_pages: int = MAX_PAGES
+) -> list[dict]:
+    """Scrape sold/completed listings for all brands."""
+    all_sold: list[dict] = []
+    for brand in brands:
+        sold = scrape_brand_sold(brand, max_pages=max_pages)
+        log.info("Sold '%s': %d listings", brand, len(sold))
+        all_sold.extend(sold)
+        if brand != brands[-1]:
+            _sleep()
+    log.info("Total sold listings: %d", len(all_sold))
+    return all_sold
 
 
 # ---------------------------------------------------------------------------

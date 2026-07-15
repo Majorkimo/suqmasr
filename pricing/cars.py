@@ -192,7 +192,11 @@ MILEAGE_PENALTY  = 0.05     # 5% per 20,000 km above baseline
 
 # ── Scraped live-market data ───────────────────────────────────────────────────
 # Loaded on first access from data/all_prices.json (output of run_all.py scraper).
-# Schema: {"Make|Model": {"2024": {"median": int, "p25": int, "p75": int, "n": int}}}
+#
+# New schema (run_all.py v2):
+#   {"Make|Model": {"2024": {"offered": {median,p25,p75,n}, "sold": {...}, "last_scraped": "..."}}}
+# Legacy schema (v1, backward-compat):
+#   {"Make|Model": {"2024": {"median": int, "p25": int, "p75": int, "n": int}}}
 
 import json as _json
 import os as _os
@@ -217,20 +221,100 @@ def _load_scraped() -> dict:
     return _SCRAPED_PRICES
 
 
-def _scraped_price(make: str, model: str, year: int) -> int | None:
-    """Return scraped median EGP for this make/model/year, or None."""
+def _entry_stats(entry: dict, prefer: str = "sold") -> dict | None:
+    """
+    Extract stat dict from a year entry, handling both schema versions.
+
+    New schema: entry has "offered" and/or "sold" keys.
+    Old schema: entry has "median"/"p25"/"p75"/"n" directly.
+
+    prefer = "sold"    → use sold if available, else offered
+    prefer = "offered" → always use offered stats
+    """
+    if entry is None:
+        return None
+    # New schema
+    if "offered" in entry or "sold" in entry:
+        if prefer == "sold" and "sold" in entry and entry["sold"].get("n", 0) >= 2:
+            return entry["sold"]
+        if "offered" in entry and entry["offered"].get("n", 0) >= 1:
+            return entry["offered"]
+        # Fall back to sold even if n==1
+        return entry.get("sold") or entry.get("offered")
+    # Old / legacy schema — flat stats dict
+    if "median" in entry:
+        return entry
+    return None
+
+
+def _scraped_price_detail(make: str, model: str, year: int) -> dict | None:
+    """
+    Return a dict with offered_median, sold_median, offered_n, sold_n
+    for this make/model/year (or nearby year), or None if no data.
+    """
     data = _load_scraped()
     key = f"{make}|{model}"
     year_dict = data.get(key, {})
-    entry = year_dict.get(str(year))
-    if entry and entry.get("n", 0) >= 2:
-        return entry["median"]
-    # Try a close year (±2)
+
+    def _extract(yr: int) -> dict | None:
+        entry = year_dict.get(str(yr))
+        if not entry:
+            return None
+        # New schema
+        if "offered" in entry or "sold" in entry:
+            offered = entry.get("offered")
+            sold    = entry.get("sold")
+            if (offered and offered.get("n", 0) >= 1) or (sold and sold.get("n", 0) >= 1):
+                return {"offered": offered, "sold": sold, "year_used": yr}
+        # Legacy flat schema
+        elif "median" in entry and entry.get("n", 0) >= 2:
+            return {"offered": entry, "sold": None, "year_used": yr}
+        return None
+
+    result = _extract(year)
+    if result:
+        return result
+
+    # Try nearby years with depreciation penalty
     for offset in (1, -1, 2, -2):
-        entry = year_dict.get(str(year + offset))
-        if entry and entry.get("n", 0) >= 3:
-            penalty = 0.88 ** abs(offset)
-            return int(entry["median"] * penalty)
+        result = _extract(year + offset)
+        if result:
+            factor = 0.88 ** abs(offset)
+            if result.get("offered"):
+                o = result["offered"]
+                result["offered"] = {
+                    "median": int(o["median"] * factor),
+                    "p25":    int(o["p25"]    * factor),
+                    "p75":    int(o["p75"]    * factor),
+                    "n":      o["n"],
+                }
+            if result.get("sold"):
+                s = result["sold"]
+                result["sold"] = {
+                    "median": int(s["median"] * factor),
+                    "p25":    int(s["p25"]    * factor),
+                    "p75":    int(s["p75"]    * factor),
+                    "n":      s["n"],
+                }
+            return result
+
+    return None
+
+
+def _scraped_price(make: str, model: str, year: int) -> int | None:
+    """
+    Return best available scraped median EGP (sold preferred, else offered).
+    """
+    detail = _scraped_price_detail(make, model, year)
+    if not detail:
+        return None
+    # Prefer sold price (actual transaction) with n >= 2
+    sold = detail.get("sold")
+    if sold and sold.get("n", 0) >= 2:
+        return sold["median"]
+    offered = detail.get("offered")
+    if offered and offered.get("n", 0) >= 1:
+        return offered["median"]
     return None
 
 
@@ -239,18 +323,30 @@ def get_car_market_price(make: str, model: str, year: int,
                           condition: str = "good") -> dict | None:
     """
     Return estimated market price for a car.
-    Prefers live scraped data; falls back to static reference table.
+
+    Priority:
+      1. Live scraped sold price    (actual transactions — most accurate)
+      2. Live scraped offered price (active asking prices)
+      3. Static reference table     (fallback if no scraped data)
+
     Returns None if make/model/year is completely unknown.
+    Also returns offered_price and sold_price separately for UI display.
     """
-    # 1. Try live scraped prices first
-    scraped_median = _scraped_price(make, model, year)
-    if scraped_median:
-        base_price = scraped_median
-        basis = "scraped"
+    # 1 + 2. Try live scraped data (returns both offered & sold)
+    detail = _scraped_price_detail(make, model, year)
+
+    sold_stats    = detail.get("sold")    if detail else None
+    offered_stats = detail.get("offered") if detail else None
+
+    # Choose base price: sold (n≥2) → offered (n≥1) → static
+    if sold_stats and sold_stats.get("n", 0) >= 2:
+        base_price = sold_stats["median"]
+        basis = "scraped_sold"
+    elif offered_stats and offered_stats.get("n", 0) >= 1:
+        base_price = offered_stats["median"]
+        basis = "scraped_offered"
     else:
-        # 2. Fall back to static reference table
-        key = (make, model)
-        ref = CAR_REFERENCE_PRICES.get(key)
+        ref = CAR_REFERENCE_PRICES.get((make, model))
         if not ref:
             return None
         base_price = ref.get(year)
@@ -262,6 +358,8 @@ def get_car_market_price(make: str, model: str, year: int,
             if year_gap > 0:
                 base_price = int(base_price * (0.88 ** year_gap))
         basis = "reference"
+        sold_stats    = None
+        offered_stats = None
 
     # Mileage adjustment
     km_diff = max(0, mileage_km - MILEAGE_BASELINE)
@@ -273,12 +371,25 @@ def get_car_market_price(make: str, model: str, year: int,
 
     market_price = int(base_price * mileage_factor * cond_factor)
 
+    # Raw offered / sold medians (before mileage/condition adjustment)
+    offered_raw = offered_stats["median"] if offered_stats else None
+    sold_raw    = sold_stats["median"]    if sold_stats    else None
+
     return {
-        "market_price": market_price,
-        "base_price":   base_price,
-        "basis":        basis,
-        "mileage_factor": round(mileage_factor, 3),
+        "market_price":     market_price,
+        "base_price":       base_price,
+        "basis":            basis,
+        "mileage_factor":   round(mileage_factor, 3),
         "condition_factor": cond_factor,
+        # Live market insight (unadjusted medians, for UI display)
+        "offered_price":    offered_raw,
+        "offered_n":        offered_stats["n"] if offered_stats else None,
+        "offered_p25":      offered_stats["p25"] if offered_stats else None,
+        "offered_p75":      offered_stats["p75"] if offered_stats else None,
+        "sold_price":       sold_raw,
+        "sold_n":           sold_stats["n"] if sold_stats else None,
+        "sold_p25":         sold_stats["p25"] if sold_stats else None,
+        "sold_p75":         sold_stats["p75"] if sold_stats else None,
     }
 
 

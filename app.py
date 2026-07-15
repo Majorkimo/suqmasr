@@ -420,8 +420,20 @@ def assess():
         asking = int(d.get("asking_price") or 0)
         score  = score_car_asking(asking, ref["market_price"]) if asking else {}
         return jsonify({
-            "market_price":     ref["market_price"],
-            "market_price_fmt": fmt_egp(ref["market_price"]),
+            "market_price":      ref["market_price"],
+            "market_price_fmt":  fmt_egp(ref["market_price"]),
+            "basis":             ref.get("basis"),
+            # Live market insight
+            "offered_price":     ref.get("offered_price"),
+            "offered_price_fmt": fmt_egp(ref["offered_price"]) if ref.get("offered_price") else None,
+            "offered_n":         ref.get("offered_n"),
+            "offered_p25":       ref.get("offered_p25"),
+            "offered_p75":       ref.get("offered_p75"),
+            "sold_price":        ref.get("sold_price"),
+            "sold_price_fmt":    fmt_egp(ref["sold_price"]) if ref.get("sold_price") else None,
+            "sold_n":            ref.get("sold_n"),
+            "sold_p25":          ref.get("sold_p25"),
+            "sold_p75":          ref.get("sold_p75"),
             **score,
         })
     else:
