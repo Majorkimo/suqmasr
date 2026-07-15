@@ -42,19 +42,21 @@ else:
     USE_CLOUDINARY = False
 
 
+_DEFAULT_UPLOAD = Path(__file__).parent / "static" / "uploads"
+UPLOAD_FOLDER = Path(os.environ.get("UPLOAD_FOLDER", _DEFAULT_UPLOAD))
+UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
+
+
 def photo_url_filter(value):
-    """Jinja2 filter: return Cloudinary URL as-is, or build static URL for local filenames."""
+    """Jinja2 filter: return Cloudinary URL as-is, or /uploads/<filename> for local files."""
     if not value:
         return ""
     if str(value).startswith("http"):
         return value
-    return url_for("static", filename=f"uploads/{value}")
+    return url_for("serve_upload", filename=value)
 
 
 app.jinja_env.filters["photo_url"] = photo_url_filter
-
-UPLOAD_FOLDER = Path(__file__).parent / "static" / "uploads"
-UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
 ALLOWED_EXT  = {"jpg", "jpeg", "png", "webp", "heic"}
 MAX_PHOTOS   = 12
 
@@ -193,6 +195,12 @@ def score_property_asking(asking_price, market_price):
 
 
 # ── Routes ────────────────────────────────────────────────────────────────────
+
+@app.route("/uploads/<path:filename>")
+def serve_upload(filename):
+    from flask import send_from_directory
+    return send_from_directory(UPLOAD_FOLDER, filename)
+
 
 @app.route("/")
 def index():
