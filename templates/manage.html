@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Seller Dashboard — SuqMasr</title>
+  <title>Manage Listing — SuqMasr</title>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -12,7 +12,6 @@
       --sep:rgba(60,60,67,.12);--sep2:rgba(60,60,67,.08);
       --blue:#007AFF;--green:#34C759;--orange:#FF9500;--red:#FF3B30;
       --shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.04);
-      --shadow-lg:0 4px 16px rgba(0,0,0,.1),0 0 0 .5px rgba(0,0,0,.04);
       --r:12px;--r-sm:8px;
       --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
     }
@@ -22,327 +21,318 @@
         --text:#fff;--text2:rgba(235,235,245,.6);--text3:rgba(235,235,245,.3);
         --sep:rgba(84,84,88,.6);--sep2:rgba(84,84,88,.3);
         --shadow:0 1px 3px rgba(0,0,0,.4),0 0 0 .5px rgba(255,255,255,.05);
-        --shadow-lg:0 4px 20px rgba(0,0,0,.5),0 0 0 .5px rgba(255,255,255,.05);
       }
     }
     body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:80px}
-
-    nav{position:sticky;top:0;z-index:100;height:52px;display:flex;align-items:center;padding:0 20px;gap:12px;background:rgba(242,242,247,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid var(--sep)}
+    nav{position:sticky;top:0;z-index:100;height:52px;display:flex;align-items:center;padding:0 20px;gap:10px;background:rgba(242,242,247,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid var(--sep)}
     @media(prefers-color-scheme:dark){nav{background:rgba(0,0,0,.8)}}
     .logo{font-size:1.05rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.3px}
-    .nav-sub{font-size:.8rem;color:var(--text2)}
+    a.back{font-size:.85rem;color:var(--blue);text-decoration:none}
+    .nav-r{margin-left:auto;display:flex;gap:8px;align-items:center}
 
-    .wrap{max-width:680px;margin:0 auto;padding:20px}
+    .wrap{max-width:800px;margin:0 auto;padding:20px}
+    .layout{display:grid;grid-template-columns:1fr 280px;gap:16px;align-items:start}
+    @media(max-width:680px){.layout{grid-template-columns:1fr}}
 
-    /* Group */
+    .page-title{font-size:1.2rem;font-weight:700;margin-bottom:4px}
+    .page-sub{font-size:.82rem;color:var(--text2);margin-bottom:16px}
+
     .group{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:12px}
     .group-header{padding:10px 16px;font-size:.72rem;font-weight:600;color:var(--text2);letter-spacing:.3px;text-transform:uppercase;border-bottom:.5px solid var(--sep2);display:flex;align-items:center;justify-content:space-between}
-    .count-badge{background:var(--fill);color:var(--text2);font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:10px}
+    .row{padding:13px 16px;border-bottom:.5px solid var(--sep2);display:flex;align-items:center;gap:10px}
+    .row:last-child{border-bottom:none}
+    .row-lbl{font-size:.78rem;color:var(--text2);min-width:110px}
+    .row-val{font-size:.9rem;font-weight:600;flex:1;text-align:right}
+    .val-green{color:var(--green)}
+    .val-orange{color:var(--orange)}
+    .val-red{color:var(--red)}
+    .val-blue{color:var(--blue)}
 
-    /* Header card */
-    .header-body{padding:16px}
-    .listing-title{font-size:1.15rem;font-weight:700;letter-spacing:-.2px;margin-bottom:4px}
-    .listing-meta{font-size:.78rem;color:var(--text2);margin-bottom:12px}
-    .price-line{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-    .price-main{font-size:1.3rem;font-weight:700}
-    .status-pill{font-size:.72rem;font-weight:600;padding:3px 9px;border-radius:6px}
-    .s-active{background:rgba(52,199,89,.1);color:var(--green)}
-    .s-sold{background:var(--fill);color:var(--text2)}
-    .action-row{display:flex;gap:8px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:5px;padding:9px 14px;border-radius:var(--r-sm);font-size:.85rem;font-weight:600;cursor:pointer;border:none;font-family:var(--font);transition:opacity .15s;text-decoration:none}
-    .btn-outline{background:var(--fill);color:var(--text)}
-    .btn-outline:hover{opacity:.8}
-    .btn-red{background:rgba(255,59,48,.1);color:var(--red)}
-    .btn-red:hover{opacity:.8}
+    .status-pill{font-size:.74rem;font-weight:700;padding:3px 10px;border-radius:6px;display:inline-block}
+    .sp-active{background:rgba(255,149,0,.12);color:var(--orange)}
+    .sp-ended{background:rgba(52,199,89,.1);color:var(--green)}
+    .sp-cancelled{background:rgba(255,59,48,.1);color:var(--red)}
 
-    /* Share box */
-    .share-block{margin-top:14px;padding-top:14px;border-top:.5px solid var(--sep2)}
-    .share-label{font-size:.72rem;font-weight:600;color:var(--text2);letter-spacing:.3px;text-transform:uppercase;margin-bottom:6px}
-    .share-url{background:var(--fill);border-radius:var(--r-sm);padding:10px 12px;font-size:.78rem;color:var(--text2);font-family:monospace;word-break:break-all;cursor:pointer;transition:.15s}
-    .share-url:hover{background:var(--fill2);color:var(--blue)}
-    .share-hint{font-size:.72rem;color:var(--text3);margin-top:4px}
+    .winner-card{padding:16px;background:rgba(52,199,89,.07);border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:12px;border:.5px solid rgba(52,199,89,.2)}
+    .winner-tag{font-size:.7rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.3px;margin-bottom:8px}
+    .winner-name{font-size:1.05rem;font-weight:700;margin-bottom:2px}
+    .winner-price{font-size:.95rem;font-weight:600;color:var(--green);margin-bottom:6px}
+    .winner-phone{font-size:.85rem;color:var(--text2);background:var(--fill);padding:9px 12px;border-radius:var(--r-sm)}
 
-    /* Assessment row */
-    .assess-row{padding:13px 16px;display:flex;align-items:center;gap:10px}
-    .assess-main{flex:1;font-size:.88rem}
-    .assess-note{font-size:.75rem;color:var(--text2);margin-top:2px}
-    .av{font-size:.74rem;font-weight:600;padding:4px 10px;border-radius:6px;white-space:nowrap}
-    .av-deal{background:rgba(52,199,89,.12);color:var(--green)}
-    .av-fair{background:var(--fill);color:var(--text2)}
-    .av-above{background:rgba(255,149,0,.12);color:var(--orange)}
-    .av-overpriced{background:rgba(255,59,48,.1);color:var(--red)}
-
-    /* Offer rows */
-    .offer-row{padding:14px 16px;border-bottom:.5px solid var(--sep2)}
+    .offer-row{padding:13px 16px;border-bottom:.5px solid var(--sep2);display:flex;align-items:flex-start;gap:10px}
     .offer-row:last-child{border-bottom:none}
-    .offer-top{display:flex;align-items:flex-start;gap:10px}
-    .avatar{width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.88rem;font-weight:700;flex-shrink:0}
-    .offer-info{flex:1;min-width:0}
-    .offer-name{font-size:.9rem;font-weight:600;margin-bottom:1px}
-    .offer-phone{font-size:.75rem;color:var(--text2)}
-    .offer-msg{font-size:.78rem;color:var(--text2);margin-top:4px;font-style:italic}
-    .offer-amount-col{text-align:right;flex-shrink:0}
-    .offer-amount{font-size:1.05rem;font-weight:700}
-    .offer-pct{font-size:.72rem;font-weight:600;margin-top:2px}
-    .offer-date{font-size:.7rem;color:var(--text3);margin-top:3px}
-    .offer-status{display:inline-block;font-size:.7rem;font-weight:600;padding:2px 7px;border-radius:5px;margin-top:6px}
-    .os-pending{background:var(--fill);color:var(--text2)}
+    .offer-acts{display:flex;gap:5px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+    .o-accept{background:rgba(52,199,89,.12);color:var(--green);border:none;border-radius:6px;padding:5px 11px;font-size:.74rem;font-weight:600;cursor:pointer;font-family:var(--font)}
+    .o-reject{background:rgba(255,59,48,.08);color:var(--red);border:none;border-radius:6px;padding:5px 11px;font-size:.74rem;font-weight:600;cursor:pointer;font-family:var(--font)}
+    .o-status{font-size:.72rem;font-weight:600;padding:3px 8px;border-radius:5px}
+    .os-pending{background:rgba(0,122,255,.1);color:var(--blue)}
     .os-accepted{background:rgba(52,199,89,.1);color:var(--green)}
     .os-rejected{background:rgba(255,59,48,.08);color:var(--red)}
-    .os-countered{background:rgba(0,122,255,.1);color:var(--blue)}
-    .counter-note{font-size:.75rem;color:var(--blue);margin-top:3px}
-    .offer-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-    .act-btn{font-size:.78rem;font-weight:600;padding:6px 12px;border-radius:var(--r-sm);cursor:pointer;border:none;font-family:var(--font)}
-    .act-accept{background:rgba(52,199,89,.12);color:var(--green)}
-    .act-reject{background:rgba(255,59,48,.08);color:var(--red)}
-    .act-counter{background:rgba(0,122,255,.1);color:var(--blue)}
-    .counter-form{margin-top:8px;display:none;align-items:center;gap:6px;flex-wrap:wrap}
-    .counter-form input{background:var(--fill);border:none;color:var(--text);padding:8px 10px;border-radius:var(--r-sm);font-size:.85rem;font-family:var(--font);width:160px;-webkit-appearance:none;outline:none}
-    .counter-form input:focus{box-shadow:0 0 0 2px var(--blue)}
-    .counter-form .act-btn{background:rgba(0,122,255,.1);color:var(--blue)}
+    .os-countered{background:rgba(255,149,0,.1);color:var(--orange)}
 
-    /* Auction stats */
-    .auc-stats{padding:12px 16px;border-bottom:.5px solid var(--sep2);display:flex;gap:20px;flex-wrap:wrap;background:rgba(255,149,0,.04)}
-    .auc-stat{display:flex;flex-direction:column;gap:2px}
-    .auc-stat-label{font-size:.7rem;font-weight:600;color:var(--text2);letter-spacing:.3px;text-transform:uppercase}
-    .auc-stat-val{font-size:.9rem;font-weight:700}
-    .auc-stat-val.big{font-size:1.1rem;color:var(--orange)}
-
-    /* Bid rows */
     .bid-row{padding:11px 16px;border-bottom:.5px solid var(--sep2);display:flex;align-items:center;gap:10px}
     .bid-row:last-child{border-bottom:none}
-    .bid-rank{width:24px;height:24px;border-radius:50%;background:var(--fill);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0}
+    .bid-rank{width:22px;height:22px;border-radius:50%;background:var(--fill);display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;flex-shrink:0}
     .bid-rank.top{background:rgba(255,149,0,.15);color:var(--orange)}
     .bid-info{flex:1}
-    .bid-name{font-size:.88rem;font-weight:600}
-    .bid-phone{font-size:.73rem;color:var(--text2)}
-    .bid-right{text-align:right}
-    .bid-amount{font-size:.95rem;font-weight:700}
-    .bid-time{font-size:.7rem;color:var(--text3);margin-top:2px}
+    .bid-name{font-size:.84rem;font-weight:600}
+    .bid-phone{font-size:.72rem;color:var(--text2);margin-top:1px}
+    .bid-tag{font-size:.65rem;font-weight:600;padding:1px 5px;border-radius:4px;background:rgba(0,122,255,.1);color:var(--blue);margin-left:4px}
+    .bid-amount{font-size:.9rem;font-weight:700}
+    .bid-time{font-size:.68rem;color:var(--text3)}
 
-    .empty-state{padding:28px;text-align:center;color:var(--text2);font-size:.88rem}
+    .ctrl-group{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:12px}
+    .ctrl-pad{padding:14px 16px}
+    .ctrl-title{font-size:.72rem;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.3px;margin-bottom:10px}
+    .ctrl-note{font-size:.74rem;color:var(--text2);margin-bottom:10px;line-height:1.5}
+    .field{margin-bottom:10px}
+    .field label{display:block;font-size:.74rem;font-weight:600;color:var(--text2);margin-bottom:4px}
+    .field input{width:100%;background:var(--fill);border:none;color:var(--text);padding:10px 12px;border-radius:var(--r-sm);font-size:.88rem;font-family:var(--font);-webkit-appearance:none;outline:none}
+    .field input:focus{box-shadow:0 0 0 2px var(--blue)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:9px 14px;border-radius:var(--r-sm);font-size:.85rem;font-weight:600;cursor:pointer;border:none;font-family:var(--font);width:100%;transition:opacity .15s}
+    .btn:hover{opacity:.88}
+    .btn-blue{background:var(--blue);color:#fff}
+    .btn-orange{background:var(--orange);color:#fff}
+    .btn-red{background:var(--red);color:#fff}
+    .btn-ghost{background:var(--fill);color:var(--text)}
 
-    /* Toast */
-    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);border-radius:var(--r);box-shadow:var(--shadow-lg);padding:11px 18px;font-size:.85rem;font-weight:600;display:none;z-index:999;min-width:220px;text-align:center;border:.5px solid var(--sep)}
+    .danger-zone{border:.5px solid rgba(255,59,48,.2);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
+    .danger-header{padding:10px 16px;font-size:.72rem;font-weight:600;color:var(--red);letter-spacing:.3px;text-transform:uppercase;background:rgba(255,59,48,.04);border-bottom:.5px solid rgba(255,59,48,.1)}
+    .danger-pad{padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+
+    .empty-state{padding:24px 16px;text-align:center;font-size:.82rem;color:var(--text3)}
+
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--card);border-radius:var(--r);box-shadow:0 4px 20px rgba(0,0,0,.15);padding:11px 18px;font-size:.85rem;font-weight:600;display:none;z-index:999;min-width:240px;text-align:center;border:.5px solid var(--sep)}
     .toast.show{display:block}
     .toast.success{color:var(--green)}
     .toast.error{color:var(--red)}
+    .toast.info{color:var(--blue)}
   </style>
 </head>
 <body>
 <nav>
   <a class="logo" href="/">SuqMasr</a>
-  <span class="nav-sub">Seller Dashboard</span>
+  <a class="back" href="/listing/{{ listing.id }}">← View Listing</a>
+  <div class="nav-r">
+    <a style="font-size:.78rem;color:var(--text2);text-decoration:none" href="/my-listings">All My Listings</a>
+  </div>
 </nav>
 
 <div class="wrap">
+  <div class="page-title">Manage Listing</div>
+  <div class="page-sub">{{ listing.title }}</div>
 
-  <!-- Header -->
-  <div class="group">
-    <div class="header-body">
-      <div class="listing-title">{{ listing.title }}</div>
-      <div class="listing-meta">
-        Posted {{ listing.created_at[:10] }} ·
-        {{ 'Car' if listing.type=='car' else 'Property' }} ·
-        {{ 'Auction' if listing.mode=='auction' else 'Offer-Based' }}
+  <div class="layout">
+    <!-- LEFT: data -->
+    <div>
+
+      <!-- Winner block -->
+      {% if listing.mode=='auction' and listing.auction %}{% set auc=listing.auction %}
+      {% if auc.status=='ended' and auc.winner_name %}
+      <div class="winner-card">
+        <div class="winner-tag">🏆 Auction Winner</div>
+        <div class="winner-name">{{ auc.winner_name }}</div>
+        <div class="winner-price">Winning bid: {{ fmt_egp(auc.winner_bid) }}</div>
+        <div class="winner-phone">📞 {{ auc.winner_phone }}</div>
+        <div style="font-size:.74rem;color:var(--text2);margin-top:8px">Contact the winner to arrange handover and payment.</div>
       </div>
-      <div class="price-line">
-        <span class="price-main">{{ fmt_egp(listing.asking_price) }}</span>
-        <span class="status-pill s-{{ listing.status }}">{{ listing.status|upper }}</span>
+      {% elif auc.status=='ended' %}
+      <div class="group">
+        <div class="group-header">Auction Ended — No Sale</div>
+        <div class="empty-state">{% if listing.bids %}Reserve price was not met — no winner.{% else %}No bids were placed.{% endif %}</div>
       </div>
-      <div class="action-row">
-        <a class="btn btn-outline" href="/listing/{{ listing.id }}" target="_blank">View Listing →</a>
-        {% if listing.status == 'active' %}
-        <button class="btn btn-red" onclick="confirmSold()">Mark as Sold</button>
+      {% endif %}
+
+      <!-- Auction stats -->
+      <div class="group">
+        <div class="group-header">
+          Auction Overview
+          {% if auc.status=='active' %}<span class="status-pill sp-active">Live</span>
+          {% elif auc.status=='ended' %}<span class="status-pill sp-ended">Ended</span>
+          {% else %}<span class="status-pill sp-cancelled">Cancelled</span>{% endif %}
+        </div>
+        <div class="row"><span class="row-lbl">Start Price</span><span class="row-val">{{ fmt_egp(auc.start_price) }}</span></div>
+        <div class="row">
+          <span class="row-lbl">Current / Final Bid</span>
+          <span class="row-val {% if auc.current_bid %}val-green{% endif %}">{{ fmt_egp(auc.current_bid or auc.start_price) }}</span>
+        </div>
+        <div class="row"><span class="row-lbl">Total Bids</span><span class="row-val val-blue">{{ listing.bids|length }}</span></div>
+        <div class="row"><span class="row-lbl">Watching</span><span class="row-val">{{ watch_count }} people ♡</span></div>
+        {% if auc.reserve_price %}
+        <div class="row">
+          <span class="row-lbl">Reserve</span>
+          <span class="row-val {% if (auc.current_bid or 0) >= auc.reserve_price %}val-green{% else %}val-red{% endif %}">
+            {{ 'Met ✓' if (auc.current_bid or 0) >= auc.reserve_price else 'Not Met' }}
+            ({{ fmt_egp(auc.reserve_price) }})
+          </span>
+        </div>
+        {% endif %}
+        {% if auc.buy_now_price %}
+        <div class="row">
+          <span class="row-lbl">Buy It Now</span>
+          <span class="row-val" style="font-size:.83rem">{{ fmt_egp(auc.buy_now_price) }}{% if not auc.buy_now_active %} <span style="font-size:.7rem;color:var(--text3)">(disabled)</span>{% endif %}</span>
+        </div>
+        {% endif %}
+        {% if auc.end_at %}
+        <div class="row">
+          <span class="row-lbl">End Time</span>
+          <span class="row-val" id="endTimer" data-end="{{ auc.end_at }}" style="font-size:.8rem">{{ auc.end_at[:16].replace('T',' ') }}</span>
+        </div>
         {% endif %}
       </div>
 
-      <div class="share-block">
-        <div class="share-label">Your manage link — keep this private</div>
-        <div class="share-url" onclick="copyManageUrl()">
-          {{ request.host_url }}listing/{{ listing.id }}/manage?token={{ token }}
+      <!-- Bid history (FULL: seller sees real names + phones) -->
+      {% if listing.bids %}
+      <div class="group">
+        <div class="group-header">Bid History <span style="font-weight:400;text-transform:none;font-size:.7rem;color:var(--text3)">seller view — full details</span></div>
+        {% for bid in listing.bids %}
+        <div class="bid-row">
+          <div class="bid-rank {% if loop.first %}top{% endif %}">{{ loop.index }}</div>
+          <div class="bid-info">
+            <div class="bid-name">{{ bid.bidder_name }}{% if bid.is_autobid %}<span class="bid-tag">auto</span>{% endif %}</div>
+            <div class="bid-phone">📞 {{ bid.bidder_phone }}</div>
+          </div>
+          <div style="text-align:right">
+            <div class="bid-amount">{{ fmt_egp(bid.amount) }}</div>
+            <div class="bid-time">{{ bid.created_at[:16].replace('T',' ') }}</div>
+          </div>
         </div>
-        <div class="share-hint">Tap to copy · Bookmark this page — it's your only way back</div>
+        {% endfor %}
       </div>
-    </div>
-  </div>
+      {% else %}
+      <div class="group"><div class="group-header">Bid History</div><div class="empty-state">No bids yet.</div></div>
+      {% endif %}
 
-  <!-- Assessment -->
-  {% if listing.assessment %}{% set ass=listing.assessment %}
-  <div class="group">
-    <div class="group-header">Price Assessment</div>
-    <div class="assess-row">
-      <div class="assess-main">
-        Market price: <strong>{{ fmt_egp(ass.market_price) }}</strong>
-        {% if ass.market_ppm2 %} · {{ fmt_egp(ass.market_ppm2) }}/m²{% endif %}
-        {% if ass.note %}<div class="assess-note">{{ ass.note }}</div>{% endif %}
-      </div>
-      <span class="av av-{{ ass.verdict }}">
-        {% if ass.verdict=='deal' %}Great Deal{% elif ass.verdict=='fair' %}Fair Price{% elif ass.verdict=='above' %}Above Market{% else %}Overpriced{% endif %}
-        {% if ass.pct_vs_market %}· {{ "%.0f"|format(ass.pct_vs_market|abs) }}% {{ 'below' if ass.pct_vs_market < 0 else 'above' }}{% endif %}
-      </span>
-    </div>
-  </div>
-  {% endif %}
+      {% endif %}{# end auction block #}
 
-  <!-- Offers -->
-  {% if listing.mode == 'offer' %}
-  <div class="group">
-    <div class="group-header">
-      Offers Received
-      <span class="count-badge">{{ listing.offers|length }}</span>
-    </div>
-    {% if listing.offers %}
-      {% for off in listing.offers %}
-      <div class="offer-row" id="ofr-{{ off.id }}">
-        <div class="offer-top">
-          <div class="avatar">{{ off.buyer_name[0]|upper if off.buyer_name else '?' }}</div>
-          <div class="offer-info">
-            <div class="offer-name">{{ off.buyer_name }}</div>
-            <div class="offer-phone">{{ off.buyer_phone }}</div>
-            {% if off.message %}<div class="offer-msg">"{{ off.message }}"</div>{% endif %}
-            <span class="offer-status os-{{ off.status }}">{{ off.status|upper }}</span>
-            {% if off.counter_amount %}<div class="counter-note">Counter: {{ fmt_egp(off.counter_amount) }}</div>{% endif %}
-
-            {% if off.status == 'pending' and listing.status == 'active' %}
-            <div class="offer-btns">
-              <button class="act-btn act-accept" onclick="respond('{{ off.id }}','accepted')">Accept</button>
-              <button class="act-btn act-reject" onclick="respond('{{ off.id }}','rejected')">Reject</button>
-              <button class="act-btn act-counter" onclick="toggleCounter('{{ off.id }}')">Counter</button>
-            </div>
-            <div class="counter-form" id="cf-{{ off.id }}">
-              <input type="number" id="cv-{{ off.id }}" placeholder="Counter amount (EGP)"/>
-              <button class="act-btn" style="background:rgba(0,122,255,.1);color:var(--blue)" onclick="sendCounter('{{ off.id }}')">Send</button>
+      <!-- Offers (offer-mode listings) -->
+      {% if listing.mode=='offer' %}
+      <div class="group">
+        <div class="group-header">Offers Received <span style="font-weight:400;font-size:.7rem;color:var(--text3)">{{ offers|length }} total</span></div>
+        {% if offers %}
+        {% for off in offers %}
+        <div class="offer-row">
+          <div style="flex:1">
+            <div style="font-size:.88rem;font-weight:600">{{ off.buyer_name }}</div>
+            <div style="font-size:.9rem;font-weight:700;color:var(--blue)">{{ fmt_egp(off.amount) }}</div>
+            {% if off.message %}<div style="font-size:.74rem;color:var(--text2);margin-top:2px">"{{ off.message }}"</div>{% endif %}
+            <div style="font-size:.7rem;color:var(--text3);margin-top:2px">{{ off.created_at[:16].replace('T',' ') }}</div>
+            <div style="font-size:.75rem;color:var(--text2);margin-top:3px">📞 {{ off.buyer_phone }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;margin-top:2px">
+            <span class="o-status os-{{ off.status }}">{{ off.status|title }}</span>
+            {% if off.status=='pending' %}
+            <div class="offer-acts">
+              <button class="o-accept" onclick="updateOffer('{{ off.id }}','accepted')">Accept</button>
+              <button class="o-reject" onclick="updateOffer('{{ off.id }}','rejected')">Reject</button>
             </div>
             {% endif %}
           </div>
-          <div class="offer-amount-col">
-            <div class="offer-amount">{{ fmt_egp(off.amount) }}</div>
-            {% if listing.asking_price %}
-            {% set pct = ((off.amount - listing.asking_price) / listing.asking_price * 100)|round(0) %}
-            <div class="offer-pct" style="color:{% if pct < 0 %}var(--red){% elif pct > 0 %}var(--green){% else %}var(--text2){% endif %}">
-              {{ '%+.0f'|format(pct) }}%
-            </div>
-            {% endif %}
-            <div class="offer-date">{{ off.created_at[:10] }}</div>
-          </div>
         </div>
+        {% endfor %}
+        {% else %}
+        <div class="empty-state">No offers received yet.</div>
+        {% endif %}
       </div>
-      {% endfor %}
-    {% else %}
-    <div class="empty-state">No offers yet — share your listing to get buyers.</div>
-    {% endif %}
-  </div>
-  {% endif %}
-
-  <!-- Bids (auction) -->
-  {% if listing.mode == 'auction' %}
-  <div class="group">
-    <div class="group-header">
-      Bid History
-      <span class="count-badge">{{ listing.bids|length }}</span>
+      {% endif %}
     </div>
-    {% if listing.auction %}
-    <div class="auc-stats">
-      <div class="auc-stat">
-        <span class="auc-stat-label">Current Bid</span>
-        <span class="auc-stat-val big">{{ fmt_egp(listing.auction.current_bid or listing.auction.start_price) }}</span>
-      </div>
-      <div class="auc-stat">
-        <span class="auc-stat-label">Start</span>
-        <span class="auc-stat-val">{{ fmt_egp(listing.auction.start_price) }}</span>
-      </div>
+
+    <!-- RIGHT: controls -->
+    <div>
+      {% if listing.mode=='auction' and listing.auction and listing.auction.status=='active' %}
+
       {% if listing.auction.reserve_price %}
-      <div class="auc-stat">
-        <span class="auc-stat-label">Reserve</span>
-        <span class="auc-stat-val">{{ fmt_egp(listing.auction.reserve_price) }}</span>
+      <div class="ctrl-group">
+        <div class="ctrl-pad">
+          <div class="ctrl-title">Lower Reserve</div>
+          <div class="ctrl-note">Current: <strong>{{ fmt_egp(listing.auction.reserve_price) }}</strong>. You can only lower, not raise the reserve price.</div>
+          <div class="field"><label>New Reserve (EGP)</label><input type="number" id="newReserve" placeholder="Enter lower amount"/></div>
+          <button class="btn btn-orange" onclick="lowerReserve()">Lower Reserve Price</button>
+        </div>
       </div>
       {% endif %}
-      <div class="auc-stat">
-        <span class="auc-stat-label">Min Increment</span>
-        <span class="auc-stat-val">{{ fmt_egp(listing.auction.min_increment) }}</span>
-      </div>
-      {% if listing.auction.end_at %}
-      <div class="auc-stat">
-        <span class="auc-stat-label">Ends</span>
-        <span class="auc-stat-val" style="color:var(--orange)">{{ listing.auction.end_at[:16] }}</span>
+
+      {% if listing.bids|length == 0 %}
+      <div class="ctrl-group">
+        <div class="ctrl-pad">
+          <div class="ctrl-title">End Early</div>
+          <div class="ctrl-note">No bids yet. You can close the auction now — it will end with no winner.</div>
+          <button class="btn btn-ghost" onclick="endEarly()">End Auction Now</button>
+        </div>
       </div>
       {% endif %}
+
+      <div class="danger-zone">
+        <div class="danger-header">Danger Zone</div>
+        <div class="danger-pad">
+          <div style="font-size:.74rem;color:var(--text2);line-height:1.5">Cancelling closes the auction immediately.{% if listing.bids|length > 0 %} <strong>{{ listing.bids|length }} bid(s)</strong> will be voided.{% endif %}</div>
+          <button class="btn btn-red" onclick="cancelAuction()">Cancel Auction</button>
+        </div>
+      </div>
+
+      {% endif %}
+
+      <!-- Listing snapshot -->
+      <div class="group">
+        <div class="group-header">Listing Info</div>
+        <div class="row"><span class="row-lbl">Type</span><span class="row-val" style="font-size:.83rem">{{ 'Car' if listing.type=='car' else 'Property' }}</span></div>
+        <div class="row"><span class="row-lbl">Mode</span><span class="row-val" style="font-size:.83rem">{{ 'Auction' if listing.mode=='auction' else 'Offers' }}</span></div>
+        <div class="row"><span class="row-lbl">Asking Price</span><span class="row-val" style="font-size:.83rem">{{ fmt_egp(listing.asking_price) }}</span></div>
+        <div class="row"><span class="row-lbl">Posted</span><span class="row-val" style="font-size:.78rem">{{ listing.created_at[:10] }}</span></div>
+      </div>
+
+      <a href="/listing/{{ listing.id }}" class="btn btn-ghost" style="text-decoration:none">View Public Page →</a>
     </div>
-    {% endif %}
-
-    {% if listing.bids %}
-      {% for bid in listing.bids %}
-      <div class="bid-row">
-        <div class="bid-rank {% if loop.first %}top{% endif %}">{{ loop.index }}</div>
-        <div class="bid-info">
-          <div class="bid-name">{{ bid.bidder_name }}</div>
-          <div class="bid-phone">{{ bid.bidder_phone }}</div>
-        </div>
-        <div class="bid-right">
-          <div class="bid-amount">{{ fmt_egp(bid.amount) }}</div>
-          <div class="bid-time">{{ bid.created_at[:16] }}</div>
-        </div>
-      </div>
-      {% endfor %}
-    {% else %}
-    <div class="empty-state">No bids yet — auction is live.</div>
-    {% endif %}
   </div>
-  {% endif %}
-
 </div>
 
 <div class="toast" id="toast"></div>
-
 <script>
-const LID   = "{{ listing.id }}";
-const TOKEN = "{{ token }}";
-
+const LID = "{{ listing.id }}";
 function showToast(msg, type='success') {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast show ${type}`;
-  setTimeout(() => t.classList.remove('show'), 3500);
+  t.textContent = msg; t.className = `toast show ${type}`;
+  setTimeout(() => t.classList.remove('show'), 4000);
 }
-
-function copyManageUrl() {
-  const url = `${location.protocol}//${location.host}/listing/${LID}/manage?token=${TOKEN}`;
-  navigator.clipboard.writeText(url).then(() => showToast('Link copied!'));
+async function lowerReserve() {
+  const v = parseInt(document.getElementById('newReserve')?.value);
+  if (!v) { showToast('Enter a valid amount','error'); return; }
+  const r = await fetch(`/listing/${LID}/lower-reserve`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({reserve_price:v})});
+  const d = await r.json();
+  if (d.ok) { showToast('Reserve lowered. Reloading…'); setTimeout(()=>location.reload(),1200); }
+  else showToast(d.error||'Error','error');
 }
-
-async function respond(offerId, status, counter) {
-  const body = { token: TOKEN, status };
-  if (counter) body.counter_amount = counter;
-  const r = await fetch(`/listing/${LID}/offer/${offerId}/respond`, {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify(body)
-  });
-  const data = await r.json();
-  if (data.ok) { showToast(`Offer ${status}`); location.reload(); }
-  else showToast(data.error || 'Error', 'error');
+async function endEarly() {
+  if (!confirm('End this auction now with no winner?')) return;
+  const r = await fetch(`/listing/${LID}/end-early`,{method:'POST'});
+  const d = await r.json();
+  if (d.ok) { showToast('Auction ended. Reloading…'); setTimeout(()=>location.reload(),1200); }
+  else showToast(d.error||'Error','error');
 }
-
-function toggleCounter(offerId) {
-  const cf = document.getElementById(`cf-${offerId}`);
-  cf.style.display = cf.style.display === 'flex' ? 'none' : 'flex';
+async function cancelAuction() {
+  if (!confirm('Cancel this auction? This cannot be undone.')) return;
+  const r = await fetch(`/listing/${LID}/cancel-auction`,{method:'POST'});
+  const d = await r.json();
+  if (d.ok) { showToast('Cancelled. Reloading…'); setTimeout(()=>location.reload(),1200); }
+  else showToast(d.error||'Error','error');
 }
-
-function sendCounter(offerId) {
-  const amount = parseInt(document.getElementById(`cv-${offerId}`).value) || 0;
-  if (!amount) { showToast('Enter a counter amount', 'error'); return; }
-  respond(offerId, 'countered', amount);
+async function updateOffer(offId, status) {
+  const r = await fetch(`/listing/${LID}/offer/${offId}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({status})});
+  const d = await r.json();
+  if (d.ok) { showToast(`Offer ${status}.`); setTimeout(()=>location.reload(),1200); }
+  else showToast(d.error||'Error','error');
 }
-
-async function confirmSold() {
-  if (!confirm('Mark this listing as SOLD? It will be removed from public listings.')) return;
-  const r = await fetch(`/listing/${LID}/mark-sold`, {
-    method:'POST', headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({token: TOKEN})
-  });
-  const data = await r.json();
-  if (data.ok) { showToast('Marked as sold!'); setTimeout(() => location.href = '/', 1500); }
-  else showToast('Error', 'error');
+const et = document.getElementById('endTimer');
+if (et?.dataset.end) {
+  function tick(){
+    const diff=new Date(et.dataset.end)-Date.now();
+    if(diff<=0){et.textContent='Ended';return;}
+    const s=Math.floor(diff/1000),d=Math.floor(s/86400),h=Math.floor((s%86400)/3600),m=Math.floor((s%3600)/60),sec=s%60;
+    const p=n=>String(n).padStart(2,'0');
+    et.textContent=d>0?`${d}d ${h}h ${p(m)}m left`:`${h?h+'h ':''} ${p(m)}:${p(sec)} left`;
+    setTimeout(tick,1000);
+  }
+  tick();
 }
 </script>
 </body>

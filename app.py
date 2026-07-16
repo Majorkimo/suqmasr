@@ -18,6 +18,9 @@ from db import (
     save_car_details, save_property_details, save_photos, save_assessment,
     save_auction, create_offer, place_bid, respond_offer,
     update_listing_status, get_stats,
+    buy_now, lower_reserve, end_auction_early, cancel_auction,
+    toggle_watchlist, get_watchlist_count, is_watching, get_user_watchlist,
+    check_and_close_auction,
     create_user, authenticate_user, get_user,
     list_user_listings, list_user_offers,
 )
@@ -362,10 +365,12 @@ def post_submit():
     # ── Auction config ────────────────────────────────────────────────────
     if mode == "auction":
         save_auction(lid, {
-            "start_price":   int(f.get("start_price") or f.get("asking_price") or 0),
-            "reserve_price": int(f.get("reserve_price") or 0) or None,
-            "min_increment": int(f.get("min_increment") or 5000),
-            "end_at":        f.get("auction_end") or None,
+            "start_price":      int(f.get("start_price") or f.get("asking_price") or 0),
+            "reserve_price":    int(f.get("reserve_price") or 0) or None,
+            "buy_now_price":    int(f.get("buy_now_price") or 0) or None,
+            "min_increment":    int(f.get("min_increment") or 5000),
+            "auto_extend_mins": int(f.get("auto_extend_mins") or 5),
+            "end_at":           f.get("auction_end") or None,
         })
 
     return redirect(url_for("listing_manage", lid=lid, token=token))
@@ -374,18 +379,41 @@ def post_submit():
 @app.route("/listing/<lid>")
 def listing_detail(lid):
     listing = get_listing_full(lid)
-    if not listing or listing["status"] != "active":
+    if not listing:
         return render_template("404.html"), 404
-    return render_template("listing.html", listing=listing, fmt_egp=fmt_egp)
+    # Lazily close expired auctions
+    if listing["mode"] == "auction" and listing.get("auction"):
+        updated_auc = check_and_close_auction(lid)
+        if updated_auc:
+            listing["auction"] = updated_auc
+    if listing["status"] not in ("active", "sold") and listing["mode"] != "auction":
+        return render_template("404.html"), 404
+    u = current_user()
+    watching = is_watching(u["id"], lid) if u else False
+    watch_count = get_watchlist_count(lid)
+    # Is logged-in user the current high bidder?
+    is_winning = (
+        u and listing.get("auction") and
+        listing["auction"].get("current_bidder_id") == u["id"]
+    )
+    return render_template("listing.html", listing=listing, fmt_egp=fmt_egp,
+                           watching=watching, watch_count=watch_count,
+                           is_winning=is_winning)
 
 
 @app.route("/listing/<lid>/manage")
 def listing_manage(lid):
     token = request.args.get("token", "")
     listing = get_listing_full(lid)
-    if not listing or listing["manage_token"] != token:
+    u = current_user()
+    # Allow access via manage token OR if the logged-in user owns the listing
+    owner = (u and listing and listing.get("user_id") == u["id"])
+    if not listing or (listing["manage_token"] != token and not owner):
         return render_template("404.html"), 404
-    return render_template("manage.html", listing=listing, token=token, fmt_egp=fmt_egp)
+    watch_count = get_watchlist_count(lid)
+    offers = listing.get("offers", [])
+    return render_template("manage.html", listing=listing, token=token,
+                           watch_count=watch_count, offers=offers, fmt_egp=fmt_egp)
 
 
 @app.route("/listing/<lid>/offer", methods=["POST"])
@@ -405,12 +433,115 @@ def make_offer(lid):
 @app.route("/listing/<lid>/bid", methods=["POST"])
 def make_bid(lid):
     data = request.json or {}
+    u = current_user()
+    if u:
+        data.setdefault("bidder_name",  u["name"])
+        data.setdefault("bidder_phone", u["phone"])
+        data["bidder_user_id"] = u["id"]
     if not data.get("bidder_name") or not data.get("bidder_phone") or not data.get("amount"):
         return jsonify({"error": "Name, phone and amount are required"}), 400
-    ok, result = place_bid(lid, data)
+    ok, msg = place_bid(lid, data)
     if ok:
-        return jsonify({"ok": True, "bid_id": result})
-    return jsonify({"error": result}), 400
+        return jsonify({"ok": True, "message": msg})
+    return jsonify({"error": msg}), 400
+
+
+@app.route("/listing/<lid>/buy-now", methods=["POST"])
+def auction_buy_now(lid):
+    data = request.json or {}
+    u = current_user()
+    name  = (u["name"]  if u else data.get("buyer_name",  "")).strip()
+    phone = (u["phone"] if u else data.get("buyer_phone", "")).strip()
+    uid   = u["id"] if u else None
+    if not name or not phone:
+        return jsonify({"error": "Name and phone required"}), 400
+    ok, msg = buy_now(lid, name, phone, uid)
+    if ok:
+        return jsonify({"ok": True, "message": msg})
+    return jsonify({"error": msg}), 400
+
+
+@app.route("/listing/<lid>/watch", methods=["POST"])
+@login_required
+def toggle_watch(lid):
+    u = current_user()
+    watching = toggle_watchlist(u["id"], lid)
+    count = get_watchlist_count(lid)
+    return jsonify({"ok": True, "watching": watching, "count": count})
+
+
+def _resolve_token(lid, data):
+    """Return token from JSON body, or from listing if user is the owner."""
+    token = data.get("token", "")
+    if not token:
+        u = current_user()
+        if u:
+            listing = get_listing_full(lid)
+            if listing and listing.get("user_id") == u["id"]:
+                token = listing["manage_token"]
+    return token
+
+
+@app.route("/listing/<lid>/lower-reserve", methods=["POST"])
+def auction_lower_reserve(lid):
+    data  = request.json or {}
+    token = _resolve_token(lid, data)
+    new_r = int(data.get("reserve_price") or data.get("new_reserve") or 0)
+    if not new_r:
+        return jsonify({"error": "Reserve amount required"}), 400
+    ok, msg = lower_reserve(lid, new_r, token)
+    if ok:
+        return jsonify({"ok": True})
+    return jsonify({"error": msg}), 400
+
+
+@app.route("/listing/<lid>/end-early", methods=["POST"])
+def auction_end_early(lid):
+    data  = request.json or {}
+    token = _resolve_token(lid, data)
+    ok, msg = end_auction_early(lid, token)
+    if ok:
+        return jsonify({"ok": True})
+    return jsonify({"error": msg}), 400
+
+
+@app.route("/listing/<lid>/cancel-auction", methods=["POST"])
+def auction_cancel(lid):
+    data  = request.json or {}
+    token = _resolve_token(lid, data)
+    ok, msg = cancel_auction(lid, token)
+    if ok:
+        return jsonify({"ok": True})
+    return jsonify({"error": msg}), 400
+
+
+@app.route("/listing/<lid>/offer/<oid>", methods=["PATCH"])
+def update_offer(lid, oid):
+    data  = request.json or {}
+    token = _resolve_token(lid, data)
+    status = data.get("status")
+    ok = respond_offer(oid, status, data.get("counter_amount"), token)
+    if ok:
+        return jsonify({"ok": True})
+    return jsonify({"error": "Unauthorized or offer not found"}), 403
+
+
+@app.route("/watchlist")
+@login_required
+def my_watchlist():
+    u = current_user()
+    raw = get_user_watchlist(session["user_id"])
+    items = []
+    for row in raw:
+        listing = get_listing_full(row["id"])
+        if not listing:
+            continue
+        auc = listing.get("auction") or {}
+        is_winning = bool(
+            auc and u and auc.get("current_bidder_id") == u["id"]
+        )
+        items.append({"listing": listing, "auction": auc, "is_winning": is_winning})
+    return render_template("watchlist.html", items=items, fmt_egp=fmt_egp)
 
 
 @app.route("/listing/<lid>/offer/<oid>/respond", methods=["POST"])

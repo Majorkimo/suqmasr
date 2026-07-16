@@ -220,24 +220,45 @@ CREATE TABLE IF NOT EXISTS offers (
 CREATE INDEX IF NOT EXISTS idx_off_listing ON offers(listing_id);
 
 CREATE TABLE IF NOT EXISTS bids (
-    id            TEXT PRIMARY KEY,
-    listing_id    TEXT REFERENCES listings(id),
-    bidder_name   TEXT NOT NULL,
-    bidder_phone  TEXT NOT NULL,
-    amount        INTEGER NOT NULL,
-    created_at    TEXT NOT NULL
+    id               TEXT PRIMARY KEY,
+    listing_id       TEXT REFERENCES listings(id),
+    bidder_user_id   TEXT REFERENCES users(id),
+    bidder_name      TEXT NOT NULL,
+    bidder_phone     TEXT NOT NULL,
+    amount           INTEGER NOT NULL,
+    max_auto_bid     INTEGER,
+    is_autobid       INTEGER DEFAULT 0,
+    created_at       TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_bid_listing ON bids(listing_id);
 
 CREATE TABLE IF NOT EXISTS auctions (
-    listing_id    TEXT PRIMARY KEY REFERENCES listings(id),
-    start_price   INTEGER NOT NULL,
-    reserve_price INTEGER,
-    current_bid   INTEGER,
-    min_increment INTEGER DEFAULT 5000,
-    end_at        TEXT NOT NULL,
-    status        TEXT DEFAULT 'active'
+    listing_id           TEXT PRIMARY KEY REFERENCES listings(id),
+    start_price          INTEGER NOT NULL,
+    reserve_price        INTEGER,
+    buy_now_price        INTEGER,
+    buy_now_active       INTEGER DEFAULT 1,
+    current_bid          INTEGER,
+    current_bidder_name  TEXT,
+    current_bidder_id    TEXT,
+    min_increment        INTEGER DEFAULT 5000,
+    auto_extend_mins     INTEGER DEFAULT 5,
+    end_at               TEXT NOT NULL,
+    status               TEXT DEFAULT 'active',
+    winner_name          TEXT,
+    winner_phone         TEXT,
+    winner_user_id       TEXT,
+    winner_bid           INTEGER
 );
+
+CREATE TABLE IF NOT EXISTS watchlist (
+    id          TEXT PRIMARY KEY,
+    user_id     TEXT NOT NULL REFERENCES users(id),
+    listing_id  TEXT NOT NULL REFERENCES listings(id),
+    created_at  TEXT NOT NULL
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_watch_ul ON watchlist(user_id, listing_id);
+CREATE INDEX IF NOT EXISTS idx_watch_listing    ON watchlist(listing_id);
 
 CREATE TABLE IF NOT EXISTS users (
     id            TEXT PRIMARY KEY,
@@ -260,6 +281,21 @@ def init_db():
             "ALTER TABLE listings ADD COLUMN user_id TEXT REFERENCES users(id)",
             "ALTER TABLE offers ADD COLUMN buyer_user_id TEXT REFERENCES users(id)",
             "CREATE INDEX IF NOT EXISTS idx_off_buyer ON offers(buyer_user_id)",
+            # bids columns
+            "ALTER TABLE bids ADD COLUMN bidder_user_id TEXT REFERENCES users(id)",
+            "ALTER TABLE bids ADD COLUMN max_auto_bid INTEGER",
+            "ALTER TABLE bids ADD COLUMN is_autobid INTEGER DEFAULT 0",
+            "CREATE INDEX IF NOT EXISTS idx_bid_user ON bids(bidder_user_id)",
+            # auctions columns
+            "ALTER TABLE auctions ADD COLUMN buy_now_price INTEGER",
+            "ALTER TABLE auctions ADD COLUMN buy_now_active INTEGER DEFAULT 1",
+            "ALTER TABLE auctions ADD COLUMN current_bidder_name TEXT",
+            "ALTER TABLE auctions ADD COLUMN current_bidder_id TEXT",
+            "ALTER TABLE auctions ADD COLUMN auto_extend_mins INTEGER DEFAULT 5",
+            "ALTER TABLE auctions ADD COLUMN winner_name TEXT",
+            "ALTER TABLE auctions ADD COLUMN winner_phone TEXT",
+            "ALTER TABLE auctions ADD COLUMN winner_user_id TEXT",
+            "ALTER TABLE auctions ADD COLUMN winner_bid INTEGER",
         ]:
             try:
                 with _conn() as c:
@@ -490,41 +526,300 @@ def respond_offer(offer_id: str, status: str, counter: int | None, token: str) -
 
 # ── Bids ──────────────────────────────────────────────────────────────────────
 
-def place_bid(listing_id: str, data: dict) -> tuple[bool, str]:
-    bid_id = new_id()
-    with _conn() as c:
-        auction = c.execute(
-            "SELECT * FROM auctions WHERE listing_id=? AND status='active'",
-            (listing_id,),
-        ).fetchone()
-        if not auction:
-            return False, "Auction not found or ended"
-        min_bid = (auction["current_bid"] or auction["start_price"]) + auction["min_increment"]
-        if data["amount"] < min_bid:
-            return False, f"Minimum bid is EGP {min_bid:,}"
-        c.execute(
-            "INSERT INTO bids (id, listing_id, bidder_name, bidder_phone, amount, created_at) "
-            "VALUES (?,?,?,?,?,?)",
-            (bid_id, listing_id, data["bidder_name"], data["bidder_phone"], data["amount"], now()),
-        )
-        c.execute(
-            "UPDATE auctions SET current_bid=? WHERE listing_id=?",
-            (data["amount"], listing_id),
-        )
-    return True, bid_id
-
-
 def save_auction(listing_id: str, data: dict):
     with _conn() as c:
         _upsert_exec(c, "auctions", "listing_id", {
-            "listing_id":    listing_id,
-            "start_price":   data["start_price"],
-            "reserve_price": data.get("reserve_price"),
-            "current_bid":   None,
-            "min_increment": data.get("min_increment", 5000),
-            "end_at":        data["end_at"],
-            "status":        "active",
+            "listing_id":       listing_id,
+            "start_price":      data["start_price"],
+            "reserve_price":    data.get("reserve_price"),
+            "buy_now_price":    data.get("buy_now_price"),
+            "buy_now_active":   1 if data.get("buy_now_price") else 0,
+            "current_bid":      None,
+            "current_bidder_name": None,
+            "current_bidder_id":   None,
+            "min_increment":    data.get("min_increment", 5000),
+            "auto_extend_mins": data.get("auto_extend_mins", 5),
+            "end_at":           data["end_at"],
+            "status":           "active",
         })
+
+
+def _close_auction_if_expired(auction: dict, db: "_Db"):
+    """Check if auction time has passed; if so mark ended and assign winner."""
+    from datetime import datetime
+    if auction["status"] != "active":
+        return auction
+    try:
+        end = datetime.fromisoformat(auction["end_at"].replace("Z", "+00:00"))
+        now_dt = datetime.now(end.tzinfo)
+    except Exception:
+        return auction
+    if now_dt < end:
+        return auction
+    # Expired — determine winner
+    winner_name = auction.get("current_bidder_name")
+    winner_bid  = auction.get("current_bid")
+    reserve     = auction.get("reserve_price")
+    if winner_bid and reserve and winner_bid < reserve:
+        winner_name = None  # reserve not met, no winner
+        winner_bid  = None
+    db.execute(
+        "UPDATE auctions SET status='ended', winner_name=?, winner_bid=? WHERE listing_id=?",
+        (winner_name, winner_bid, auction["listing_id"]),
+    )
+    auction = dict(auction)
+    auction["status"] = "ended"
+    auction["winner_name"] = winner_name
+    auction["winner_bid"]  = winner_bid
+    return auction
+
+
+def check_and_close_auction(listing_id: str) -> dict | None:
+    """Called on listing view to lazily close expired auctions. Returns updated auction."""
+    with _conn() as c:
+        auc = c.execute("SELECT * FROM auctions WHERE listing_id=?", (listing_id,)).fetchone()
+        if not auc:
+            return None
+        return _close_auction_if_expired(auc, c)
+
+
+def place_bid(listing_id: str, data: dict) -> tuple[bool, str]:
+    """
+    eBay-style proxy bidding.
+    data['amount'] = buyer's MAXIMUM budget (not necessarily the displayed bid).
+    The system automatically bids the minimum necessary to win.
+    """
+    from datetime import datetime, timedelta
+
+    with _conn() as c:
+        auc = c.execute(
+            "SELECT * FROM auctions WHERE listing_id=?", (listing_id,)
+        ).fetchone()
+        if not auc:
+            return False, "Auction not found"
+
+        auc = _close_auction_if_expired(auc, c)
+        if auc["status"] != "active":
+            return False, "Auction has ended"
+
+        max_bid   = int(data["amount"])
+        start     = auc["start_price"]
+        cur_bid   = auc["current_bid"]
+        min_inc   = auc["min_increment"]
+        bidder_id = data.get("bidder_user_id")
+
+        # Reject self-bid
+        if bidder_id and auc.get("current_bidder_id") == bidder_id:
+            return False, "You are already the highest bidder"
+
+        # First bid: can equal start_price
+        if cur_bid is None:
+            if max_bid < start:
+                return False, f"Minimum bid is EGP {start:,}"
+            actual = start
+            bid_id = new_id()
+            c.execute(
+                "INSERT INTO bids (id, listing_id, bidder_user_id, bidder_name, bidder_phone, "
+                "amount, max_auto_bid, is_autobid, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+                (bid_id, listing_id, bidder_id,
+                 data["bidder_name"], data["bidder_phone"], actual, max_bid, 0, now()),
+            )
+            c.execute(
+                "UPDATE auctions SET current_bid=?, current_bidder_name=?, current_bidder_id=?, "
+                "buy_now_active=0 WHERE listing_id=?",
+                (actual, data["bidder_name"], bidder_id, listing_id),
+            )
+        else:
+            # Get current leader's max auto-bid
+            top = c.execute(
+                "SELECT * FROM bids WHERE listing_id=? AND is_autobid=0 "
+                "ORDER BY amount DESC, created_at DESC LIMIT 1",
+                (listing_id,),
+            ).fetchone()
+            top_max = (top["max_auto_bid"] or top["amount"]) if top else cur_bid
+
+            min_to_beat = cur_bid + min_inc
+            if max_bid < min_to_beat:
+                return False, f"Minimum bid is EGP {min_to_beat:,}"
+
+            if max_bid <= top_max:
+                # Current leader wins via proxy — auto-counter
+                new_price = min(top_max, max_bid + min_inc)
+                if new_price > cur_bid and top:
+                    auto_id = new_id()
+                    c.execute(
+                        "INSERT INTO bids (id, listing_id, bidder_user_id, bidder_name, bidder_phone, "
+                        "amount, max_auto_bid, is_autobid, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+                        (auto_id, listing_id, top["bidder_user_id"],
+                         top["bidder_name"], top["bidder_phone"], new_price, top_max, 1, now()),
+                    )
+                    c.execute(
+                        "UPDATE auctions SET current_bid=? WHERE listing_id=?",
+                        (new_price, listing_id),
+                    )
+                return False, (
+                    f"You've been outbid. Current bid: EGP {new_price:,}. "
+                    f"Place a higher max bid to take the lead."
+                )
+            else:
+                # New bidder wins — price rises to top_max + 1 increment
+                new_price = min(max_bid, top_max + min_inc)
+                bid_id = new_id()
+                c.execute(
+                    "INSERT INTO bids (id, listing_id, bidder_user_id, bidder_name, bidder_phone, "
+                    "amount, max_auto_bid, is_autobid, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+                    (bid_id, listing_id, bidder_id,
+                     data["bidder_name"], data["bidder_phone"], new_price, max_bid, 0, now()),
+                )
+                c.execute(
+                    "UPDATE auctions SET current_bid=?, current_bidder_name=?, current_bidder_id=? "
+                    "WHERE listing_id=?",
+                    (new_price, data["bidder_name"], bidder_id, listing_id),
+                )
+
+        # Anti-sniping: extend if bid placed in last N minutes
+        extend = auc.get("auto_extend_mins") or 5
+        try:
+            end_dt = datetime.fromisoformat(auc["end_at"].replace("Z", "+00:00"))
+            now_dt = datetime.now(end_dt.tzinfo)
+            remaining_mins = (end_dt - now_dt).total_seconds() / 60
+            if remaining_mins < extend:
+                new_end = (end_dt + timedelta(minutes=extend)).isoformat()
+                c.execute(
+                    "UPDATE auctions SET end_at=? WHERE listing_id=?",
+                    (new_end, listing_id),
+                )
+        except Exception:
+            pass
+
+    return True, "Bid placed!"
+
+
+def buy_now(listing_id: str, buyer_name: str, buyer_phone: str, buyer_user_id=None) -> tuple[bool, str]:
+    """Execute a Buy It Now purchase."""
+    with _conn() as c:
+        auc = c.execute("SELECT * FROM auctions WHERE listing_id=?", (listing_id,)).fetchone()
+        if not auc or auc["status"] != "active":
+            return False, "Auction not available"
+        if not auc.get("buy_now_price") or not auc.get("buy_now_active"):
+            return False, "Buy It Now is no longer available"
+        price = auc["buy_now_price"]
+        bid_id = new_id()
+        c.execute(
+            "INSERT INTO bids (id, listing_id, bidder_user_id, bidder_name, bidder_phone, "
+            "amount, max_auto_bid, is_autobid, created_at) VALUES (?,?,?,?,?,?,?,?,?)",
+            (bid_id, listing_id, buyer_user_id, buyer_name, buyer_phone, price, price, 0, now()),
+        )
+        c.execute(
+            "UPDATE auctions SET status='ended', current_bid=?, current_bidder_name=?, "
+            "current_bidder_id=?, buy_now_active=0, winner_name=?, winner_phone=?, "
+            "winner_user_id=?, winner_bid=? WHERE listing_id=?",
+            (price, buyer_name, buyer_user_id, buyer_name, buyer_phone, buyer_user_id, price, listing_id),
+        )
+        c.execute("UPDATE listings SET status='sold' WHERE id=?", (listing_id,))
+    return True, "Purchase complete!"
+
+
+def lower_reserve(listing_id: str, new_reserve: int, token: str) -> tuple[bool, str]:
+    with _conn() as c:
+        listing = c.execute(
+            "SELECT * FROM listings WHERE id=? AND manage_token=?", (listing_id, token)
+        ).fetchone()
+        if not listing:
+            return False, "Unauthorized"
+        auc = c.execute("SELECT * FROM auctions WHERE listing_id=?", (listing_id,)).fetchone()
+        if not auc:
+            return False, "No auction"
+        if auc["reserve_price"] and new_reserve >= auc["reserve_price"]:
+            return False, "New reserve must be lower than current reserve"
+        c.execute(
+            "UPDATE auctions SET reserve_price=? WHERE listing_id=?",
+            (new_reserve, listing_id),
+        )
+    return True, "Reserve lowered"
+
+
+def end_auction_early(listing_id: str, token: str) -> tuple[bool, str]:
+    """Seller ends auction early. Only allowed with 0 bids."""
+    with _conn() as c:
+        listing = c.execute(
+            "SELECT * FROM listings WHERE id=? AND manage_token=?", (listing_id, token)
+        ).fetchone()
+        if not listing:
+            return False, "Unauthorized"
+        bid_count = c.execute(
+            "SELECT COUNT(*) AS n FROM bids WHERE listing_id=?", (listing_id,)
+        ).fetchone()["n"]
+        if bid_count > 0:
+            return False, "Cannot end early — bids already placed. Lower the reserve instead."
+        c.execute(
+            "UPDATE auctions SET status='ended' WHERE listing_id=?", (listing_id,)
+        )
+        c.execute(
+            "UPDATE listings SET status='cancelled' WHERE id=?", (listing_id,)
+        )
+    return True, "Auction ended"
+
+
+def cancel_auction(listing_id: str, token: str) -> tuple[bool, str]:
+    with _conn() as c:
+        listing = c.execute(
+            "SELECT * FROM listings WHERE id=? AND manage_token=?", (listing_id, token)
+        ).fetchone()
+        if not listing:
+            return False, "Unauthorized"
+        c.execute("UPDATE auctions SET status='cancelled' WHERE listing_id=?", (listing_id,))
+        c.execute("UPDATE listings SET status='cancelled' WHERE id=?", (listing_id,))
+    return True, "Auction cancelled"
+
+
+def toggle_watchlist(user_id: str, listing_id: str) -> bool:
+    """Returns True if now watching, False if removed."""
+    with _conn() as c:
+        existing = c.execute(
+            "SELECT id FROM watchlist WHERE user_id=? AND listing_id=?",
+            (user_id, listing_id),
+        ).fetchone()
+        if existing:
+            c.execute(
+                "DELETE FROM watchlist WHERE user_id=? AND listing_id=?",
+                (user_id, listing_id),
+            )
+            return False
+        c.execute(
+            "INSERT INTO watchlist (id, user_id, listing_id, created_at) VALUES (?,?,?,?)",
+            (new_id(), user_id, listing_id, now()),
+        )
+        return True
+
+
+def get_watchlist_count(listing_id: str) -> int:
+    with _conn() as c:
+        return c.execute(
+            "SELECT COUNT(*) AS n FROM watchlist WHERE listing_id=?", (listing_id,)
+        ).fetchone()["n"]
+
+
+def is_watching(user_id: str, listing_id: str) -> bool:
+    with _conn() as c:
+        return bool(c.execute(
+            "SELECT id FROM watchlist WHERE user_id=? AND listing_id=?",
+            (user_id, listing_id),
+        ).fetchone())
+
+
+def get_user_watchlist(user_id: str) -> list[dict]:
+    with _conn() as c:
+        return c.execute(
+            """SELECT l.*, w.created_at AS watched_at,
+                      a.current_bid, a.end_at, a.status AS auc_status
+               FROM watchlist w
+               JOIN listings l ON l.id = w.listing_id
+               LEFT JOIN auctions a ON a.listing_id = l.id
+               WHERE w.user_id = ?
+               ORDER BY w.created_at DESC""",
+            (user_id,),
+        ).fetchall()
 
 
 def create_user(name: str, phone: str, password: str, role: str = "both") -> str | None:

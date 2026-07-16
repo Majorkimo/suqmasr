@@ -1,0 +1,1515 @@
+2026-07-15 21:25:31,474 [INFO] === Running Hatla2ee scraper ===
+2026-07-15 21:25:31,475 [INFO] Fetching toyota (page 1)
+2026-07-15 21:25:32,326 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:25:34,064 [INFO] Fetching toyota (page 2)
+2026-07-15 21:25:34,538 [INFO]   → 40 new listings (total so far: 80)
+2026-07-15 21:25:36,255 [INFO] Fetching toyota (page 3)
+2026-07-15 21:25:36,751 [INFO]   → 40 new listings (total so far: 120)
+2026-07-15 21:25:36,752 [INFO] Brand 'toyota': collected 120 listings
+2026-07-15 21:25:38,011 [INFO] Fetching hyundai (page 1)
+2026-07-15 21:25:38,537 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:25:40,436 [INFO] Fetching hyundai (page 2)
+2026-07-15 21:25:40,818 [INFO]   → 35 new listings (total so far: 75)
+2026-07-15 21:25:42,187 [INFO] Fetching hyundai (page 3)
+2026-07-15 21:25:42,518 [INFO]   → 35 new listings (total so far: 110)
+2026-07-15 21:25:42,518 [INFO] Brand 'hyundai': collected 110 listings
+2026-07-15 21:25:43,594 [INFO] Fetching kia (page 1)
+2026-07-15 21:25:43,970 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:25:45,369 [INFO] Fetching kia (page 2)
+2026-07-15 21:25:45,694 [INFO]   → 39 new listings (total so far: 79)
+2026-07-15 21:25:47,106 [INFO] Fetching kia (page 3)
+2026-07-15 21:25:47,533 [INFO]   → 35 new listings (total so far: 114)
+2026-07-15 21:25:47,534 [INFO] Brand 'kia': collected 114 listings
+2026-07-15 21:25:49,198 [INFO] Fetching nissan (page 1)
+2026-07-15 21:25:49,651 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:25:51,286 [INFO] Fetching nissan (page 2)
+2026-07-15 21:25:51,618 [INFO]   → 37 new listings (total so far: 77)
+2026-07-15 21:25:53,262 [INFO] Fetching nissan (page 3)
+2026-07-15 21:25:54,387 [INFO]   → 35 new listings (total so far: 112)
+2026-07-15 21:25:54,388 [INFO] Brand 'nissan': collected 112 listings
+2026-07-15 21:25:56,340 [INFO] Fetching volkswagen (page 1)
+2026-07-15 21:25:56,547 [INFO] Brand volkswagen not found (404), skipping.
+2026-07-15 21:25:56,547 [INFO] Brand 'volkswagen': collected 0 listings
+2026-07-15 21:25:58,070 [INFO] Fetching chevrolet (page 1)
+2026-07-15 21:25:58,444 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:26:00,085 [INFO] Fetching chevrolet (page 2)
+2026-07-15 21:26:00,537 [INFO]   → 36 new listings (total so far: 76)
+2026-07-15 21:26:01,920 [INFO] Fetching chevrolet (page 3)
+2026-07-15 21:26:02,296 [INFO]   → 32 new listings (total so far: 108)
+2026-07-15 21:26:02,297 [INFO] Brand 'chevrolet': collected 108 listings
+2026-07-15 21:26:03,868 [INFO] Fetching mg (page 1)
+2026-07-15 21:26:04,809 [INFO] Brand mg not found (404), skipping.
+2026-07-15 21:26:04,810 [INFO] Brand 'mg': collected 0 listings
+2026-07-15 21:26:06,340 [INFO] Fetching chery (page 1)
+2026-07-15 21:26:06,776 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:26:08,215 [INFO] Fetching chery (page 2)
+2026-07-15 21:26:08,622 [INFO]   → 40 new listings (total so far: 80)
+2026-07-15 21:26:10,199 [INFO] Fetching chery (page 3)
+2026-07-15 21:26:10,630 [INFO]   → 39 new listings (total so far: 119)
+2026-07-15 21:26:10,631 [INFO] Brand 'chery': collected 119 listings
+2026-07-15 21:26:12,217 [INFO] Fetching byd (page 1)
+2026-07-15 21:26:12,734 [INFO]   → 34 new listings (total so far: 34)
+2026-07-15 21:26:14,363 [INFO] Fetching byd (page 2)
+2026-07-15 21:26:14,671 [INFO]   → 20 new listings (total so far: 54)
+2026-07-15 21:26:16,280 [INFO] Fetching byd (page 3)
+2026-07-15 21:26:16,594 [INFO]   → 20 new listings (total so far: 74)
+2026-07-15 21:26:16,594 [INFO] Brand 'byd': collected 74 listings
+2026-07-15 21:26:18,090 [INFO] Fetching geely (page 1)
+2026-07-15 21:26:18,545 [INFO]   → 30 new listings (total so far: 30)
+2026-07-15 21:26:20,238 [INFO] Fetching geely (page 2)
+2026-07-15 21:26:20,634 [INFO]   → 20 new listings (total so far: 50)
+2026-07-15 21:26:21,967 [INFO] Fetching geely (page 3)
+2026-07-15 21:26:22,275 [INFO]   → 20 new listings (total so far: 70)
+2026-07-15 21:26:22,275 [INFO] Brand 'geely': collected 70 listings
+2026-07-15 21:26:23,931 [INFO] Fetching bmw (page 1)
+2026-07-15 21:26:24,341 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:26:25,551 [INFO] Fetching bmw (page 2)
+2026-07-15 21:26:25,934 [INFO]   → 40 new listings (total so far: 80)
+2026-07-15 21:26:27,725 [INFO] Fetching bmw (page 3)
+2026-07-15 21:26:28,087 [INFO]   → 40 new listings (total so far: 120)
+2026-07-15 21:26:28,087 [INFO] Brand 'bmw': collected 120 listings
+2026-07-15 21:26:29,855 [INFO] Fetching mercedes-benz (page 1)
+2026-07-15 21:26:30,063 [INFO] Brand mercedes-benz not found (404), skipping.
+2026-07-15 21:26:30,063 [INFO] Brand 'mercedes-benz': collected 0 listings
+2026-07-15 21:26:31,386 [INFO] Fetching mitsubishi (page 1)
+2026-07-15 21:26:31,715 [INFO]   → 36 new listings (total so far: 36)
+2026-07-15 21:26:33,359 [INFO] Fetching mitsubishi (page 2)
+2026-07-15 21:26:33,753 [INFO]   → 20 new listings (total so far: 56)
+2026-07-15 21:26:34,899 [INFO] Fetching mitsubishi (page 3)
+2026-07-15 21:26:35,288 [INFO]   → 20 new listings (total so far: 76)
+2026-07-15 21:26:35,289 [INFO] Brand 'mitsubishi': collected 76 listings
+2026-07-15 21:26:36,778 [INFO] Fetching suzuki (page 1)
+2026-07-15 21:26:37,158 [INFO]   → 29 new listings (total so far: 29)
+2026-07-15 21:26:38,332 [INFO] Fetching suzuki (page 2)
+2026-07-15 21:26:38,739 [INFO]   → 20 new listings (total so far: 49)
+2026-07-15 21:26:39,823 [INFO] Fetching suzuki (page 3)
+2026-07-15 21:26:40,149 [INFO]   → 20 new listings (total so far: 69)
+2026-07-15 21:26:40,149 [INFO] Brand 'suzuki': collected 69 listings
+2026-07-15 21:26:41,280 [INFO] Fetching peugeot (page 1)
+2026-07-15 21:26:41,683 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:26:43,639 [INFO] Fetching peugeot (page 2)
+2026-07-15 21:26:44,049 [INFO]   → 37 new listings (total so far: 77)
+2026-07-15 21:26:45,880 [INFO] Fetching peugeot (page 3)
+2026-07-15 21:26:46,253 [INFO]   → 25 new listings (total so far: 102)
+2026-07-15 21:26:46,253 [INFO] Brand 'peugeot': collected 102 listings
+2026-07-15 21:26:47,299 [INFO] Fetching renault (page 1)
+2026-07-15 21:26:49,092 [INFO]   → 37 new listings (total so far: 37)
+2026-07-15 21:26:51,013 [INFO] Fetching renault (page 2)
+2026-07-15 21:26:51,620 [INFO]   → 35 new listings (total so far: 72)
+2026-07-15 21:26:52,762 [INFO] Fetching renault (page 3)
+2026-07-15 21:26:53,146 [INFO]   → 24 new listings (total so far: 96)
+2026-07-15 21:26:53,146 [INFO] Brand 'renault': collected 96 listings
+2026-07-15 21:26:54,362 [INFO] Fetching fiat (page 1)
+2026-07-15 21:26:54,757 [INFO]   → 37 new listings (total so far: 37)
+2026-07-15 21:26:55,947 [INFO] Fetching fiat (page 2)
+2026-07-15 21:26:56,279 [INFO]   → 22 new listings (total so far: 59)
+2026-07-15 21:26:57,622 [INFO] Fetching fiat (page 3)
+2026-07-15 21:26:57,924 [INFO]   → 20 new listings (total so far: 79)
+2026-07-15 21:26:57,925 [INFO] Brand 'fiat': collected 79 listings
+2026-07-15 21:26:59,575 [INFO] Fetching opel (page 1)
+2026-07-15 21:27:00,000 [INFO]   → 36 new listings (total so far: 36)
+2026-07-15 21:27:01,863 [INFO] Fetching opel (page 2)
+2026-07-15 21:27:02,334 [INFO]   → 26 new listings (total so far: 62)
+2026-07-15 21:27:03,754 [INFO] Fetching opel (page 3)
+2026-07-15 21:27:05,188 [INFO]   → 20 new listings (total so far: 82)
+2026-07-15 21:27:05,189 [INFO] Brand 'opel': collected 82 listings
+2026-07-15 21:27:06,824 [INFO] Fetching skoda (page 1)
+2026-07-15 21:27:07,369 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:27:08,464 [INFO] Fetching skoda (page 2)
+2026-07-15 21:27:08,892 [INFO]   → 38 new listings (total so far: 78)
+2026-07-15 21:27:10,225 [INFO] Fetching skoda (page 3)
+2026-07-15 21:27:10,534 [INFO]   → 22 new listings (total so far: 100)
+2026-07-15 21:27:10,535 [INFO] Brand 'skoda': collected 100 listings
+2026-07-15 21:27:11,794 [INFO] Fetching baic (page 1)
+2026-07-15 21:27:12,134 [INFO]   → 26 new listings (total so far: 26)
+2026-07-15 21:27:13,362 [INFO] Fetching baic (page 2)
+2026-07-15 21:27:13,693 [INFO]   → 20 new listings (total so far: 46)
+2026-07-15 21:27:15,222 [INFO] Fetching baic (page 3)
+2026-07-15 21:27:15,695 [INFO]   → 20 new listings (total so far: 66)
+2026-07-15 21:27:15,696 [INFO] Brand 'baic': collected 66 listings
+2026-07-15 21:27:17,463 [INFO] Fetching dongfeng (page 1)
+2026-07-15 21:27:17,749 [INFO] Brand dongfeng not found (404), skipping.
+2026-07-15 21:27:17,750 [INFO] Brand 'dongfeng': collected 0 listings
+2026-07-15 21:27:19,175 [INFO] Fetching honda (page 1)
+2026-07-15 21:27:19,622 [INFO]   → 25 new listings (total so far: 25)
+2026-07-15 21:27:21,385 [INFO] Fetching honda (page 2)
+2026-07-15 21:27:22,948 [INFO]   → 20 new listings (total so far: 45)
+2026-07-15 21:27:24,567 [INFO] Fetching honda (page 3)
+2026-07-15 21:27:25,083 [INFO]   → 20 new listings (total so far: 65)
+2026-07-15 21:27:25,083 [INFO] Brand 'honda': collected 65 listings
+2026-07-15 21:27:26,625 [INFO] Fetching mazda (page 1)
+2026-07-15 21:27:28,235 [INFO]   → 25 new listings (total so far: 25)
+2026-07-15 21:27:30,029 [INFO] Fetching mazda (page 2)
+2026-07-15 21:27:30,412 [INFO]   → 20 new listings (total so far: 45)
+2026-07-15 21:27:32,142 [INFO] Fetching mazda (page 3)
+2026-07-15 21:27:32,506 [INFO]   → 20 new listings (total so far: 65)
+2026-07-15 21:27:32,506 [INFO] Brand 'mazda': collected 65 listings
+2026-07-15 21:27:33,849 [INFO] Fetching ford (page 1)
+2026-07-15 21:27:34,310 [INFO]   → 26 new listings (total so far: 26)
+2026-07-15 21:27:35,666 [INFO] Fetching ford (page 2)
+2026-07-15 21:27:36,641 [INFO]   → 20 new listings (total so far: 46)
+2026-07-15 21:27:37,816 [INFO] Fetching ford (page 3)
+2026-07-15 21:27:39,755 [INFO]   → 20 new listings (total so far: 66)
+2026-07-15 21:27:39,755 [INFO] Brand 'ford': collected 66 listings
+2026-07-15 21:27:40,766 [INFO] Fetching jeep (page 1)
+2026-07-15 21:27:42,962 [INFO]   → 37 new listings (total so far: 37)
+2026-07-15 21:27:44,918 [INFO] Fetching jeep (page 2)
+2026-07-15 21:27:46,181 [INFO]   → 33 new listings (total so far: 70)
+2026-07-15 21:27:47,561 [INFO] Fetching jeep (page 3)
+2026-07-15 21:27:48,037 [INFO]   → 20 new listings (total so far: 90)
+2026-07-15 21:27:48,040 [INFO] Brand 'jeep': collected 90 listings
+2026-07-15 21:27:49,266 [INFO] Fetching audi (page 1)
+2026-07-15 21:27:49,665 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:27:50,691 [INFO] Fetching audi (page 2)
+2026-07-15 21:27:51,100 [INFO]   → 30 new listings (total so far: 70)
+2026-07-15 21:27:52,407 [INFO] Fetching audi (page 3)
+2026-07-15 21:27:52,717 [INFO]   → 20 new listings (total so far: 90)
+2026-07-15 21:27:52,718 [INFO] Brand 'audi': collected 90 listings
+2026-07-15 21:27:54,118 [INFO] Fetching porsche (page 1)
+2026-07-15 21:27:54,535 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:27:55,742 [INFO] Fetching porsche (page 2)
+2026-07-15 21:27:56,115 [INFO]   → 24 new listings (total so far: 64)
+2026-07-15 21:27:57,903 [INFO] Fetching porsche (page 3)
+2026-07-15 21:27:58,235 [INFO]   → 7 new listings (total so far: 71)
+2026-07-15 21:27:58,235 [INFO] Brand 'porsche': collected 71 listings
+2026-07-15 21:27:59,771 [INFO] Fetching land-rover (page 1)
+2026-07-15 21:28:00,220 [INFO]   → 40 new listings (total so far: 40)
+2026-07-15 21:28:01,315 [INFO] Fetching land-rover (page 2)
+2026-07-15 21:28:01,662 [INFO]   → 37 new listings (total so far: 77)
+2026-07-15 21:28:03,141 [INFO] Fetching land-rover (page 3)
+2026-07-15 21:28:03,527 [INFO]   → 25 new listings (total so far: 102)
+2026-07-15 21:28:03,528 [INFO] Brand 'land-rover': collected 102 listings
+2026-07-15 21:28:05,233 [INFO] Fetching volvo (page 1)
+2026-07-15 21:28:05,551 [INFO]   → 25 new listings (total so far: 25)
+2026-07-15 21:28:07,148 [INFO] Fetching volvo (page 2)
+2026-07-15 21:28:07,564 [INFO]   → 20 new listings (total so far: 45)
+2026-07-15 21:28:09,092 [INFO] Fetching volvo (page 3)
+2026-07-15 21:28:09,456 [INFO]   → 5 new listings (total so far: 50)
+2026-07-15 21:28:09,456 [INFO] Brand 'volvo': collected 50 listings
+2026-07-15 21:28:11,088 [INFO] Fetching subaru (page 1)
+2026-07-15 21:28:11,386 [INFO]   → 24 new listings (total so far: 24)
+2026-07-15 21:28:12,439 [INFO] Fetching subaru (page 2)
+2026-07-15 21:28:12,826 [INFO]   → 18 new listings (total so far: 42)
+2026-07-15 21:28:14,575 [INFO] Fetching subaru (page 3)
+2026-07-15 21:28:14,873 [INFO] No more listings for subaru (page 3 empty)
+2026-07-15 21:28:14,874 [INFO] Brand 'subaru': collected 42 listings
+2026-07-15 21:28:14,874 [INFO] Total listings collected: 2258
+2026-07-15 21:28:14,881 [INFO] Saved aggregated prices to /Users/kimo/Projects/egypt-marketplace/data/hatla2ee_prices.json
+2026-07-15 21:28:14,881 [INFO] Hatla2ee: 2258 listings
+2026-07-15 21:28:14,881 [INFO] === Running ContactCars scraper ===
+2026-07-15 21:28:14,881 [INFO] Discovering model URLs for brand 'toyota'
+2026-07-15 21:28:17,115 [INFO] Found 21 paths for 'toyota'
+2026-07-15 21:28:17,116 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota
+2026-07-15 21:28:17,519 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:28:19,418 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-c_hr
+2026-07-15 21:28:19,691 [INFO]   → 4 new listings (total: 29)
+2026-07-15 21:28:21,192 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-gr86
+2026-07-15 21:28:21,533 [INFO]   → 1 new listings (total: 30)
+2026-07-15 21:28:22,579 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-avanza
+2026-07-15 21:28:22,903 [INFO]   → 3 new listings (total: 33)
+2026-07-15 21:28:24,052 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-echo
+2026-07-15 21:28:24,356 [INFO]   → 3 new listings (total: 36)
+2026-07-15 21:28:25,401 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-auris
+2026-07-15 21:28:25,739 [INFO]   → 2 new listings (total: 38)
+2026-07-15 21:28:27,025 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-prado
+2026-07-15 21:28:28,378 [INFO]   → 6 new listings (total: 44)
+2026-07-15 21:28:30,099 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-previa
+2026-07-15 21:28:30,447 [INFO]   → 1 new listings (total: 45)
+2026-07-15 21:28:32,386 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-belta
+2026-07-15 21:28:32,756 [INFO]   → 3 new listings (total: 48)
+2026-07-15 21:28:34,127 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-tercel
+2026-07-15 21:28:34,433 [INFO]   → 1 new listings (total: 49)
+2026-07-15 21:28:35,888 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-rush
+2026-07-15 21:28:36,273 [INFO]   → 10 new listings (total: 59)
+2026-07-15 21:28:37,366 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-rav4
+2026-07-15 21:28:37,747 [INFO]   → 1 new listings (total: 60)
+2026-07-15 21:28:39,217 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-starlet
+2026-07-15 21:28:39,580 [INFO]   → 1 new listings (total: 61)
+2026-07-15 21:28:40,585 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-fortuner
+2026-07-15 21:28:40,980 [INFO]   → 14 new listings (total: 75)
+2026-07-15 21:28:42,759 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-camry
+2026-07-15 21:28:43,057 [INFO]   → 2 new listings (total: 77)
+2026-07-15 21:28:44,149 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-cressida
+2026-07-15 21:28:44,416 [INFO]   → 1 new listings (total: 78)
+2026-07-15 21:28:45,689 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-corolla
+2026-07-15 21:28:46,004 [INFO]   → 9 new listings (total: 87)
+2026-07-15 21:28:47,396 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-corona
+2026-07-15 21:28:47,940 [INFO]   → 1 new listings (total: 88)
+2026-07-15 21:28:49,231 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-land_cruiser
+2026-07-15 21:28:51,493 [INFO]   → 18 new listings (total: 106)
+2026-07-15 21:28:53,420 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-hilux
+2026-07-15 21:28:53,704 [INFO]   → 2 new listings (total: 108)
+2026-07-15 21:28:54,869 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/toyota-yaris
+2026-07-15 21:28:55,332 [INFO]   → 25 new listings (total: 133)
+2026-07-15 21:28:57,127 [INFO] Brand 'toyota': collected 133 listings
+2026-07-15 21:28:59,040 [INFO] Discovering model URLs for brand 'hyundai'
+2026-07-15 21:29:01,162 [INFO] Found 34 paths for 'hyundai'
+2026-07-15 21:29:01,162 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai
+2026-07-15 21:29:01,676 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:29:02,790 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-hd260
+2026-07-15 21:29:03,101 [INFO]   → 4 new listings (total: 29)
+2026-07-15 21:29:04,498 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-i10
+2026-07-15 21:29:04,947 [INFO]   → 23 new listings (total: 52)
+2026-07-15 21:29:06,406 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-i20
+2026-07-15 21:29:07,121 [INFO]   → 6 new listings (total: 58)
+2026-07-15 21:29:08,615 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-i30
+2026-07-15 21:29:09,337 [INFO]   → 5 new listings (total: 63)
+2026-07-15 21:29:11,282 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-ix_20
+2026-07-15 21:29:11,632 [INFO]   → 3 new listings (total: 66)
+2026-07-15 21:29:13,187 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-ix_35
+2026-07-15 21:29:13,539 [INFO]   → 17 new listings (total: 83)
+2026-07-15 21:29:15,373 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-azera
+2026-07-15 21:29:16,012 [INFO]   → 1 new listings (total: 84)
+2026-07-15 21:29:17,140 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-accent
+2026-07-15 21:29:17,487 [INFO]   → 24 new listings (total: 108)
+2026-07-15 21:29:19,312 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-accent_hci
+2026-07-15 21:29:19,600 [INFO]   → 7 new listings (total: 115)
+2026-07-15 21:29:20,740 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-accent_rb
+2026-07-15 21:29:21,148 [INFO]   → 25 new listings (total: 140)
+2026-07-15 21:29:22,831 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-atos
+2026-07-15 21:29:23,198 [INFO]   → 9 new listings (total: 149)
+2026-07-15 21:29:24,362 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-avante
+2026-07-15 21:29:24,764 [INFO]   → 24 new listings (total: 173)
+2026-07-15 21:29:26,291 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-excel
+2026-07-15 21:29:26,896 [INFO]   → 13 new listings (total: 186)
+2026-07-15 21:29:28,589 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-elantra
+2026-07-15 21:29:28,967 [INFO]   → 24 new listings (total: 210)
+2026-07-15 21:29:30,064 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-elantra_ad
+2026-07-15 21:29:30,426 [INFO]   → 24 new listings (total: 234)
+2026-07-15 21:29:31,775 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-elantra_cn7
+2026-07-15 21:29:32,952 [INFO]   → 23 new listings (total: 257)
+2026-07-15 21:29:34,416 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-elantra_hd
+2026-07-15 21:29:34,829 [INFO]   → 23 new listings (total: 280)
+2026-07-15 21:29:36,399 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-elantra_md
+2026-07-15 21:29:37,000 [INFO]   → 18 new listings (total: 298)
+2026-07-15 21:29:38,459 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-palisade
+2026-07-15 21:29:38,866 [INFO]   → 1 new listings (total: 299)
+2026-07-15 21:29:40,143 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-bayon
+2026-07-15 21:29:41,577 [INFO]   → 2 new listings (total: 301)
+2026-07-15 21:29:42,898 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-tucson
+2026-07-15 21:29:43,245 [INFO]   → 19 new listings (total: 320)
+2026-07-15 21:29:45,045 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-tucson_nx4e
+2026-07-15 21:29:45,735 [INFO]   → 14 new listings (total: 334)
+2026-07-15 21:29:46,745 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-grand_i10
+2026-07-15 21:29:47,247 [INFO]   → 3 new listings (total: 337)
+2026-07-15 21:29:48,784 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-getz
+2026-07-15 21:29:49,554 [INFO]   → 16 new listings (total: 353)
+2026-07-15 21:29:51,374 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-santa_fe
+2026-07-15 21:29:51,647 [INFO]   → 3 new listings (total: 356)
+2026-07-15 21:29:53,104 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-solaris
+2026-07-15 21:29:53,768 [INFO]   → 5 new listings (total: 361)
+2026-07-15 21:29:55,539 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-sonata
+2026-07-15 21:29:56,159 [INFO]   → 9 new listings (total: 370)
+2026-07-15 21:29:57,532 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-verna_1.6
+2026-07-15 21:29:59,162 [INFO]   → 14 new listings (total: 384)
+2026-07-15 21:30:01,111 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-verna
+2026-07-15 21:30:01,527 [INFO]   → 24 new listings (total: 408)
+2026-07-15 21:30:03,015 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-viva
+2026-07-15 21:30:05,303 [INFO]   → 4 new listings (total: 412)
+2026-07-15 21:30:06,639 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-creta
+2026-07-15 21:30:07,017 [INFO]   → 9 new listings (total: 421)
+2026-07-15 21:30:08,647 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-coupe
+2026-07-15 21:30:08,954 [INFO]   → 4 new listings (total: 425)
+2026-07-15 21:30:10,032 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/hyundai-matrix
+2026-07-15 21:30:10,945 [INFO]   → 24 new listings (total: 449)
+2026-07-15 21:30:11,966 [INFO] Brand 'hyundai': collected 449 listings
+2026-07-15 21:30:13,793 [INFO] Discovering model URLs for brand 'kia'
+2026-07-15 21:30:15,452 [INFO] Found 26 paths for 'kia'
+2026-07-15 21:30:15,452 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia
+2026-07-15 21:30:15,759 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:30:16,997 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-ev5
+2026-07-15 21:30:17,498 [INFO]   → 1 new listings (total: 26)
+2026-07-15 21:30:18,836 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-k3
+2026-07-15 21:30:19,171 [INFO]   → 21 new listings (total: 47)
+2026-07-15 21:30:20,638 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-k5
+2026-07-15 21:30:21,364 [INFO]   → 1 new listings (total: 48)
+2026-07-15 21:30:23,270 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-xceed
+2026-07-15 21:30:24,670 [INFO]   → 15 new listings (total: 63)
+2026-07-15 21:30:25,808 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-pride
+2026-07-15 21:30:26,202 [INFO]   → 12 new listings (total: 75)
+2026-07-15 21:30:27,462 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-pegas
+2026-07-15 21:30:28,222 [INFO]   → 4 new listings (total: 79)
+2026-07-15 21:30:29,475 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-picanto
+2026-07-15 21:30:29,918 [INFO]   → 21 new listings (total: 100)
+2026-07-15 21:30:31,174 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-grand_cerato
+2026-07-15 21:30:31,681 [INFO]   → 17 new listings (total: 117)
+2026-07-15 21:30:33,651 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-rio
+2026-07-15 21:30:34,846 [INFO]   → 25 new listings (total: 142)
+2026-07-15 21:30:36,085 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-saiba
+2026-07-15 21:30:36,897 [INFO]   → 3 new listings (total: 145)
+2026-07-15 21:30:38,271 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-spectra
+2026-07-15 21:30:38,736 [INFO]   → 11 new listings (total: 156)
+2026-07-15 21:30:40,014 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-sportage
+2026-07-15 21:30:40,936 [INFO]   → 15 new listings (total: 171)
+2026-07-15 21:30:42,113 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-sorento
+2026-07-15 21:30:42,732 [INFO]   → 18 new listings (total: 189)
+2026-07-15 21:30:43,780 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-soul
+2026-07-15 21:30:44,787 [INFO]   → 20 new listings (total: 209)
+2026-07-15 21:30:46,690 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-cerato
+2026-07-15 21:30:47,123 [INFO]   → 23 new listings (total: 232)
+2026-07-15 21:30:48,188 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-sephia
+2026-07-15 21:30:48,879 [INFO]   → 14 new listings (total: 246)
+2026-07-15 21:30:49,973 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-seltos
+2026-07-15 21:30:50,644 [INFO]   → 1 new listings (total: 247)
+2026-07-15 21:30:51,925 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-ceed
+2026-07-15 21:30:52,773 [INFO]   → 6 new listings (total: 253)
+2026-07-15 21:30:53,804 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-shuma
+2026-07-15 21:30:54,351 [INFO]   → 8 new listings (total: 261)
+2026-07-15 21:30:55,750 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-forte
+2026-07-15 21:30:56,310 [INFO]   → 9 new listings (total: 270)
+2026-07-15 21:30:57,379 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-cadenza
+2026-07-15 21:30:58,118 [INFO]   → 1 new listings (total: 271)
+2026-07-15 21:30:59,747 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-carens
+2026-07-15 21:31:01,211 [INFO]   → 23 new listings (total: 294)
+2026-07-15 21:31:02,844 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-carnival
+2026-07-15 21:31:03,432 [INFO]   → 15 new listings (total: 309)
+2026-07-15 21:31:04,771 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-morning
+2026-07-15 21:31:05,900 [INFO]   → 1 new listings (total: 310)
+2026-07-15 21:31:07,003 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/kia-mohave
+2026-07-15 21:31:09,423 [INFO]   → 1 new listings (total: 311)
+2026-07-15 21:31:11,075 [INFO] Brand 'kia': collected 311 listings
+2026-07-15 21:31:12,154 [INFO] Discovering model URLs for brand 'nissan'
+2026-07-15 21:31:14,478 [INFO] Found 14 paths for 'nissan'
+2026-07-15 21:31:14,478 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan
+2026-07-15 21:31:14,875 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:31:16,250 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-350_z
+2026-07-15 21:31:17,268 [INFO]   → 2 new listings (total: 27)
+2026-07-15 21:31:18,573 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-armada
+2026-07-15 21:31:19,106 [INFO]   → 1 new listings (total: 28)
+2026-07-15 21:31:20,314 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-altima
+2026-07-15 21:31:21,997 [INFO]   → 0 new listings (total: 28)
+2026-07-15 21:31:23,650 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-x_trail
+2026-07-15 21:31:24,835 [INFO]   → 10 new listings (total: 38)
+2026-07-15 21:31:26,612 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-pick_up
+2026-07-15 21:31:27,031 [INFO]   → 3 new listings (total: 41)
+2026-07-15 21:31:28,981 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-tiida
+2026-07-15 21:31:29,387 [INFO]   → 10 new listings (total: 51)
+2026-07-15 21:31:31,363 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-juke
+2026-07-15 21:31:31,786 [INFO]   → 22 new listings (total: 73)
+2026-07-15 21:31:33,185 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-datsun
+2026-07-15 21:31:36,162 [INFO]   → 1 new listings (total: 74)
+2026-07-15 21:31:37,570 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-sentra
+2026-07-15 21:31:40,014 [INFO]   → 21 new listings (total: 95)
+2026-07-15 21:31:41,988 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-sunny
+2026-07-15 21:31:42,467 [INFO]   → 14 new listings (total: 109)
+2026-07-15 21:31:43,662 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-qashqai
+2026-07-15 21:31:44,256 [INFO]   → 19 new listings (total: 128)
+2026-07-15 21:31:45,899 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-livina
+2026-07-15 21:31:46,906 [INFO]   → 2 new listings (total: 130)
+2026-07-15 21:31:48,544 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/nissan-march
+2026-07-15 21:31:49,431 [INFO]   → 1 new listings (total: 131)
+2026-07-15 21:31:51,434 [INFO] Brand 'nissan': collected 131 listings
+2026-07-15 21:31:53,389 [INFO] Discovering model URLs for brand 'volkswagen'
+2026-07-15 21:31:55,523 [INFO] Found 28 paths for 'volkswagen'
+2026-07-15 21:31:55,523 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen
+2026-07-15 21:31:55,913 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:31:57,675 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-cc
+2026-07-15 21:31:58,328 [INFO]   → 4 new listings (total: 29)
+2026-07-15 21:32:00,315 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-id.4
+2026-07-15 21:32:00,796 [INFO]   → 2 new listings (total: 31)
+2026-07-15 21:32:01,807 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-id.4_crozz
+2026-07-15 21:32:02,897 [INFO]   → 6 new listings (total: 37)
+2026-07-15 21:32:03,987 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-id.6_crozz
+2026-07-15 21:32:04,553 [INFO]   → 4 new listings (total: 41)
+2026-07-15 21:32:06,512 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-eos
+2026-07-15 21:32:07,208 [INFO]   → 1 new listings (total: 42)
+2026-07-15 21:32:08,687 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-parati
+2026-07-15 21:32:09,077 [INFO]   → 2 new listings (total: 44)
+2026-07-15 21:32:10,111 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-passat
+2026-07-15 21:32:10,544 [INFO]   → 17 new listings (total: 61)
+2026-07-15 21:32:12,431 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-passat_cc
+2026-07-15 21:32:13,213 [INFO]   → 1 new listings (total: 62)
+2026-07-15 21:32:14,673 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-bora
+2026-07-15 21:32:17,072 [INFO]   → 7 new listings (total: 69)
+2026-07-15 21:32:18,728 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-polo
+2026-07-15 21:32:19,245 [INFO]   → 24 new listings (total: 93)
+2026-07-15 21:32:20,280 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-pointer
+2026-07-15 21:32:20,720 [INFO]   → 8 new listings (total: 101)
+2026-07-15 21:32:22,464 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-beetles
+2026-07-15 21:32:22,862 [INFO]   → 2 new listings (total: 103)
+2026-07-15 21:32:24,583 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-tayron
+2026-07-15 21:32:24,960 [INFO]   → 1 new listings (total: 104)
+2026-07-15 21:32:26,857 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-touran
+2026-07-15 21:32:27,533 [INFO]   → 1 new listings (total: 105)
+2026-07-15 21:32:29,225 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-t_roc
+2026-07-15 21:32:29,688 [INFO]   → 3 new listings (total: 108)
+2026-07-15 21:32:31,134 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-tiguan
+2026-07-15 21:32:31,588 [INFO]   → 23 new listings (total: 131)
+2026-07-15 21:32:33,041 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-teramont
+2026-07-15 21:32:33,575 [INFO]   → 1 new listings (total: 132)
+2026-07-15 21:32:35,564 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-golf
+2026-07-15 21:32:36,007 [INFO]   → 17 new listings (total: 149)
+2026-07-15 21:32:37,365 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-golf_4
+2026-07-15 21:32:38,016 [INFO]   → 1 new listings (total: 150)
+2026-07-15 21:32:39,626 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-golf_5
+2026-07-15 21:32:39,992 [INFO]   → 3 new listings (total: 153)
+2026-07-15 21:32:41,463 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-golf_6
+2026-07-15 21:32:41,900 [INFO]   → 2 new listings (total: 155)
+2026-07-15 21:32:43,852 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-golf_7
+2026-07-15 21:32:44,386 [INFO]   → 4 new listings (total: 159)
+2026-07-15 21:32:46,165 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-jetta
+2026-07-15 21:32:46,617 [INFO]   → 22 new listings (total: 181)
+2026-07-15 21:32:47,997 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-souran
+2026-07-15 21:32:48,386 [INFO]   → 3 new listings (total: 184)
+2026-07-15 21:32:50,209 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-scirocco
+2026-07-15 21:32:50,671 [INFO]   → 2 new listings (total: 186)
+2026-07-15 21:32:51,930 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-touareg
+2026-07-15 21:32:52,359 [INFO]   → 1 new listings (total: 187)
+2026-07-15 21:32:53,469 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volkswagen-caddy_life
+2026-07-15 21:32:53,801 [INFO]   → 2 new listings (total: 189)
+2026-07-15 21:32:55,221 [INFO] Brand 'volkswagen': collected 189 listings
+2026-07-15 21:32:56,820 [INFO] Discovering model URLs for brand 'chevrolet'
+2026-07-15 21:32:58,545 [INFO] Found 20 paths for 'chevrolet'
+2026-07-15 21:32:58,545 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet
+2026-07-15 21:32:58,843 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:33:00,355 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-n200
+2026-07-15 21:33:00,765 [INFO]   → 1 new listings (total: 26)
+2026-07-15 21:33:01,929 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-n300
+2026-07-15 21:33:02,549 [INFO]   → 8 new listings (total: 34)
+2026-07-15 21:33:03,989 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-nkr
+2026-07-15 21:33:04,591 [INFO]   → 1 new listings (total: 35)
+2026-07-15 21:33:05,893 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-aveo
+2026-07-15 21:33:06,413 [INFO]   → 19 new listings (total: 54)
+2026-07-15 21:33:07,782 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-tfr
+2026-07-15 21:33:08,544 [INFO]   → 10 new listings (total: 64)
+2026-07-15 21:33:10,424 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-optra
+2026-07-15 21:33:10,901 [INFO]   → 23 new listings (total: 87)
+2026-07-15 21:33:11,931 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-equinox
+2026-07-15 21:33:12,333 [INFO]   → 4 new listings (total: 91)
+2026-07-15 21:33:13,446 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-chevrolet_trax
+2026-07-15 21:33:14,752 [INFO]   → 1 new listings (total: 92)
+2026-07-15 21:33:15,903 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-trailblazer
+2026-07-15 21:33:16,348 [INFO]   → 1 new listings (total: 93)
+2026-07-15 21:33:18,216 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-spark
+2026-07-15 21:33:18,735 [INFO]   → 16 new listings (total: 109)
+2026-07-15 21:33:20,490 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-sonic
+2026-07-15 21:33:21,335 [INFO]   → 1 new listings (total: 110)
+2026-07-15 21:33:23,120 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-silverado
+2026-07-15 21:33:25,370 [INFO]   → 1 new listings (total: 111)
+2026-07-15 21:33:26,879 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-frontera
+2026-07-15 21:33:27,610 [INFO]   → 2 new listings (total: 113)
+2026-07-15 21:33:28,795 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-captiva
+2026-07-15 21:33:29,151 [INFO]   → 11 new listings (total: 124)
+2026-07-15 21:33:30,280 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-camaro
+2026-07-15 21:33:31,117 [INFO]   → 4 new listings (total: 128)
+2026-07-15 21:33:32,287 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-cruze
+2026-07-15 21:33:32,663 [INFO]   → 22 new listings (total: 150)
+2026-07-15 21:33:34,487 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-corvette
+2026-07-15 21:33:35,169 [INFO]   → 1 new listings (total: 151)
+2026-07-15 21:33:36,511 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-lanos
+2026-07-15 21:33:37,576 [INFO]   → 21 new listings (total: 172)
+2026-07-15 21:33:39,013 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chevrolet-malibu
+2026-07-15 21:33:41,297 [INFO]   → 5 new listings (total: 177)
+2026-07-15 21:33:42,753 [INFO] Brand 'chevrolet': collected 177 listings
+2026-07-15 21:33:44,228 [INFO] Discovering model URLs for brand 'mg'
+2026-07-15 21:33:46,382 [INFO] Found 12 paths for 'mg'
+2026-07-15 21:33:46,382 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg
+2026-07-15 21:33:46,753 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:33:47,870 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg-350_s
+2026-07-15 21:33:48,687 [INFO]   → 0 new listings (total: 25)
+2026-07-15 21:33:49,787 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg-5
+2026-07-15 21:33:50,246 [INFO]   → 23 new listings (total: 48)
+2026-07-15 21:33:52,194 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg-6
+2026-07-15 21:33:52,672 [INFO]   → 13 new listings (total: 61)
+2026-07-15 21:33:54,297 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg-7
+2026-07-15 21:33:54,754 [INFO]   → 3 new listings (total: 64)
+2026-07-15 21:33:55,864 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg-750
+2026-07-15 21:33:56,650 [INFO]   → 2 new listings (total: 66)
+2026-07-15 21:33:58,127 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg-gt
+2026-07-15 21:33:59,009 [INFO]   → 1 new listings (total: 67)
+2026-07-15 21:34:00,338 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg-hs
+2026-07-15 21:34:00,958 [INFO]   → 13 new listings (total: 80)
+2026-07-15 21:34:02,812 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg-one
+2026-07-15 21:34:04,366 [INFO]   → 8 new listings (total: 88)
+2026-07-15 21:34:05,629 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg-rx5
+2026-07-15 21:34:06,364 [INFO]   → 23 new listings (total: 111)
+2026-07-15 21:34:07,437 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg-rx5_plus
+2026-07-15 21:34:08,479 [INFO]   → 11 new listings (total: 122)
+2026-07-15 21:34:09,578 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mg-zs
+2026-07-15 21:34:09,959 [INFO]   → 18 new listings (total: 140)
+2026-07-15 21:34:11,250 [INFO] Brand 'mg': collected 140 listings
+2026-07-15 21:34:12,995 [INFO] Discovering model URLs for brand 'chery'
+2026-07-15 21:34:14,562 [INFO] Found 17 paths for 'chery'
+2026-07-15 21:34:14,565 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery
+2026-07-15 21:34:14,874 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:34:16,262 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-a11
+2026-07-15 21:34:17,130 [INFO]   → 6 new listings (total: 31)
+2026-07-15 21:34:18,397 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-a516
+2026-07-15 21:34:19,215 [INFO]   → 2 new listings (total: 33)
+2026-07-15 21:34:20,735 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-e5
+2026-07-15 21:34:24,320 [INFO]   → 0 new listings (total: 33)
+2026-07-15 21:34:25,688 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-qq
+2026-07-15 21:34:26,737 [INFO]   → 5 new listings (total: 38)
+2026-07-15 21:34:28,177 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-arrizo_6_gt
+2026-07-15 21:34:28,998 [INFO]   → 0 new listings (total: 38)
+2026-07-15 21:34:30,205 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-eq7
+2026-07-15 21:34:31,175 [INFO]   → 1 new listings (total: 39)
+2026-07-15 21:34:33,154 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-arrizo_5
+2026-07-15 21:34:33,577 [INFO]   → 17 new listings (total: 56)
+2026-07-15 21:34:35,269 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-envy
+2026-07-15 21:34:35,735 [INFO]   → 6 new listings (total: 62)
+2026-07-15 21:34:37,606 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-tiggo
+2026-07-15 21:34:37,992 [INFO]   → 22 new listings (total: 84)
+2026-07-15 21:34:39,933 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-tiggo_3
+2026-07-15 21:34:40,326 [INFO]   → 18 new listings (total: 102)
+2026-07-15 21:34:41,352 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-tiggo_4_pro
+2026-07-15 21:34:41,831 [INFO]   → 5 new listings (total: 107)
+2026-07-15 21:34:43,125 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-tiggo_7
+2026-07-15 21:34:43,780 [INFO]   → 24 new listings (total: 131)
+2026-07-15 21:34:45,472 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-tiggo_7_pro
+2026-07-15 21:34:46,020 [INFO]   → 4 new listings (total: 135)
+2026-07-15 21:34:47,697 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-tiggo_8
+2026-07-15 21:34:48,910 [INFO]   → 13 new listings (total: 148)
+2026-07-15 21:34:50,129 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-tiggo_8_pro_max
+2026-07-15 21:34:50,510 [INFO]   → 2 new listings (total: 150)
+2026-07-15 21:34:51,741 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/chery-tiggo_8_pro
+2026-07-15 21:34:52,477 [INFO]   → 5 new listings (total: 155)
+2026-07-15 21:34:54,029 [INFO] Brand 'chery': collected 155 listings
+2026-07-15 21:34:55,388 [INFO] Discovering model URLs for brand 'byd'
+2026-07-15 21:34:57,633 [INFO] Found 11 paths for 'byd'
+2026-07-15 21:34:57,633 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/byd
+2026-07-15 21:34:57,960 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:34:59,197 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/byd-f0
+2026-07-15 21:34:59,822 [INFO]   → 3 new listings (total: 28)
+2026-07-15 21:35:01,047 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/byd-f3
+2026-07-15 21:35:01,572 [INFO]   → 13 new listings (total: 41)
+2026-07-15 21:35:02,703 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/byd-l3
+2026-07-15 21:35:04,089 [INFO]   → 5 new listings (total: 46)
+2026-07-15 21:35:05,220 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/byd-qin
+2026-07-15 21:35:06,070 [INFO]   → 0 new listings (total: 46)
+2026-07-15 21:35:07,110 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/byd-s5
+2026-07-15 21:35:08,324 [INFO]   → 2 new listings (total: 48)
+2026-07-15 21:35:10,006 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/byd-song_plus
+2026-07-15 21:35:10,549 [INFO]   → 0 new listings (total: 48)
+2026-07-15 21:35:11,924 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/byd-flyer
+2026-07-15 21:35:12,634 [INFO]   → 2 new listings (total: 50)
+2026-07-15 21:35:13,666 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/byd-leopard_8
+2026-07-15 21:35:14,400 [INFO]   → 0 new listings (total: 50)
+2026-07-15 21:35:16,110 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/byd-leopard5
+2026-07-15 21:35:16,776 [INFO]   → 0 new listings (total: 50)
+2026-07-15 21:35:18,494 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/byd-han
+2026-07-15 21:35:19,071 [INFO]   → 0 new listings (total: 50)
+2026-07-15 21:35:20,918 [INFO] Brand 'byd': collected 50 listings
+2026-07-15 21:35:22,238 [INFO] Discovering model URLs for brand 'geely'
+2026-07-15 21:35:24,061 [INFO] Found 14 paths for 'geely'
+2026-07-15 21:35:24,062 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely
+2026-07-15 21:35:24,701 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:35:26,463 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-ck_2
+2026-07-15 21:35:27,211 [INFO]   → 1 new listings (total: 26)
+2026-07-15 21:35:28,815 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-gx3_pro
+2026-07-15 21:35:29,251 [INFO]   → 1 new listings (total: 27)
+2026-07-15 21:35:30,326 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-x_7
+2026-07-15 21:35:31,197 [INFO]   → 7 new listings (total: 34)
+2026-07-15 21:35:32,277 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-emgrand
+2026-07-15 21:35:33,091 [INFO]   → 3 new listings (total: 37)
+2026-07-15 21:35:35,003 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-x_pandino
+2026-07-15 21:35:35,719 [INFO]   → 1 new listings (total: 38)
+2026-07-15 21:35:37,397 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-imperial
+2026-07-15 21:35:37,820 [INFO]   → 1 new listings (total: 39)
+2026-07-15 21:35:39,348 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-okavango
+2026-07-15 21:35:39,772 [INFO]   → 0 new listings (total: 39)
+2026-07-15 21:35:41,106 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-emgrand_7
+2026-07-15 21:35:41,603 [INFO]   → 5 new listings (total: 44)
+2026-07-15 21:35:42,759 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-emgrand_x7
+2026-07-15 21:35:43,186 [INFO]   → 3 new listings (total: 47)
+2026-07-15 21:35:44,812 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-pandino
+2026-07-15 21:35:45,275 [INFO]   → 8 new listings (total: 55)
+2026-07-15 21:35:46,422 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-geometry_c
+2026-07-15 21:35:47,008 [INFO]   → 1 new listings (total: 56)
+2026-07-15 21:35:48,047 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-starray
+2026-07-15 21:35:48,713 [INFO]   → 1 new listings (total: 57)
+2026-07-15 21:35:50,347 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/geely-coolray
+2026-07-15 21:35:51,218 [INFO]   → 4 new listings (total: 61)
+2026-07-15 21:35:52,334 [INFO] Brand 'geely': collected 61 listings
+2026-07-15 21:35:53,689 [INFO] Discovering model URLs for brand 'bmw'
+2026-07-15 21:35:55,401 [INFO] Found 45 paths for 'bmw'
+2026-07-15 21:35:55,401 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw
+2026-07-15 21:35:55,944 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:35:57,489 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-116i
+2026-07-15 21:35:58,375 [INFO]   → 7 new listings (total: 32)
+2026-07-15 21:36:00,336 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-218i
+2026-07-15 21:36:00,885 [INFO]   → 9 new listings (total: 41)
+2026-07-15 21:36:02,268 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-316i
+2026-07-15 21:36:02,861 [INFO]   → 25 new listings (total: 66)
+2026-07-15 21:36:04,000 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-318i
+2026-07-15 21:36:04,691 [INFO]   → 23 new listings (total: 89)
+2026-07-15 21:36:06,519 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-320i
+2026-07-15 21:36:07,154 [INFO]   → 23 new listings (total: 112)
+2026-07-15 21:36:08,896 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-325i
+2026-07-15 21:36:09,286 [INFO]   → 1 new listings (total: 113)
+2026-07-15 21:36:10,418 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-328i
+2026-07-15 21:36:10,857 [INFO]   → 1 new listings (total: 114)
+2026-07-15 21:36:12,484 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-330i
+2026-07-15 21:36:13,051 [INFO]   → 2 new listings (total: 116)
+2026-07-15 21:36:14,433 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-335i
+2026-07-15 21:36:15,860 [INFO]   → 1 new listings (total: 117)
+2026-07-15 21:36:16,978 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-340i
+2026-07-15 21:36:17,760 [INFO]   → 1 new listings (total: 118)
+2026-07-15 21:36:19,394 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-418i
+2026-07-15 21:36:19,906 [INFO]   → 2 new listings (total: 120)
+2026-07-15 21:36:21,866 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-420i_gran_coupe
+2026-07-15 21:36:22,309 [INFO]   → 2 new listings (total: 122)
+2026-07-15 21:36:23,839 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-420i_convertible
+2026-07-15 21:36:25,149 [INFO]   → 2 new listings (total: 124)
+2026-07-15 21:36:26,904 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-430i_gran_coupe
+2026-07-15 21:36:27,308 [INFO]   → 2 new listings (total: 126)
+2026-07-15 21:36:28,955 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-440i_gran_coupe
+2026-07-15 21:36:29,346 [INFO]   → 1 new listings (total: 127)
+2026-07-15 21:36:31,337 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-520i
+2026-07-15 21:36:32,283 [INFO]   → 20 new listings (total: 147)
+2026-07-15 21:36:33,290 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-523i
+2026-07-15 21:36:33,654 [INFO]   → 13 new listings (total: 160)
+2026-07-15 21:36:35,233 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-525i
+2026-07-15 21:36:35,671 [INFO]   → 10 new listings (total: 170)
+2026-07-15 21:36:36,802 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-528i
+2026-07-15 21:36:37,220 [INFO]   → 3 new listings (total: 173)
+2026-07-15 21:36:38,986 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-530i
+2026-07-15 21:36:39,334 [INFO]   → 7 new listings (total: 180)
+2026-07-15 21:36:41,063 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-535i
+2026-07-15 21:36:41,447 [INFO]   → 1 new listings (total: 181)
+2026-07-15 21:36:42,887 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-730li
+2026-07-15 21:36:43,191 [INFO]   → 1 new listings (total: 182)
+2026-07-15 21:36:44,903 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-740li
+2026-07-15 21:36:45,718 [INFO]   → 8 new listings (total: 190)
+2026-07-15 21:36:47,626 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-740i
+2026-07-15 21:36:47,920 [INFO]   → 1 new listings (total: 191)
+2026-07-15 21:36:49,426 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-750li
+2026-07-15 21:36:50,016 [INFO]   → 1 new listings (total: 192)
+2026-07-15 21:36:51,973 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-m3
+2026-07-15 21:36:52,467 [INFO]   → 3 new listings (total: 195)
+2026-07-15 21:36:53,850 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-m4
+2026-07-15 21:36:54,233 [INFO]   → 2 new listings (total: 197)
+2026-07-15 21:36:56,112 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-m5
+2026-07-15 21:36:56,763 [INFO]   → 1 new listings (total: 198)
+2026-07-15 21:36:58,302 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-m850i
+2026-07-15 21:36:58,860 [INFO]   → 3 new listings (total: 201)
+2026-07-15 21:37:00,242 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-x1
+2026-07-15 21:37:00,624 [INFO]   → 24 new listings (total: 225)
+2026-07-15 21:37:02,248 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-x2
+2026-07-15 21:37:03,139 [INFO]   → 9 new listings (total: 234)
+2026-07-15 21:37:04,411 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-x3
+2026-07-15 21:37:04,871 [INFO]   → 24 new listings (total: 258)
+2026-07-15 21:37:06,777 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-x4
+2026-07-15 21:37:07,124 [INFO]   → 6 new listings (total: 264)
+2026-07-15 21:37:08,328 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-x5
+2026-07-15 21:37:08,764 [INFO]   → 17 new listings (total: 281)
+2026-07-15 21:37:10,096 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-x6
+2026-07-15 21:37:11,269 [INFO]   → 19 new listings (total: 300)
+2026-07-15 21:37:12,871 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-x7
+2026-07-15 21:37:14,219 [INFO]   → 3 new listings (total: 303)
+2026-07-15 21:37:15,426 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-z4
+2026-07-15 21:37:16,117 [INFO]   → 4 new listings (total: 307)
+2026-07-15 21:37:17,970 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-i3
+2026-07-15 21:37:18,304 [INFO]   → 3 new listings (total: 310)
+2026-07-15 21:37:19,840 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-i4
+2026-07-15 21:37:20,231 [INFO]   → 4 new listings (total: 314)
+2026-07-15 21:37:22,165 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-i5
+2026-07-15 21:37:22,540 [INFO]   → 1 new listings (total: 315)
+2026-07-15 21:37:24,057 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-i7
+2026-07-15 21:37:25,194 [INFO]   → 4 new listings (total: 319)
+2026-07-15 21:37:27,182 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-ix
+2026-07-15 21:37:27,619 [INFO]   → 2 new listings (total: 321)
+2026-07-15 21:37:29,166 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-ix1
+2026-07-15 21:37:30,024 [INFO]   → 1 new listings (total: 322)
+2026-07-15 21:37:31,040 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/bmw-ix3
+2026-07-15 21:37:31,888 [INFO]   → 6 new listings (total: 328)
+2026-07-15 21:37:33,639 [INFO] Brand 'bmw': collected 328 listings
+2026-07-15 21:37:35,611 [INFO] Discovering model URLs for brand 'mercedes'
+2026-07-15 21:37:37,060 [INFO] Found 87 paths for 'mercedes'
+2026-07-15 21:37:37,060 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes
+2026-07-15 21:37:37,560 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:37:38,861 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-190
+2026-07-15 21:37:39,467 [INFO]   → 6 new listings (total: 31)
+2026-07-15 21:37:41,049 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-a180
+2026-07-15 21:37:41,506 [INFO]   → 3 new listings (total: 34)
+2026-07-15 21:37:43,339 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-a200
+2026-07-15 21:37:43,843 [INFO]   → 12 new listings (total: 46)
+2026-07-15 21:37:44,881 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-a35
+2026-07-15 21:37:45,681 [INFO]   → 1 new listings (total: 47)
+2026-07-15 21:37:47,093 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-b_180
+2026-07-15 21:37:47,690 [INFO]   → 6 new listings (total: 53)
+2026-07-15 21:37:49,211 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-b_200
+2026-07-15 21:37:50,084 [INFO]   → 5 new listings (total: 58)
+2026-07-15 21:37:51,461 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-b150
+2026-07-15 21:37:52,435 [INFO]   → 1 new listings (total: 59)
+2026-07-15 21:37:53,814 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-b160
+2026-07-15 21:37:54,249 [INFO]   → 3 new listings (total: 62)
+2026-07-15 21:37:55,430 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-c_180_station
+2026-07-15 21:37:56,141 [INFO]   → 5 new listings (total: 67)
+2026-07-15 21:37:58,145 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-c_250
+2026-07-15 21:37:58,738 [INFO]   → 11 new listings (total: 78)
+2026-07-15 21:38:00,229 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-c_280
+2026-07-15 21:38:00,687 [INFO]   → 6 new listings (total: 84)
+2026-07-15 21:38:02,415 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-c_coupe
+2026-07-15 21:38:03,305 [INFO]   → 3 new listings (total: 87)
+2026-07-15 21:38:04,363 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-c180
+2026-07-15 21:38:04,823 [INFO]   → 20 new listings (total: 107)
+2026-07-15 21:38:06,771 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-c200
+2026-07-15 21:38:07,481 [INFO]   → 24 new listings (total: 131)
+2026-07-15 21:38:09,230 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-c230
+2026-07-15 21:38:09,711 [INFO]   → 1 new listings (total: 132)
+2026-07-15 21:38:10,955 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-c240
+2026-07-15 21:38:11,554 [INFO]   → 2 new listings (total: 134)
+2026-07-15 21:38:13,130 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-c300
+2026-07-15 21:38:13,655 [INFO]   → 4 new listings (total: 138)
+2026-07-15 21:38:14,931 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-cla_180
+2026-07-15 21:38:15,840 [INFO]   → 16 new listings (total: 154)
+2026-07-15 21:38:16,916 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-cla_200
+2026-07-15 21:38:17,879 [INFO]   → 23 new listings (total: 177)
+2026-07-15 21:38:19,676 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-cla_45s
+2026-07-15 21:38:20,193 [INFO]   → 2 new listings (total: 179)
+2026-07-15 21:38:21,621 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-cle_200
+2026-07-15 21:38:22,564 [INFO]   → 3 new listings (total: 182)
+2026-07-15 21:38:24,436 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-cle_300
+2026-07-15 21:38:24,863 [INFO]   → 1 new listings (total: 183)
+2026-07-15 21:38:26,367 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-clk
+2026-07-15 21:38:27,336 [INFO]   → 2 new listings (total: 185)
+2026-07-15 21:38:29,093 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-cls_350
+2026-07-15 21:38:29,433 [INFO]   → 3 new listings (total: 188)
+2026-07-15 21:38:30,776 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e_180
+2026-07-15 21:38:31,269 [INFO]   → 16 new listings (total: 204)
+2026-07-15 21:38:32,388 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e_250
+2026-07-15 21:38:32,870 [INFO]   → 10 new listings (total: 214)
+2026-07-15 21:38:34,799 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e_63s
+2026-07-15 21:38:35,194 [INFO]   → 1 new listings (total: 215)
+2026-07-15 21:38:36,768 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e_cabriolet
+2026-07-15 21:38:37,106 [INFO]   → 1 new listings (total: 216)
+2026-07-15 21:38:38,295 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e_coupe
+2026-07-15 21:38:38,997 [INFO]   → 1 new listings (total: 217)
+2026-07-15 21:38:40,015 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e200
+2026-07-15 21:38:40,467 [INFO]   → 24 new listings (total: 241)
+2026-07-15 21:38:41,713 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e230
+2026-07-15 21:38:42,308 [INFO]   → 2 new listings (total: 243)
+2026-07-15 21:38:44,311 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e240
+2026-07-15 21:38:45,330 [INFO]   → 8 new listings (total: 251)
+2026-07-15 21:38:46,392 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e280
+2026-07-15 21:38:47,013 [INFO]   → 5 new listings (total: 256)
+2026-07-15 21:38:48,077 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e300
+2026-07-15 21:38:49,092 [INFO]   → 14 new listings (total: 270)
+2026-07-15 21:38:50,931 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e300e
+2026-07-15 21:38:51,740 [INFO]   → 7 new listings (total: 277)
+2026-07-15 21:38:53,596 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e320
+2026-07-15 21:38:53,893 [INFO]   → 4 new listings (total: 281)
+2026-07-15 21:38:55,728 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-e350
+2026-07-15 21:38:56,190 [INFO]   → 13 new listings (total: 294)
+2026-07-15 21:38:57,349 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqa_250
+2026-07-15 21:38:57,716 [INFO]   → 2 new listings (total: 296)
+2026-07-15 21:38:58,753 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqb_260
+2026-07-15 21:38:59,389 [INFO]   → 1 new listings (total: 297)
+2026-07-15 21:39:01,046 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqb_300
+2026-07-15 21:39:01,463 [INFO]   → 2 new listings (total: 299)
+2026-07-15 21:39:03,414 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqb_350
+2026-07-15 21:39:03,764 [INFO]   → 3 new listings (total: 302)
+2026-07-15 21:39:05,666 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqb250+
+2026-07-15 21:39:06,075 [INFO]   → 1 new listings (total: 303)
+2026-07-15 21:39:07,111 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqe_350
+2026-07-15 21:39:07,505 [INFO]   → 2 new listings (total: 305)
+2026-07-15 21:39:08,625 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqe_500
+2026-07-15 21:39:09,353 [INFO]   → 2 new listings (total: 307)
+2026-07-15 21:39:10,377 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqe_suv
+2026-07-15 21:39:11,176 [INFO]   → 2 new listings (total: 309)
+2026-07-15 21:39:12,492 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqs
+2026-07-15 21:39:13,087 [INFO]   → 1 new listings (total: 310)
+2026-07-15 21:39:14,627 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqs_450+
+2026-07-15 21:39:17,352 [INFO]   → 3 new listings (total: 313)
+2026-07-15 21:39:18,993 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqs_suv
+2026-07-15 21:39:19,783 [INFO]   → 2 new listings (total: 315)
+2026-07-15 21:39:21,785 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-eqv_300
+2026-07-15 21:39:22,177 [INFO]   → 1 new listings (total: 316)
+2026-07-15 21:39:23,859 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-g_500
+2026-07-15 21:39:24,228 [INFO]   → 1 new listings (total: 317)
+2026-07-15 21:39:25,278 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-g_63
+2026-07-15 21:39:25,865 [INFO]   → 5 new listings (total: 322)
+2026-07-15 21:39:27,448 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-g_class
+2026-07-15 21:39:28,371 [INFO]   → 1 new listings (total: 323)
+2026-07-15 21:39:29,399 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-g580_with_eq_technology
+2026-07-15 21:39:30,197 [INFO]   → 1 new listings (total: 324)
+2026-07-15 21:39:31,993 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-gla_200
+2026-07-15 21:39:32,811 [INFO]   → 24 new listings (total: 348)
+2026-07-15 21:39:34,294 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-glb_200
+2026-07-15 21:39:34,918 [INFO]   → 1 new listings (total: 349)
+2026-07-15 21:39:36,152 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-glc_200
+2026-07-15 21:39:36,542 [INFO]   → 17 new listings (total: 366)
+2026-07-15 21:39:37,849 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-glc_300
+2026-07-15 21:39:39,019 [INFO]   → 9 new listings (total: 375)
+2026-07-15 21:39:40,701 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-glc_300_coupe
+2026-07-15 21:39:41,032 [INFO]   → 5 new listings (total: 380)
+2026-07-15 21:39:42,232 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-glc_43
+2026-07-15 21:39:43,023 [INFO]   → 3 new listings (total: 383)
+2026-07-15 21:39:44,757 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-gle_450
+2026-07-15 21:39:45,177 [INFO]   → 10 new listings (total: 393)
+2026-07-15 21:39:46,276 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-gle_500
+2026-07-15 21:39:47,508 [INFO]   → 0 new listings (total: 393)
+2026-07-15 21:39:49,097 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-glk_250
+2026-07-15 21:39:50,201 [INFO]   → 3 new listings (total: 396)
+2026-07-15 21:39:51,829 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-glk_300
+2026-07-15 21:39:52,530 [INFO]   → 2 new listings (total: 398)
+2026-07-15 21:39:54,046 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-glk_350
+2026-07-15 21:39:54,692 [INFO]   → 4 new listings (total: 402)
+2026-07-15 21:39:56,100 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-gls_580
+2026-07-15 21:39:56,502 [INFO]   → 6 new listings (total: 408)
+2026-07-15 21:39:58,194 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-gt43
+2026-07-15 21:39:59,257 [INFO]   → 1 new listings (total: 409)
+2026-07-15 21:40:01,117 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-s320
+2026-07-15 21:40:01,413 [INFO]   → 4 new listings (total: 413)
+2026-07-15 21:40:02,462 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-s350
+2026-07-15 21:40:03,753 [INFO]   → 2 new listings (total: 415)
+2026-07-15 21:40:05,175 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-s400
+2026-07-15 21:40:05,576 [INFO]   → 4 new listings (total: 419)
+2026-07-15 21:40:07,571 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-s450
+2026-07-15 21:40:07,954 [INFO]   → 7 new listings (total: 426)
+2026-07-15 21:40:09,695 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-s500
+2026-07-15 21:40:10,117 [INFO]   → 12 new listings (total: 438)
+2026-07-15 21:40:11,309 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-s560
+2026-07-15 21:40:12,309 [INFO]   → 1 new listings (total: 439)
+2026-07-15 21:40:14,185 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-s580
+2026-07-15 21:40:14,633 [INFO]   → 3 new listings (total: 442)
+2026-07-15 21:40:16,013 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-sel280
+2026-07-15 21:40:16,560 [INFO]   → 1 new listings (total: 443)
+2026-07-15 21:40:18,545 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-sel300
+2026-07-15 21:40:19,095 [INFO]   → 1 new listings (total: 444)
+2026-07-15 21:40:20,968 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-sl_500
+2026-07-15 21:40:21,438 [INFO]   → 1 new listings (total: 445)
+2026-07-15 21:40:22,483 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-sl43_amg_cabriolet
+2026-07-15 21:40:23,261 [INFO]   → 1 new listings (total: 446)
+2026-07-15 21:40:25,021 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-sl55_amg
+2026-07-15 21:40:25,451 [INFO]   → 0 new listings (total: 446)
+2026-07-15 21:40:27,099 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-v_250
+2026-07-15 21:40:28,245 [INFO]   → 5 new listings (total: 451)
+2026-07-15 21:40:29,381 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-v300
+2026-07-15 21:40:30,577 [INFO]   → 2 new listings (total: 453)
+2026-07-15 21:40:32,203 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-sprinter
+2026-07-15 21:40:32,636 [INFO]   → 2 new listings (total: 455)
+2026-07-15 21:40:33,782 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-vito
+2026-07-15 21:40:34,252 [INFO]   → 1 new listings (total: 456)
+2026-07-15 21:40:35,797 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-maybach_s_580
+2026-07-15 21:40:36,328 [INFO]   → 1 new listings (total: 457)
+2026-07-15 21:40:37,655 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-gls_580_maybach
+2026-07-15 21:40:38,361 [INFO]   → 1 new listings (total: 458)
+2026-07-15 21:40:40,063 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-maybach_s_560
+2026-07-15 21:40:40,455 [INFO]   → 2 new listings (total: 460)
+2026-07-15 21:40:42,337 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mercedes-maybach_s_680
+2026-07-15 21:40:42,732 [INFO]   → 1 new listings (total: 461)
+2026-07-15 21:40:43,991 [INFO] Brand 'mercedes': collected 461 listings
+2026-07-15 21:40:45,427 [INFO] Discovering model URLs for brand 'mitsubishi'
+2026-07-15 21:40:46,784 [INFO] Found 16 paths for 'mitsubishi'
+2026-07-15 21:40:46,784 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi
+2026-07-15 21:40:47,669 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:40:49,012 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-l200
+2026-07-15 21:40:49,444 [INFO]   → 1 new listings (total: 26)
+2026-07-15 21:40:50,735 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-attrage
+2026-07-15 21:40:51,545 [INFO]   → 11 new listings (total: 37)
+2026-07-15 21:40:53,185 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-outlander
+2026-07-15 21:40:54,087 [INFO]   → 2 new listings (total: 39)
+2026-07-15 21:40:55,857 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-outlander_sport
+2026-07-15 21:40:56,295 [INFO]   → 1 new listings (total: 40)
+2026-07-15 21:40:57,391 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-xpander
+2026-07-15 21:40:57,807 [INFO]   → 8 new listings (total: 48)
+2026-07-15 21:40:59,259 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-eclipse
+2026-07-15 21:40:59,747 [INFO]   → 14 new listings (total: 62)
+2026-07-15 21:41:01,141 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-pajero
+2026-07-15 21:41:02,000 [INFO]   → 19 new listings (total: 81)
+2026-07-15 21:41:03,365 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-galant
+2026-07-15 21:41:07,755 [INFO]   → 1 new listings (total: 82)
+2026-07-15 21:41:08,766 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-colt
+2026-07-15 21:41:12,054 [INFO]   → 2 new listings (total: 84)
+2026-07-15 21:41:13,628 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-lancer
+2026-07-15 21:41:14,037 [INFO]   → 16 new listings (total: 100)
+2026-07-15 21:41:16,019 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-lancer_puma
+2026-07-15 21:41:16,421 [INFO]   → 16 new listings (total: 116)
+2026-07-15 21:41:17,865 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-lancer_shark
+2026-07-15 21:41:18,319 [INFO]   → 17 new listings (total: 133)
+2026-07-15 21:41:19,355 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-lancer_crystala
+2026-07-15 21:41:20,184 [INFO]   → 5 new listings (total: 138)
+2026-07-15 21:41:21,661 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-montero
+2026-07-15 21:41:22,007 [INFO]   → 1 new listings (total: 139)
+2026-07-15 21:41:23,045 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mitsubishi-mirage
+2026-07-15 21:41:23,798 [INFO]   → 2 new listings (total: 141)
+2026-07-15 21:41:25,172 [INFO] Brand 'mitsubishi': collected 141 listings
+2026-07-15 21:41:26,956 [INFO] Discovering model URLs for brand 'suzuki'
+2026-07-15 21:41:28,361 [INFO] Found 16 paths for 'suzuki'
+2026-07-15 21:41:28,361 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki
+2026-07-15 21:41:28,905 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:41:30,720 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-supercarry
+2026-07-15 21:41:31,313 [INFO]   → 3 new listings (total: 28)
+2026-07-15 21:41:32,817 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-alto
+2026-07-15 21:41:33,698 [INFO]   → 18 new listings (total: 46)
+2026-07-15 21:41:35,302 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-spresso
+2026-07-15 21:41:37,203 [INFO]   → 6 new listings (total: 52)
+2026-07-15 21:41:39,182 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-ertiga
+2026-07-15 21:41:40,068 [INFO]   → 0 new listings (total: 52)
+2026-07-15 21:41:41,699 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-baleno
+2026-07-15 21:41:42,760 [INFO]   → 5 new listings (total: 57)
+2026-07-15 21:41:44,173 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-grand_vitara
+2026-07-15 21:41:44,585 [INFO]   → 5 new listings (total: 62)
+2026-07-15 21:41:46,222 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-jimny
+2026-07-15 21:41:46,893 [INFO]   → 2 new listings (total: 64)
+2026-07-15 21:41:48,318 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-dzire
+2026-07-15 21:41:48,667 [INFO]   → 5 new listings (total: 69)
+2026-07-15 21:41:49,947 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-swift
+2026-07-15 21:41:50,390 [INFO]   → 22 new listings (total: 91)
+2026-07-15 21:41:51,821 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-swift_dzire
+2026-07-15 21:41:52,709 [INFO]   → 2 new listings (total: 93)
+2026-07-15 21:41:54,070 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-ciaz
+2026-07-15 21:41:54,443 [INFO]   → 16 new listings (total: 109)
+2026-07-15 21:41:55,970 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-celerio
+2026-07-15 21:41:56,739 [INFO]   → 3 new listings (total: 112)
+2026-07-15 21:41:57,897 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-van
+2026-07-15 21:41:58,288 [INFO]   → 15 new listings (total: 127)
+2026-07-15 21:41:59,414 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-vitara
+2026-07-15 21:41:59,923 [INFO]   → 8 new listings (total: 135)
+2026-07-15 21:42:01,510 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/suzuki-maruti
+2026-07-15 21:42:04,341 [INFO]   → 16 new listings (total: 151)
+2026-07-15 21:42:05,377 [INFO] Brand 'suzuki': collected 151 listings
+2026-07-15 21:42:06,404 [INFO] Discovering model URLs for brand 'peugeot'
+2026-07-15 21:42:08,645 [INFO] Found 25 paths for 'peugeot'
+2026-07-15 21:42:08,646 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot
+2026-07-15 21:42:09,162 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:42:10,514 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-2008
+2026-07-15 21:42:11,260 [INFO]   → 24 new listings (total: 49)
+2026-07-15 21:42:12,587 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-205
+2026-07-15 21:42:12,991 [INFO]   → 1 new listings (total: 50)
+2026-07-15 21:42:14,649 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-206
+2026-07-15 21:42:15,049 [INFO]   → 11 new listings (total: 61)
+2026-07-15 21:42:16,843 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-206_sedan
+2026-07-15 21:42:17,559 [INFO]   → 1 new listings (total: 62)
+2026-07-15 21:42:18,989 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-207
+2026-07-15 21:42:20,211 [INFO]   → 2 new listings (total: 64)
+2026-07-15 21:42:21,394 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-208
+2026-07-15 21:42:23,346 [INFO]   → 6 new listings (total: 70)
+2026-07-15 21:42:24,440 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-3008
+2026-07-15 21:42:24,925 [INFO]   → 19 new listings (total: 89)
+2026-07-15 21:42:26,418 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-301
+2026-07-15 21:42:27,317 [INFO]   → 22 new listings (total: 111)
+2026-07-15 21:42:28,438 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-305
+2026-07-15 21:42:29,220 [INFO]   → 2 new listings (total: 113)
+2026-07-15 21:42:30,795 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-307
+2026-07-15 21:42:31,511 [INFO]   → 15 new listings (total: 128)
+2026-07-15 21:42:33,429 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-308
+2026-07-15 21:42:33,818 [INFO]   → 8 new listings (total: 136)
+2026-07-15 21:42:35,709 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-404
+2026-07-15 21:42:36,201 [INFO]   → 1 new listings (total: 137)
+2026-07-15 21:42:37,389 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-405
+2026-07-15 21:42:37,749 [INFO]   → 24 new listings (total: 161)
+2026-07-15 21:42:38,923 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-406
+2026-07-15 21:42:40,063 [INFO]   → 9 new listings (total: 170)
+2026-07-15 21:42:41,879 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-407
+2026-07-15 21:42:42,603 [INFO]   → 5 new listings (total: 175)
+2026-07-15 21:42:43,874 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-408
+2026-07-15 21:42:44,429 [INFO]   → 14 new listings (total: 189)
+2026-07-15 21:42:45,730 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-5008
+2026-07-15 21:42:46,090 [INFO]   → 19 new listings (total: 208)
+2026-07-15 21:42:47,300 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-504
+2026-07-15 21:42:47,632 [INFO]   → 9 new listings (total: 217)
+2026-07-15 21:42:49,093 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-505
+2026-07-15 21:42:49,683 [INFO]   → 3 new listings (total: 220)
+2026-07-15 21:42:51,383 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-508
+2026-07-15 21:42:51,846 [INFO]   → 22 new listings (total: 242)
+2026-07-15 21:42:53,516 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-508_gt_max
+2026-07-15 21:42:54,528 [INFO]   → 1 new listings (total: 243)
+2026-07-15 21:42:55,645 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-605
+2026-07-15 21:42:56,329 [INFO]   → 1 new listings (total: 244)
+2026-07-15 21:42:58,125 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-607
+2026-07-15 21:42:58,683 [INFO]   → 1 new listings (total: 245)
+2026-07-15 21:42:59,849 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/peugeot-rcz
+2026-07-15 21:43:00,483 [INFO]   → 1 new listings (total: 246)
+2026-07-15 21:43:02,065 [INFO] Brand 'peugeot': collected 246 listings
+2026-07-15 21:43:03,880 [INFO] Discovering model URLs for brand 'renault'
+2026-07-15 21:43:05,590 [INFO] Found 22 paths for 'renault'
+2026-07-15 21:43:05,590 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault
+2026-07-15 21:43:05,944 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:43:07,763 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-11
+2026-07-15 21:43:08,983 [INFO]   → 2 new listings (total: 27)
+2026-07-15 21:43:10,260 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-18
+2026-07-15 21:43:10,830 [INFO]   → 3 new listings (total: 30)
+2026-07-15 21:43:12,705 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-19
+2026-07-15 21:43:13,075 [INFO]   → 6 new listings (total: 36)
+2026-07-15 21:43:14,722 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-logan_mcv
+2026-07-15 21:43:16,083 [INFO]   → 12 new listings (total: 48)
+2026-07-15 21:43:17,781 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-austral
+2026-07-15 21:43:18,983 [INFO]   → 3 new listings (total: 51)
+2026-07-15 21:43:20,223 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-scala
+2026-07-15 21:43:21,778 [INFO]   → 4 new listings (total: 55)
+2026-07-15 21:43:22,810 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-taliant
+2026-07-15 21:43:24,444 [INFO]   → 4 new listings (total: 59)
+2026-07-15 21:43:25,514 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-twizy
+2026-07-15 21:43:27,344 [INFO]   → 1 new listings (total: 60)
+2026-07-15 21:43:29,171 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-duster
+2026-07-15 21:43:31,045 [INFO]   → 20 new listings (total: 80)
+2026-07-15 21:43:32,302 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-sandero
+2026-07-15 21:43:34,315 [INFO]   → 23 new listings (total: 103)
+2026-07-15 21:43:35,593 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-sandero_stepway
+2026-07-15 21:43:37,416 [INFO]   → 22 new listings (total: 125)
+2026-07-15 21:43:38,625 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-symbol
+2026-07-15 21:43:40,065 [INFO]   → 2 new listings (total: 127)
+2026-07-15 21:43:41,609 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-scenic
+2026-07-15 21:43:43,530 [INFO]   → 10 new listings (total: 137)
+2026-07-15 21:43:45,285 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-fluence
+2026-07-15 21:43:47,341 [INFO]   → 25 new listings (total: 162)
+2026-07-15 21:43:48,801 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-captur
+2026-07-15 21:43:50,786 [INFO]   → 8 new listings (total: 170)
+2026-07-15 21:43:52,394 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-kadjar
+2026-07-15 21:43:54,114 [INFO]   → 24 new listings (total: 194)
+2026-07-15 21:43:55,215 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-kardian
+2026-07-15 21:43:58,763 [INFO]   → 2 new listings (total: 196)
+2026-07-15 21:44:00,555 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-clio
+2026-07-15 21:44:02,212 [INFO]   → 18 new listings (total: 214)
+2026-07-15 21:44:03,237 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-laguna
+2026-07-15 21:44:04,812 [INFO]   → 4 new listings (total: 218)
+2026-07-15 21:44:06,789 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-logan
+2026-07-15 21:44:09,019 [INFO]   → 21 new listings (total: 239)
+2026-07-15 21:44:10,932 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/renault-megane
+2026-07-15 21:44:12,610 [INFO]   → 17 new listings (total: 256)
+2026-07-15 21:44:14,166 [INFO] Brand 'renault': collected 256 listings
+2026-07-15 21:44:15,876 [INFO] Discovering model URLs for brand 'fiat'
+2026-07-15 21:44:18,805 [INFO] Found 26 paths for 'fiat'
+2026-07-15 21:44:18,805 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat
+2026-07-15 21:44:20,519 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:44:22,103 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-124
+2026-07-15 21:44:23,420 [INFO]   → 1 new listings (total: 26)
+2026-07-15 21:44:25,219 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-127
+2026-07-15 21:44:27,277 [INFO]   → 13 new listings (total: 39)
+2026-07-15 21:44:28,563 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-128_nova
+2026-07-15 21:44:30,350 [INFO]   → 24 new listings (total: 63)
+2026-07-15 21:44:31,361 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-131
+2026-07-15 21:44:33,610 [INFO]   → 11 new listings (total: 74)
+2026-07-15 21:44:35,389 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-132
+2026-07-15 21:44:37,024 [INFO]   → 7 new listings (total: 81)
+2026-07-15 21:44:38,369 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-500
+2026-07-15 21:44:39,867 [INFO]   → 3 new listings (total: 84)
+2026-07-15 21:44:41,331 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-500c
+2026-07-15 21:44:43,251 [INFO]   → 1 new listings (total: 85)
+2026-07-15 21:44:45,156 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-500x
+2026-07-15 21:44:46,675 [INFO]   → 3 new listings (total: 88)
+2026-07-15 21:44:47,712 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-uno
+2026-07-15 21:44:49,136 [INFO]   → 12 new listings (total: 100)
+2026-07-15 21:44:50,339 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-palio
+2026-07-15 21:44:51,722 [INFO]   → 3 new listings (total: 103)
+2026-07-15 21:44:53,219 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-petra
+2026-07-15 21:44:54,645 [INFO]   → 2 new listings (total: 105)
+2026-07-15 21:44:56,571 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-bravo
+2026-07-15 21:44:57,957 [INFO]   → 1 new listings (total: 106)
+2026-07-15 21:44:59,672 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-polonez
+2026-07-15 21:45:01,972 [INFO]   → 1 new listings (total: 107)
+2026-07-15 21:45:03,043 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-punto
+2026-07-15 21:45:04,810 [INFO]   → 15 new listings (total: 122)
+2026-07-15 21:45:06,707 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-punto_evo
+2026-07-15 21:45:08,255 [INFO]   → 1 new listings (total: 123)
+2026-07-15 21:45:09,841 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-tempra
+2026-07-15 21:45:11,315 [INFO]   → 8 new listings (total: 131)
+2026-07-15 21:45:12,760 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-tipo
+2026-07-15 21:45:14,377 [INFO]   → 13 new listings (total: 144)
+2026-07-15 21:45:16,008 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-tipo_hatchback
+2026-07-15 21:45:17,408 [INFO]   → 6 new listings (total: 150)
+2026-07-15 21:45:18,785 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-grand_punto
+2026-07-15 21:45:20,088 [INFO]   → 9 new listings (total: 159)
+2026-07-15 21:45:21,464 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-doblo
+2026-07-15 21:45:22,924 [INFO]   → 1 new listings (total: 160)
+2026-07-15 21:45:24,133 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-regata
+2026-07-15 21:45:26,379 [INFO]   → 6 new listings (total: 166)
+2026-07-15 21:45:28,298 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-zastava
+2026-07-15 21:45:29,868 [INFO]   → 1 new listings (total: 167)
+2026-07-15 21:45:31,700 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-siena
+2026-07-15 21:45:33,555 [INFO]   → 11 new listings (total: 178)
+2026-07-15 21:45:34,596 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-chenko
+2026-07-15 21:45:35,746 [INFO]   → 1 new listings (total: 179)
+2026-07-15 21:45:37,554 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/fiat-linea
+2026-07-15 21:45:39,190 [INFO]   → 2 new listings (total: 181)
+2026-07-15 21:45:40,475 [INFO] Brand 'fiat': collected 181 listings
+2026-07-15 21:45:42,004 [INFO] Discovering model URLs for brand 'opel'
+2026-07-15 21:45:46,526 [INFO] Found 11 paths for 'opel'
+2026-07-15 21:45:46,527 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/opel
+2026-07-15 21:45:47,941 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:45:49,101 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/opel-astra
+2026-07-15 21:45:50,989 [INFO]   → 16 new listings (total: 41)
+2026-07-15 21:45:52,757 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/opel-adam
+2026-07-15 21:45:54,029 [INFO]   → 0 new listings (total: 41)
+2026-07-15 21:45:55,142 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/opel-insignia
+2026-07-15 21:45:56,705 [INFO]   → 24 new listings (total: 65)
+2026-07-15 21:45:58,513 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/opel-grand_land
+2026-07-15 21:46:00,453 [INFO]   → 20 new listings (total: 85)
+2026-07-15 21:46:01,676 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/opel-vectra
+2026-07-15 21:46:03,537 [INFO]   → 24 new listings (total: 109)
+2026-07-15 21:46:04,847 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/opel-cascada
+2026-07-15 21:46:06,404 [INFO]   → 3 new listings (total: 112)
+2026-07-15 21:46:08,312 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/opel-cross_land
+2026-07-15 21:46:10,003 [INFO]   → 20 new listings (total: 132)
+2026-07-15 21:46:11,712 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/opel-corsa
+2026-07-15 21:46:13,718 [INFO]   → 23 new listings (total: 155)
+2026-07-15 21:46:14,728 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/opel-mokka
+2026-07-15 21:46:16,708 [INFO]   → 14 new listings (total: 169)
+2026-07-15 21:46:18,193 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/opel-meriva
+2026-07-15 21:46:20,096 [INFO]   → 5 new listings (total: 174)
+2026-07-15 21:46:21,380 [INFO] Brand 'opel': collected 174 listings
+2026-07-15 21:46:22,447 [INFO] Discovering model URLs for brand 'skoda'
+2026-07-15 21:46:25,792 [INFO] Found 18 paths for 'skoda'
+2026-07-15 21:46:25,792 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda
+2026-07-15 21:46:27,349 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:46:28,737 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-octavia
+2026-07-15 21:46:30,381 [INFO]   → 19 new listings (total: 44)
+2026-07-15 21:46:32,296 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-octavia_a4
+2026-07-15 21:46:33,721 [INFO]   → 15 new listings (total: 59)
+2026-07-15 21:46:35,406 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-octavia_a5
+2026-07-15 21:46:35,737 [INFO]   → 16 new listings (total: 75)
+2026-07-15 21:46:37,721 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-octavia_a7
+2026-07-15 21:46:38,078 [INFO]   → 13 new listings (total: 88)
+2026-07-15 21:46:39,533 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-octavia_a8
+2026-07-15 21:46:39,876 [INFO]   → 11 new listings (total: 99)
+2026-07-15 21:46:41,647 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-rapid
+2026-07-15 21:46:41,927 [INFO]   → 4 new listings (total: 103)
+2026-07-15 21:46:43,646 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-scala
+2026-07-15 21:46:44,090 [INFO]   → 1 new listings (total: 104)
+2026-07-15 21:46:45,448 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-superb
+2026-07-15 21:46:45,812 [INFO]   → 15 new listings (total: 119)
+2026-07-15 21:46:47,762 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-fabia
+2026-07-15 21:46:48,243 [INFO]   → 7 new listings (total: 126)
+2026-07-15 21:46:49,795 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-favorite
+2026-07-15 21:46:50,164 [INFO]   → 2 new listings (total: 128)
+2026-07-15 21:46:51,243 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-fantasia
+2026-07-15 21:46:52,529 [INFO]   → 11 new listings (total: 139)
+2026-07-15 21:46:53,730 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-forman
+2026-07-15 21:46:54,338 [INFO]   → 1 new listings (total: 140)
+2026-07-15 21:46:55,346 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-felicia
+2026-07-15 21:46:56,176 [INFO]   → 11 new listings (total: 151)
+2026-07-15 21:46:57,803 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-karoq
+2026-07-15 21:46:58,200 [INFO]   → 5 new listings (total: 156)
+2026-07-15 21:46:59,251 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-kamiq
+2026-07-15 21:46:59,909 [INFO]   → 4 new listings (total: 160)
+2026-07-15 21:47:01,550 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-kodiaq
+2026-07-15 21:47:01,898 [INFO]   → 17 new listings (total: 177)
+2026-07-15 21:47:02,943 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/skoda-yeti
+2026-07-15 21:47:03,708 [INFO]   → 1 new listings (total: 178)
+2026-07-15 21:47:04,963 [INFO] Brand 'skoda': collected 178 listings
+2026-07-15 21:47:06,603 [INFO] Discovering model URLs for brand 'baic'
+2026-07-15 21:47:08,866 [INFO] Found 7 paths for 'baic'
+2026-07-15 21:47:08,866 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/baic
+2026-07-15 21:47:09,191 [INFO]   → 21 new listings (total: 21)
+2026-07-15 21:47:10,342 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/baic-bj30
+2026-07-15 21:47:11,392 [INFO]   → 0 new listings (total: 21)
+2026-07-15 21:47:12,453 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/baic-u5_plus
+2026-07-15 21:47:13,385 [INFO]   → 0 new listings (total: 21)
+2026-07-15 21:47:14,731 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/baic-x_55
+2026-07-15 21:47:15,777 [INFO]   → 0 new listings (total: 21)
+2026-07-15 21:47:17,629 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/baic-x3
+2026-07-15 21:47:18,044 [INFO]   → 0 new listings (total: 21)
+2026-07-15 21:47:19,219 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/baic-x35
+2026-07-15 21:47:19,871 [INFO]   → 0 new listings (total: 21)
+2026-07-15 21:47:21,243 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/baic-x7
+2026-07-15 21:47:22,062 [INFO]   → 0 new listings (total: 21)
+2026-07-15 21:47:23,304 [INFO] Brand 'baic': collected 21 listings
+2026-07-15 21:47:25,293 [INFO] Discovering model URLs for brand 'dongfeng'
+2026-07-15 21:47:26,859 [INFO] Found 1 paths for 'dongfeng'
+2026-07-15 21:47:26,859 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/dongfeng
+2026-07-15 21:47:27,156 [INFO]   No vehicles found on https://www.contactcars.com/ar/used-cars/dongfeng
+2026-07-15 21:47:28,889 [INFO] Brand 'dongfeng': collected 0 listings
+2026-07-15 21:47:30,123 [INFO] Discovering model URLs for brand 'honda'
+2026-07-15 21:47:32,707 [INFO] Found 10 paths for 'honda'
+2026-07-15 21:47:32,707 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/honda
+2026-07-15 21:47:33,404 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:47:34,872 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/honda-cr_v
+2026-07-15 21:47:35,233 [INFO]   → 7 new listings (total: 32)
+2026-07-15 21:47:36,551 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/honda-cr_x_del_sol
+2026-07-15 21:47:36,928 [INFO]   → 1 new listings (total: 33)
+2026-07-15 21:47:38,726 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/honda-zr_v
+2026-07-15 21:47:39,072 [INFO]   → 1 new listings (total: 34)
+2026-07-15 21:47:40,724 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/honda-e:np1
+2026-07-15 21:47:41,081 [INFO]   → 1 new listings (total: 35)
+2026-07-15 21:47:42,454 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/honda-e:ns1
+2026-07-15 21:47:42,755 [INFO]   → 1 new listings (total: 36)
+2026-07-15 21:47:44,340 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/honda-accord
+2026-07-15 21:47:44,696 [INFO]   → 4 new listings (total: 40)
+2026-07-15 21:47:46,372 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/honda-jazz
+2026-07-15 21:47:47,487 [INFO]   → 0 new listings (total: 40)
+2026-07-15 21:47:48,621 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/honda-city
+2026-07-15 21:47:49,693 [INFO]   → 4 new listings (total: 44)
+2026-07-15 21:47:50,985 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/honda-civic
+2026-07-15 21:47:51,419 [INFO]   → 12 new listings (total: 56)
+2026-07-15 21:47:52,528 [INFO] Brand 'honda': collected 56 listings
+2026-07-15 21:47:53,651 [INFO] Discovering model URLs for brand 'mazda'
+2026-07-15 21:47:55,326 [INFO] Found 7 paths for 'mazda'
+2026-07-15 21:47:55,327 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mazda
+2026-07-15 21:47:55,658 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:47:57,556 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mazda-2
+2026-07-15 21:47:58,468 [INFO]   → 0 new listings (total: 25)
+2026-07-15 21:48:00,065 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mazda-3
+2026-07-15 21:48:01,008 [INFO]   → 10 new listings (total: 35)
+2026-07-15 21:48:02,583 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mazda-323
+2026-07-15 21:48:03,212 [INFO]   → 4 new listings (total: 39)
+2026-07-15 21:48:04,476 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mazda-929
+2026-07-15 21:48:05,272 [INFO]   → 0 new listings (total: 39)
+2026-07-15 21:48:07,041 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mazda-cx_3
+2026-07-15 21:48:07,675 [INFO]   → 0 new listings (total: 39)
+2026-07-15 21:48:09,323 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/mazda-familia
+2026-07-15 21:48:09,935 [INFO]   → 1 new listings (total: 40)
+2026-07-15 21:48:11,305 [INFO] Brand 'mazda': collected 40 listings
+2026-07-15 21:48:13,281 [INFO] Discovering model URLs for brand 'ford'
+2026-07-15 21:48:15,284 [INFO] Found 13 paths for 'ford'
+2026-07-15 21:48:15,285 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford
+2026-07-15 21:48:15,587 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:48:16,673 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-f150
+2026-07-15 21:48:17,315 [INFO]   → 2 new listings (total: 27)
+2026-07-15 21:48:18,560 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-escort
+2026-07-15 21:48:19,591 [INFO]   → 5 new listings (total: 32)
+2026-07-15 21:48:21,049 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-expedition
+2026-07-15 21:48:21,630 [INFO]   → 1 new listings (total: 33)
+2026-07-15 21:48:23,500 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-explorer
+2026-07-15 21:48:23,922 [INFO]   → 1 new listings (total: 34)
+2026-07-15 21:48:24,966 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-ecosport
+2026-07-15 21:48:25,699 [INFO]   → 4 new listings (total: 38)
+2026-07-15 21:48:27,630 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-bronco_raptor
+2026-07-15 21:48:27,904 [INFO]   → 1 new listings (total: 39)
+2026-07-15 21:48:29,111 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-focus
+2026-07-15 21:48:30,077 [INFO]   → 13 new listings (total: 52)
+2026-07-15 21:48:31,346 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-fiesta
+2026-07-15 21:48:32,069 [INFO]   → 7 new listings (total: 59)
+2026-07-15 21:48:34,029 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-fusion
+2026-07-15 21:48:35,038 [INFO]   → 6 new listings (total: 65)
+2026-07-15 21:48:36,274 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-kuga
+2026-07-15 21:48:36,650 [INFO]   → 10 new listings (total: 75)
+2026-07-15 21:48:38,045 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-mustang
+2026-07-15 21:48:38,895 [INFO]   → 7 new listings (total: 82)
+2026-07-15 21:48:40,192 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/ford-mondeo
+2026-07-15 21:48:40,526 [INFO]   → 3 new listings (total: 85)
+2026-07-15 21:48:42,344 [INFO] Brand 'ford': collected 85 listings
+2026-07-15 21:48:43,612 [INFO] Discovering model URLs for brand 'jeep'
+2026-07-15 21:48:45,541 [INFO] Found 7 paths for 'jeep'
+2026-07-15 21:48:45,541 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/jeep
+2026-07-15 21:48:45,821 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:48:47,752 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/jeep-grand_cherokee
+2026-07-15 21:48:48,131 [INFO]   → 14 new listings (total: 39)
+2026-07-15 21:48:49,940 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/jeep-wrangler
+2026-07-15 21:48:50,347 [INFO]   → 22 new listings (total: 61)
+2026-07-15 21:48:51,887 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/jeep-renegade
+2026-07-15 21:48:52,529 [INFO]   → 21 new listings (total: 82)
+2026-07-15 21:48:54,493 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/jeep-cherokee
+2026-07-15 21:48:54,942 [INFO]   → 19 new listings (total: 101)
+2026-07-15 21:48:56,732 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/jeep-commander
+2026-07-15 21:48:57,251 [INFO]   → 0 new listings (total: 101)
+2026-07-15 21:48:58,728 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/jeep-liberty
+2026-07-15 21:48:59,118 [INFO]   → 13 new listings (total: 114)
+2026-07-15 21:49:01,111 [INFO] Brand 'jeep': collected 114 listings
+2026-07-15 21:49:03,041 [INFO] Discovering model URLs for brand 'audi'
+2026-07-15 21:49:04,462 [INFO] Found 15 paths for 'audi'
+2026-07-15 21:49:04,462 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi
+2026-07-15 21:49:04,834 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:49:06,418 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-a3
+2026-07-15 21:49:06,762 [INFO]   → 18 new listings (total: 43)
+2026-07-15 21:49:08,407 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-a4
+2026-07-15 21:49:08,754 [INFO]   → 6 new listings (total: 49)
+2026-07-15 21:49:10,630 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-a5
+2026-07-15 21:49:11,332 [INFO]   → 9 new listings (total: 58)
+2026-07-15 21:49:12,563 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-a6
+2026-07-15 21:49:13,227 [INFO]   → 4 new listings (total: 62)
+2026-07-15 21:49:14,403 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-e_tron
+2026-07-15 21:49:14,904 [INFO]   → 1 new listings (total: 63)
+2026-07-15 21:49:16,266 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-q2
+2026-07-15 21:49:21,086 [INFO]   → 5 new listings (total: 68)
+2026-07-15 21:49:22,978 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-q3
+2026-07-15 21:49:23,329 [INFO]   → 8 new listings (total: 76)
+2026-07-15 21:49:24,608 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-q5
+2026-07-15 21:49:25,030 [INFO]   → 3 new listings (total: 79)
+2026-07-15 21:49:26,404 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-q7
+2026-07-15 21:49:26,696 [INFO]   → 4 new listings (total: 83)
+2026-07-15 21:49:27,716 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-q8
+2026-07-15 21:49:28,295 [INFO]   → 1 new listings (total: 84)
+2026-07-15 21:49:29,599 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-rs_3
+2026-07-15 21:49:29,882 [INFO]   → 1 new listings (total: 85)
+2026-07-15 21:49:31,090 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-rs_q8
+2026-07-15 21:49:31,425 [INFO]   → 1 new listings (total: 86)
+2026-07-15 21:49:32,705 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-s_5
+2026-07-15 21:49:34,062 [INFO]   → 1 new listings (total: 87)
+2026-07-15 21:49:35,507 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/audi-tt
+2026-07-15 21:49:37,104 [INFO]   → 0 new listings (total: 87)
+2026-07-15 21:49:38,680 [INFO] Brand 'audi': collected 87 listings
+2026-07-15 21:49:39,727 [INFO] Discovering model URLs for brand 'porsche'
+2026-07-15 21:49:41,708 [INFO] Found 9 paths for 'porsche'
+2026-07-15 21:49:41,708 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/porsche
+2026-07-15 21:49:42,051 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:49:43,988 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/porsche-panamera
+2026-07-15 21:49:44,426 [INFO]   → 2 new listings (total: 27)
+2026-07-15 21:49:46,101 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/porsche-taycan
+2026-07-15 21:49:47,295 [INFO]   → 0 new listings (total: 27)
+2026-07-15 21:49:48,561 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/porsche-cayenne
+2026-07-15 21:49:49,595 [INFO]   → 2 new listings (total: 29)
+2026-07-15 21:49:51,400 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/porsche-cayenne_s
+2026-07-15 21:49:52,097 [INFO]   → 1 new listings (total: 30)
+2026-07-15 21:49:53,562 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/porsche-cayenne_coupe
+2026-07-15 21:49:54,227 [INFO]   → 1 new listings (total: 31)
+2026-07-15 21:49:55,876 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/porsche-cayenne_new
+2026-07-15 21:49:56,249 [INFO]   → 0 new listings (total: 31)
+2026-07-15 21:49:57,996 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/porsche-macan
+2026-07-15 21:49:58,354 [INFO]   → 1 new listings (total: 32)
+2026-07-15 21:50:00,100 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/porsche-macan_t
+2026-07-15 21:50:00,449 [INFO]   → 1 new listings (total: 33)
+2026-07-15 21:50:01,823 [INFO] Brand 'porsche': collected 33 listings
+2026-07-15 21:50:03,560 [INFO] Discovering model URLs for brand 'land_rover'
+2026-07-15 21:50:05,504 [INFO] Found 8 paths for 'land_rover'
+2026-07-15 21:50:05,504 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/land_rover
+2026-07-15 21:50:05,887 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:50:07,642 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/land_rover-lr4
+2026-07-15 21:50:07,963 [INFO]   → 0 new listings (total: 25)
+2026-07-15 21:50:09,842 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/land_rover-discovery
+2026-07-15 21:50:10,155 [INFO]   → 0 new listings (total: 25)
+2026-07-15 21:50:11,652 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/land_rover-discovery_sport
+2026-07-15 21:50:11,992 [INFO]   → 3 new listings (total: 28)
+2026-07-15 21:50:13,419 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/land_rover-defender
+2026-07-15 21:50:13,749 [INFO]   → 0 new listings (total: 28)
+2026-07-15 21:50:14,856 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/land_rover-range_rover
+2026-07-15 21:50:15,295 [INFO]   → 2 new listings (total: 30)
+2026-07-15 21:50:16,705 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/land_rover-range_rover_evoque
+2026-07-15 21:50:17,042 [INFO]   → 2 new listings (total: 32)
+2026-07-15 21:50:18,196 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/land_rover-land_rover
+2026-07-15 21:50:18,865 [INFO]   → 0 new listings (total: 32)
+2026-07-15 21:50:20,497 [INFO] Brand 'land_rover': collected 32 listings
+2026-07-15 21:50:22,222 [INFO] Discovering model URLs for brand 'volvo'
+2026-07-15 21:50:24,358 [INFO] Found 9 paths for 'volvo'
+2026-07-15 21:50:24,358 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volvo
+2026-07-15 21:50:24,734 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:50:26,570 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volvo-240
+2026-07-15 21:50:26,947 [INFO]   → 1 new listings (total: 26)
+2026-07-15 21:50:28,181 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volvo-740
+2026-07-15 21:50:28,566 [INFO]   → 0 new listings (total: 26)
+2026-07-15 21:50:30,060 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volvo-940
+2026-07-15 21:50:30,661 [INFO]   → 0 new listings (total: 26)
+2026-07-15 21:50:31,885 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volvo-s60
+2026-07-15 21:50:32,586 [INFO]   → 5 new listings (total: 31)
+2026-07-15 21:50:33,767 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volvo-s80
+2026-07-15 21:50:34,486 [INFO]   → 0 new listings (total: 31)
+2026-07-15 21:50:35,704 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volvo-xc_40
+2026-07-15 21:50:36,182 [INFO]   → 1 new listings (total: 32)
+2026-07-15 21:50:37,346 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volvo-xc_60
+2026-07-15 21:50:38,294 [INFO]   → 4 new listings (total: 36)
+2026-07-15 21:50:39,329 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/volvo-xc_90
+2026-07-15 21:50:39,734 [INFO]   → 3 new listings (total: 39)
+2026-07-15 21:50:41,330 [INFO] Brand 'volvo': collected 39 listings
+2026-07-15 21:50:42,593 [INFO] Discovering model URLs for brand 'subaru'
+2026-07-15 21:50:44,828 [INFO] Found 5 paths for 'subaru'
+2026-07-15 21:50:44,828 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/subaru
+2026-07-15 21:50:45,374 [INFO]   → 25 new listings (total: 25)
+2026-07-15 21:50:47,259 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/subaru-xv
+2026-07-15 21:50:47,659 [INFO]   → 6 new listings (total: 31)
+2026-07-15 21:50:48,871 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/subaru-impreza
+2026-07-15 21:50:49,322 [INFO]   → 4 new listings (total: 35)
+2026-07-15 21:50:51,317 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/subaru-forester
+2026-07-15 21:50:51,779 [INFO]   → 0 new listings (total: 35)
+2026-07-15 21:50:53,475 [INFO]   Fetching https://www.contactcars.com/ar/used-cars/subaru-legacy
+2026-07-15 21:50:53,755 [INFO]   → 0 new listings (total: 35)
+2026-07-15 21:50:55,372 [INFO] Brand 'subaru': collected 35 listings
+2026-07-15 21:50:55,372 [INFO] Total listings collected: 4454
+2026-07-15 21:50:55,390 [INFO] Saved aggregated prices to /Users/kimo/Projects/egypt-marketplace/data/contactcars_prices.json
+2026-07-15 21:50:55,391 [INFO] ContactCars: 4454 listings
+2026-07-15 21:50:55,394 [INFO] === Running YallaMotor scraper ===
+2026-07-15 21:50:55,394 [INFO] YallaMotor: toyota page 1
+2026-07-15 21:50:55,633 [INFO]   → no page found, stopping
+2026-07-15 21:50:55,633 [INFO] YallaMotor brand 'toyota': 0 listings
+2026-07-15 21:50:57,666 [INFO] YallaMotor: hyundai page 1
+2026-07-15 21:51:00,079 [INFO]   → no cards on page 1, stopping
+2026-07-15 21:51:00,079 [INFO] YallaMotor brand 'hyundai': 0 listings
+2026-07-15 21:51:01,085 [INFO] YallaMotor: kia page 1
+2026-07-15 21:51:01,288 [INFO]   → no page found, stopping
+2026-07-15 21:51:01,288 [INFO] YallaMotor brand 'kia': 0 listings
+2026-07-15 21:51:03,627 [INFO] YallaMotor: nissan page 1
+2026-07-15 21:51:03,865 [INFO]   → no page found, stopping
+2026-07-15 21:51:03,865 [INFO] YallaMotor brand 'nissan': 0 listings
+2026-07-15 21:51:06,259 [INFO] YallaMotor: chevrolet page 1
+2026-07-15 21:51:06,477 [INFO]   → no page found, stopping
+2026-07-15 21:51:06,477 [INFO] YallaMotor brand 'chevrolet': 0 listings
+2026-07-15 21:51:07,752 [INFO] YallaMotor: volkswagen page 1
+2026-07-15 21:51:08,160 [INFO]   → no page found, stopping
+2026-07-15 21:51:08,160 [INFO] YallaMotor brand 'volkswagen': 0 listings
+2026-07-15 21:51:10,564 [INFO] YallaMotor: mg page 1
+2026-07-15 21:51:10,998 [INFO]   → no page found, stopping
+2026-07-15 21:51:10,999 [INFO] YallaMotor brand 'mg': 0 listings
+2026-07-15 21:51:13,062 [INFO] YallaMotor: chery page 1
+2026-07-15 21:51:13,304 [INFO]   → no page found, stopping
+2026-07-15 21:51:13,304 [INFO] YallaMotor brand 'chery': 0 listings
+2026-07-15 21:51:14,785 [INFO] YallaMotor: byd page 1
+2026-07-15 21:51:17,238 [INFO]   → no cards on page 1, stopping
+2026-07-15 21:51:17,238 [INFO] YallaMotor brand 'byd': 0 listings
+2026-07-15 21:51:19,111 [INFO] YallaMotor: geely page 1
+2026-07-15 21:51:21,850 [INFO]   → no cards on page 1, stopping
+2026-07-15 21:51:21,850 [INFO] YallaMotor brand 'geely': 0 listings
+2026-07-15 21:51:23,286 [INFO] YallaMotor: bmw page 1
+2026-07-15 21:51:23,442 [INFO]   → no page found, stopping
+2026-07-15 21:51:23,443 [INFO] YallaMotor brand 'bmw': 0 listings
+2026-07-15 21:51:25,254 [INFO] YallaMotor: mercedes-benz page 1
+2026-07-15 21:51:25,441 [INFO]   → no page found, stopping
+2026-07-15 21:51:25,441 [INFO] YallaMotor brand 'mercedes-benz': 0 listings
+2026-07-15 21:51:26,587 [INFO] YallaMotor: mitsubishi page 1
+2026-07-15 21:51:26,745 [INFO]   → no page found, stopping
+2026-07-15 21:51:26,745 [INFO] YallaMotor brand 'mitsubishi': 0 listings
+2026-07-15 21:51:28,287 [INFO] YallaMotor: suzuki page 1
+2026-07-15 21:51:28,511 [INFO]   → no page found, stopping
+2026-07-15 21:51:28,511 [INFO] YallaMotor brand 'suzuki': 0 listings
+2026-07-15 21:51:29,847 [INFO] YallaMotor: peugeot page 1
+2026-07-15 21:51:30,073 [INFO]   → no page found, stopping
+2026-07-15 21:51:30,074 [INFO] YallaMotor brand 'peugeot': 0 listings
+2026-07-15 21:51:31,470 [INFO] YallaMotor: renault page 1
+2026-07-15 21:51:33,930 [INFO]   → no cards on page 1, stopping
+2026-07-15 21:51:33,931 [INFO] YallaMotor brand 'renault': 0 listings
+2026-07-15 21:51:35,004 [INFO] YallaMotor: fiat page 1
+2026-07-15 21:51:37,365 [INFO]   → no cards on page 1, stopping
+2026-07-15 21:51:37,365 [INFO] YallaMotor brand 'fiat': 0 listings
+2026-07-15 21:51:38,678 [INFO] YallaMotor: opel page 1
+2026-07-15 21:51:38,828 [INFO]   → no page found, stopping
+2026-07-15 21:51:38,828 [INFO] YallaMotor brand 'opel': 0 listings
+2026-07-15 21:51:40,867 [INFO] YallaMotor: skoda page 1
+2026-07-15 21:51:41,087 [INFO]   → no page found, stopping
+2026-07-15 21:51:41,087 [INFO] YallaMotor brand 'skoda': 0 listings
+2026-07-15 21:51:42,559 [INFO] YallaMotor: baic page 1
+2026-07-15 21:51:42,924 [INFO]   → no page found, stopping
+2026-07-15 21:51:42,924 [INFO] YallaMotor brand 'baic': 0 listings
+2026-07-15 21:51:44,026 [INFO] YallaMotor: honda page 1
+2026-07-15 21:51:44,238 [INFO]   → no page found, stopping
+2026-07-15 21:51:44,238 [INFO] YallaMotor brand 'honda': 0 listings
+2026-07-15 21:51:45,434 [INFO] YallaMotor: mazda page 1
+2026-07-15 21:51:45,597 [INFO]   → no page found, stopping
+2026-07-15 21:51:45,598 [INFO] YallaMotor brand 'mazda': 0 listings
+2026-07-15 21:51:46,925 [INFO] YallaMotor: ford page 1
+2026-07-15 21:51:47,326 [INFO]   → no page found, stopping
+2026-07-15 21:51:47,327 [INFO] YallaMotor brand 'ford': 0 listings
+2026-07-15 21:51:48,701 [INFO] YallaMotor: jeep page 1
+2026-07-15 21:51:48,942 [INFO]   → no page found, stopping
+2026-07-15 21:51:48,942 [INFO] YallaMotor brand 'jeep': 0 listings
+2026-07-15 21:51:50,327 [INFO] YallaMotor: audi page 1
+2026-07-15 21:51:50,523 [INFO]   → no page found, stopping
+2026-07-15 21:51:50,523 [INFO] YallaMotor brand 'audi': 0 listings
+2026-07-15 21:51:52,895 [INFO] YallaMotor: land-rover page 1
+2026-07-15 21:51:53,144 [INFO]   → no page found, stopping
+2026-07-15 21:51:53,144 [INFO] YallaMotor brand 'land-rover': 0 listings
+2026-07-15 21:51:54,731 [INFO] YallaMotor: volvo page 1
+2026-07-15 21:51:55,081 [INFO]   → no page found, stopping
+2026-07-15 21:51:55,081 [INFO] YallaMotor brand 'volvo': 0 listings
+2026-07-15 21:51:56,766 [INFO] YallaMotor: subaru page 1
+2026-07-15 21:51:57,475 [INFO]   → no cards on page 1, stopping
+2026-07-15 21:51:57,475 [INFO] YallaMotor brand 'subaru': 0 listings
+2026-07-15 21:51:59,173 [INFO] YallaMotor: lexus page 1
+2026-07-15 21:51:59,899 [INFO]   → no cards on page 1, stopping
+2026-07-15 21:51:59,899 [INFO] YallaMotor brand 'lexus': 0 listings
+2026-07-15 21:52:01,276 [INFO] YallaMotor: infiniti page 1
+2026-07-15 21:52:03,808 [INFO]   → no cards on page 1, stopping
+2026-07-15 21:52:03,808 [INFO] YallaMotor brand 'infiniti': 0 listings
+2026-07-15 21:52:03,808 [INFO] YallaMotor total: 0 listings
+2026-07-15 21:52:03,809 [INFO] Saved to /Users/kimo/Projects/egypt-marketplace/data/yallamotor_prices.json
+2026-07-15 21:52:03,809 [INFO] YallaMotor: 0 listings
+2026-07-15 21:52:03,809 [INFO] Merging 3 price datasets...
+2026-07-15 21:52:03,823 [INFO] Merged prices → /Users/kimo/Projects/egypt-marketplace/data/all_prices.json  (655 models)
+2026-07-15 21:52:03,851 [INFO] Raw listings → /Users/kimo/Projects/egypt-marketplace/data/raw_listings.json  (6712 total)
+
+════════════════════════════════════════════════════════════
+  Total raw listings  : 6,712
+  Make/model combos   : 655
+  Output (merged)     : /Users/kimo/Projects/egypt-marketplace/data/all_prices.json
+════════════════════════════════════════════════════════════
+
+Sample (top 10 by sample count):
+  Baic|U5 Plus 2026: median=911,041 EGP, n=24
+  Toyota|Corolla 2026: median=1,469,375 EGP, n=16
+  Hyundai|Elantra Cn7 2021: median=1,082,666 EGP, n=15
+  Land Rover|Range Rover Evoque 2026: median=4,050,000 EGP, n=14
+  Chevrolet|Optra 2027: median=790,000 EGP, n=14
+  Fiat|Tipo 2021: median=746,153 EGP, n=13
+  Chevrolet|Cruze 2016: median=539,090 EGP, n=11
+  Suzuki|Swift Dzire 2022: median=595,500 EGP, n=10
+  Nissan|Sunny 2027: median=762,500 EGP, n=10
+  Skoda|Kodiaq 2026: median=2,898,888 EGP, n=9
