@@ -28,6 +28,7 @@ from pricing.cars import (
     get_car_market_price, score_car_asking, CAR_MAKES, get_models_for_make,
 )
 from pricing.locations import CITIES, AREAS, COMPOUNDS
+from scraper import import_listing
 
 # Real estate price assessment (reuse from old project)
 import sys
@@ -297,6 +298,17 @@ def post_submit():
         fn = save_upload(ph)
         if fn:
             fnames.append(fn)
+    # Also accept imported external photo URLs (stored as-is, no re-upload)
+    imported_urls_raw = f.get("imported_photo_urls", "")
+    if imported_urls_raw and len(fnames) < MAX_PHOTOS:
+        try:
+            import json as _json
+            imported_urls = _json.loads(imported_urls_raw)
+            for url in imported_urls:
+                if isinstance(url, str) and url.startswith("http") and len(fnames) < MAX_PHOTOS:
+                    fnames.append(url)
+        except Exception:
+            pass
     if fnames:
         save_photos(lid, fnames)
 
@@ -625,6 +637,21 @@ def assess():
 @app.route("/api/locations")
 def locations_api():
     return jsonify({"cities": CITIES, "areas": AREAS, "compounds": COMPOUNDS})
+
+
+@app.route("/api/import", methods=["POST"])
+def api_import():
+    data = request.json or {}
+    url  = (data.get("url") or "").strip()
+    if not url:
+        return jsonify({"error": "URL is required"}), 400
+    try:
+        result = import_listing(url)
+        return jsonify({"ok": True, "listing": result})
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+    except Exception as e:
+        return jsonify({"error": f"Import failed: {e}"}), 500
 
 
 # ── Auth routes ───────────────────────────────────────────────────────────────

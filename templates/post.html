@@ -116,6 +116,25 @@
     .hidden{display:none!important}
     .step-panel{display:none}
     .step-panel.active{display:block}
+
+    /* ── Import widget ── */
+    .import-box{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:14px 16px;margin-bottom:20px;border:.5px solid var(--sep)}
+    .import-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+    .import-icon{font-size:1.1rem}
+    .import-title{font-size:.88rem;font-weight:700}
+    .import-sub{font-size:.74rem;color:var(--text2);margin-left:auto}
+    .import-row{display:flex;gap:8px;align-items:center}
+    .import-input{flex:1;background:var(--fill);border:none;color:var(--text);padding:10px 13px;border-radius:var(--r-sm);font-size:.85rem;font-family:var(--font);outline:none;-webkit-appearance:none}
+    .import-input:focus{box-shadow:0 0 0 2px var(--blue)}
+    .import-input::placeholder{color:var(--text3)}
+    .import-btn{background:var(--blue);color:#fff;border:none;border-radius:var(--r-sm);padding:10px 16px;font-size:.85rem;font-weight:600;cursor:pointer;font-family:var(--font);white-space:nowrap;flex-shrink:0;transition:opacity .15s}
+    .import-btn:hover{opacity:.88}
+    .import-btn:disabled{opacity:.45;cursor:not-allowed}
+    .import-platforms{font-size:.7rem;color:var(--text3);margin-top:6px}
+    .import-result{margin-top:10px;padding:10px 12px;background:rgba(52,199,89,.08);border-radius:var(--r-sm);border:.5px solid rgba(52,199,89,.2);font-size:.78rem;display:none}
+    .import-result.show{display:block}
+    .import-error{margin-top:8px;font-size:.76rem;color:var(--red);display:none}
+    .import-error.show{display:block}
   </style>
 </head>
 <body>
@@ -127,6 +146,22 @@
 <div class="wrap">
   <div class="page-title">Post a Listing</div>
   <div class="page-sub">Fill in the details to get an instant price assessment.</div>
+
+  <!-- ── IMPORT FROM URL ── -->
+  <div class="import-box">
+    <div class="import-header">
+      <span class="import-icon">⬇️</span>
+      <span class="import-title">Import from another platform</span>
+      <span class="import-sub">optional</span>
+    </div>
+    <div class="import-row">
+      <input class="import-input" type="url" id="importUrl" placeholder="Paste OLX / Hatla2ee / Dubizzle / Aqarmap URL…"/>
+      <button class="import-btn" id="importBtn" type="button" onclick="runImport()">Import</button>
+    </div>
+    <div class="import-platforms">Works with: OLX Egypt · Hatla2ee · Dubizzle · Aqarmap · PropertyFinder · any site with structured data</div>
+    <div class="import-error" id="importError"></div>
+    <div class="import-result" id="importResult"></div>
+  </div>
 
   <!-- Step indicator -->
   <div class="steps" id="stepDots">
@@ -272,7 +307,7 @@
           </div>
           <div class="row-inline">
             <span class="lbl">Fuel</span>
-            <select name="fuel">
+            <select name="fuel" id="fFuel">
               <option value="petrol">Petrol</option>
               <option value="diesel">Diesel</option>
               <option value="electric">Electric</option>
@@ -281,14 +316,14 @@
           </div>
           <div class="row-inline">
             <span class="lbl">Transmission</span>
-            <select name="transmission">
+            <select name="transmission" id="fTransmission">
               <option value="automatic">Automatic</option>
               <option value="manual">Manual</option>
             </select>
           </div>
           <div class="field-row">
             <div class="field-label">Color</div>
-            <input type="text" name="color" placeholder="e.g. White"/>
+            <input type="text" name="color" id="fColor" placeholder="e.g. White"/>
           </div>
         </div>
         <div class="section-label">Location</div>
@@ -344,14 +379,14 @@
           </div>
           <div class="row-inline">
             <span class="lbl">Bedrooms</span>
-            <select name="bedrooms">
+            <select name="bedrooms" id="fBedrooms">
               <option value="">—</option>
               {% for n in range(1,7) %}<option value="{{ n }}">{{ n }}</option>{% endfor %}
             </select>
           </div>
           <div class="row-inline">
             <span class="lbl">Bathrooms</span>
-            <select name="bathrooms">
+            <select name="bathrooms" id="fBathrooms">
               <option value="">—</option>
               {% for n in range(1,6) %}<option value="{{ n }}">{{ n }}</option>{% endfor %}
             </select>
@@ -388,7 +423,7 @@
         </div>
         <div class="field-row">
           <div class="field-label">Description (optional)</div>
-          <textarea name="description" placeholder="Any extras, history, reason for selling…"></textarea>
+          <textarea name="description" id="fDesc" placeholder="Any extras, history, reason for selling…"></textarea>
         </div>
       </div>
 
@@ -647,6 +682,158 @@ function validateAndSubmit() {
   const btn = document.getElementById('submitBtn');
   btn.disabled = true; btn.textContent = 'Publishing…';
   document.getElementById('mainForm').submit();
+}
+
+// ── Import from URL ───────────────────────────────────────────────────────────
+async function runImport() {
+  const url = document.getElementById('importUrl').value.trim();
+  const btn = document.getElementById('importBtn');
+  const errEl = document.getElementById('importError');
+  const resEl = document.getElementById('importResult');
+  errEl.className = 'import-error';
+  resEl.className = 'import-result';
+  if (!url) { errEl.textContent = 'Paste a URL first.'; errEl.className = 'import-error show'; return; }
+  btn.disabled = true; btn.textContent = 'Importing…';
+  try {
+    const r = await fetch('/api/import', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({url})
+    });
+    const data = await r.json();
+    if (!data.ok) throw new Error(data.error || 'Import failed');
+    applyImport(data.listing);
+    resEl.textContent = `✓ Imported from ${data.listing.source_platform || 'external site'} — review the fields below and adjust anything.`;
+    resEl.className = 'import-result show';
+  } catch(e) {
+    errEl.textContent = '✗ ' + e.message;
+    errEl.className = 'import-error show';
+  }
+  btn.disabled = false; btn.textContent = 'Import';
+}
+
+function applyImport(l) {
+  // Type
+  if (l.type) pickType(l.type);
+
+  // Step 2: basic fields — navigate there
+  goStep(2);
+
+  // Title
+  const titleEl = document.getElementById('fTitle');
+  if (titleEl && l.title) titleEl.value = l.title;
+
+  // Description
+  const descEl = document.getElementById('fDesc');
+  if (descEl && l.description) descEl.value = l.description;
+
+  // Asking price
+  const priceEl = document.getElementById('fAskingPrice');
+  if (priceEl && l.asking_price) { priceEl.value = l.asking_price; priceEl.dispatchEvent(new Event('input')); }
+
+  // City
+  if (l.city) {
+    const cityEl = document.getElementById('fCity');
+    if (cityEl) cityEl.value = l.city;
+  }
+
+  // Car fields
+  if (l.type === 'car') {
+    goStep(3); // skip to car details step
+    const fMake = document.getElementById('fMake');
+    if (fMake && l.make) { fMake.value = l.make; fMake.dispatchEvent(new Event('change')); }
+    setTimeout(() => {
+      const fModel = document.getElementById('fModel');
+      if (fModel && l.model) fModel.value = l.model;
+    }, 400);
+    const fYear = document.getElementById('fYear');
+    if (fYear && l.year) { fYear.value = l.year; fYear.dispatchEvent(new Event('input')); }
+    const fMileage = document.getElementById('fMileage');
+    if (fMileage && l.mileage_km) { fMileage.value = l.mileage_km; fMileage.dispatchEvent(new Event('input')); }
+    const fFuel = document.getElementById('fFuel');
+    if (fFuel && l.fuel) fFuel.value = _normalizeFuel(l.fuel);
+    const fTrans = document.getElementById('fTransmission');
+    if (fTrans && l.transmission) fTrans.value = _normalizeTrans(l.transmission);
+    const fCond = document.getElementById('fCondition');
+    if (fCond && l.condition) fCond.value = _normalizeCond(l.condition);
+    const fColor = document.getElementById('fColor');
+    if (fColor && l.color) fColor.value = l.color;
+  }
+
+  // Property fields
+  if (l.type === 'property') {
+    goStep(3);
+    const fSize = document.getElementById('fSize');
+    if (fSize && l.size_m2) { fSize.value = l.size_m2; fSize.dispatchEvent(new Event('input')); }
+    const fBed = document.getElementById('fBedrooms');
+    if (fBed && l.bedrooms) fBed.value = l.bedrooms;
+    const fBath = document.getElementById('fBathrooms');
+    if (fBath && l.bathrooms) fBath.value = l.bathrooms;
+    const fFin = document.getElementById('fFinishing');
+    if (fFin && l.finishing) fFin.value = _normalizeFinishing(l.finishing);
+  }
+
+  // Photo URLs — show as previews (not uploaded files, just visual)
+  if (l.photo_urls && l.photo_urls.length) {
+    _previewImportedPhotos(l.photo_urls);
+  }
+
+  // Scroll to form
+  document.getElementById('mainForm').scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+
+function _normalizeFuel(s) {
+  s = (s || '').toLowerCase();
+  if (s.includes('diesel')) return 'diesel';
+  if (s.includes('hybrid')) return 'hybrid';
+  if (s.includes('electric') || s.includes('ev')) return 'electric';
+  if (s.includes('gas') || s.includes('lpg') || s.includes('cng')) return 'gas';
+  return 'petrol';
+}
+function _normalizeTrans(s) {
+  s = (s || '').toLowerCase();
+  if (s.includes('auto') || s.includes('اوتو') || s.includes('أوتو')) return 'automatic';
+  return 'manual';
+}
+function _normalizeCond(s) {
+  s = (s || '').toLowerCase();
+  if (s.includes('excellent') || s.includes('ممتاز')) return 'excellent';
+  if (s.includes('good') || s.includes('جيد')) return 'good';
+  if (s.includes('fair') || s.includes('مقبول')) return 'fair';
+  if (s.includes('poor') || s.includes('accident') || s.includes('حادث')) return 'accident';
+  return 'good';
+}
+function _normalizeFinishing(s) {
+  s = (s || '').toLowerCase();
+  if (s.includes('furnished') || s.includes('مفروشة')) return 'furnished';
+  if (s.includes('full') || s.includes('تشطيب كامل')) return 'fully_finished';
+  if (s.includes('semi')) return 'semi_finished';
+  if (s.includes('core') || s.includes('عظم')) return 'core_shell';
+  return 'fully_finished';
+}
+
+function _previewImportedPhotos(urls) {
+  const strip = document.getElementById('photoStrip');
+  const label = document.getElementById('photoLabel');
+  if (!strip) return;
+  strip.innerHTML = '';
+  urls.forEach(src => {
+    const thumb = document.createElement('div');
+    thumb.className = 'photo-thumb';
+    thumb.innerHTML = `<img src="${src}" onerror="this.parentElement.remove()"/>
+      <button class="rm" type="button" onclick="this.parentElement.remove()">×</button>`;
+    strip.appendChild(thumb);
+  });
+  if (label) label.style.display = 'none';
+  // Store URLs in hidden field so backend knows about them
+  let urlInput = document.getElementById('fImportedPhotos');
+  if (!urlInput) {
+    urlInput = document.createElement('input');
+    urlInput.type = 'hidden';
+    urlInput.id = 'fImportedPhotos';
+    urlInput.name = 'imported_photo_urls';
+    document.getElementById('mainForm').appendChild(urlInput);
+  }
+  urlInput.value = JSON.stringify(urls);
 }
 </script>
 </body>
