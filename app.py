@@ -260,6 +260,12 @@ def index():
     )
 
 
+@app.route("/landing")
+def landing():
+    stats = get_stats()
+    return render_template("landing.html", stats=stats)
+
+
 @app.route("/post", methods=["GET"])
 def post_form():
     return render_template("post.html",
