@@ -333,6 +333,7 @@
     <span class="nav-user">{{ current_user.name.split()[0] }}</span>
     <a class="nav-btn" href="/logout" style="color:var(--text3)">↩</a>
   {% else %}
+    <a class="nav-btn" href="/landing">How it works</a>
     <a class="nav-btn" href="/login">Login</a>
     <a class="nav-btn nav-btn-primary" href="/register">Get Started</a>
   {% endif %}
