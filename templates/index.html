@@ -4,206 +4,563 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>SuqMasr — Buy &amp; Sell in Egypt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#F2F2F7;--card:#fff;--card2:#F2F2F7;
-      --text:#000;--text2:rgba(60,60,67,.6);--text3:rgba(60,60,67,.3);
-      --sep:rgba(60,60,67,.12);--fill:rgba(120,120,128,.12);
-      --blue:#007AFF;--green:#34C759;--orange:#FF9500;--red:#FF3B30;
-      --shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.04);
-      --shadow-lg:0 4px 16px rgba(0,0,0,.1),0 0 0 .5px rgba(0,0,0,.04);
-      --r:12px;--r-sm:8px;
-      --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+      --bg:#F8FAFB;--card:#fff;--card2:#F1F5F9;
+      --text:#0F172A;--text2:#475569;--text3:#94A3B8;
+      --sep:#E2E8F0;--fill:#F1F5F9;--fill2:rgba(15,118,110,.06);
+      --teal:#0D9488;--teal-light:#14B8A6;--teal-dark:#0F766E;
+      --blue:#0369A1;--green:#059669;--orange:#D97706;--red:#DC2626;
+      --shadow:0 1px 3px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04);
+      --shadow-md:0 4px 6px rgba(15,23,42,.07),0 2px 4px rgba(15,23,42,.05);
+      --shadow-lg:0 10px 24px rgba(15,23,42,.1),0 4px 8px rgba(15,23,42,.06);
+      --shadow-teal:0 4px 14px rgba(13,148,136,.25);
+      --r:14px;--r-sm:8px;--r-xs:6px;
+      --font:'Inter',system-ui,-apple-system,sans-serif;
     }
     @media(prefers-color-scheme:dark){
       :root{
-        --bg:#000;--card:#1C1C1E;--card2:#2C2C2E;
-        --text:#fff;--text2:rgba(235,235,245,.6);--text3:rgba(235,235,245,.3);
-        --sep:rgba(84,84,88,.6);--fill:rgba(118,118,128,.24);
-        --shadow:0 1px 3px rgba(0,0,0,.4),0 0 0 .5px rgba(255,255,255,.05);
-        --shadow-lg:0 4px 16px rgba(0,0,0,.5),0 0 0 .5px rgba(255,255,255,.05);
+        --bg:#0A0F1A;--card:#111827;--card2:#1E293B;
+        --text:#F1F5F9;--text2:#94A3B8;--text3:#475569;
+        --sep:#1E293B;--fill:#1E293B;--fill2:rgba(20,184,166,.08);
+        --shadow:0 1px 3px rgba(0,0,0,.4),0 0 0 .5px rgba(255,255,255,.04);
+        --shadow-md:0 4px 8px rgba(0,0,0,.4),0 0 0 .5px rgba(255,255,255,.04);
+        --shadow-lg:0 12px 28px rgba(0,0,0,.5),0 0 0 .5px rgba(255,255,255,.04);
+        --shadow-teal:0 4px 14px rgba(13,148,136,.35);
       }
     }
-    body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
 
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+    /* ── NAV ── */
     nav{
-      position:sticky;top:0;z-index:100;height:52px;
-      display:flex;align-items:center;padding:0 20px;gap:12px;
-      background:rgba(242,242,247,.85);
-      backdrop-filter:saturate(180%) blur(20px);
-      -webkit-backdrop-filter:saturate(180%) blur(20px);
-      border-bottom:.5px solid var(--sep);
+      position:sticky;top:0;z-index:200;height:58px;
+      display:flex;align-items:center;padding:0 24px;gap:8px;
+      background:rgba(248,250,251,.92);
+      backdrop-filter:saturate(180%) blur(24px);
+      -webkit-backdrop-filter:saturate(180%) blur(24px);
+      border-bottom:1px solid var(--sep);
     }
-    @media(prefers-color-scheme:dark){nav{background:rgba(0,0,0,.8);}}
-    .logo{font-size:1.05rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.3px}
-    .logo-ar{color:var(--text2);font-size:.9rem;margin-left:3px}
+    @media(prefers-color-scheme:dark){nav{background:rgba(10,15,26,.9);}}
+    .logo{
+      font-size:1.1rem;font-weight:800;color:var(--text);
+      text-decoration:none;letter-spacing:-.5px;display:flex;align-items:center;gap:6px
+    }
+    .logo-dot{
+      width:8px;height:8px;border-radius:50%;
+      background:linear-gradient(135deg,var(--teal),var(--teal-light));
+      flex-shrink:0
+    }
+    .logo-ar{color:var(--teal);font-weight:600;font-size:.88rem}
     nav .space{flex:1}
-    .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;text-decoration:none;font-family:var(--font);transition:opacity .15s}
-    .btn-blue{background:var(--blue);color:#fff}
-    .btn-blue:hover{opacity:.88}
+    .nav-links{display:flex;align-items:center;gap:4px}
+    @media(max-width:680px){.nav-links .nav-lnk-txt{display:none}}
+    .nav-btn{
+      display:inline-flex;align-items:center;gap:5px;
+      padding:7px 13px;border-radius:8px;font-size:.82rem;font-weight:600;
+      cursor:pointer;border:none;text-decoration:none;
+      font-family:var(--font);transition:all .15s;white-space:nowrap;
+      color:var(--text2);background:transparent
+    }
+    .nav-btn:hover{background:var(--fill);color:var(--text)}
+    .nav-btn-primary{background:var(--teal);color:#fff;padding:8px 16px}
+    .nav-btn-primary:hover{background:var(--teal-dark);color:#fff;box-shadow:var(--shadow-teal)}
+    .nav-user{font-size:.8rem;color:var(--text3);padding:6px 4px}
 
-    .hero{max-width:1100px;margin:0 auto;padding:28px 20px 0}
-    .hero h1{font-size:1.75rem;font-weight:700;letter-spacing:-.4px;margin-bottom:5px}
-    .hero p{font-size:.88rem;color:var(--text2);margin-bottom:16px}
-    .stats{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px}
-    .stat{font-size:.78rem;color:var(--text2);background:var(--card);border-radius:20px;padding:4px 11px;box-shadow:var(--shadow)}
-    .stat b{color:var(--blue)}
+    /* ── HERO ── */
+    .hero{
+      position:relative;overflow:hidden;
+      padding:56px 24px 48px;text-align:center;
+      background:linear-gradient(160deg,#F0FDFA 0%,#ECFDF5 40%,#EFF6FF 100%);
+    }
+    @media(prefers-color-scheme:dark){
+      .hero{background:linear-gradient(160deg,#0A1A1A 0%,#0A1520 40%,#0A0F1A 100%)}
+    }
+    .hero-bg{
+      position:absolute;inset:0;pointer-events:none;overflow:hidden
+    }
+    .hero-blob{
+      position:absolute;border-radius:50%;filter:blur(80px);opacity:.25;
+    }
+    .hero-blob-1{
+      width:500px;height:400px;top:-100px;right:-80px;
+      background:radial-gradient(circle,#14B8A6,transparent 70%);
+    }
+    .hero-blob-2{
+      width:400px;height:350px;bottom:-80px;left:-60px;
+      background:radial-gradient(circle,#0369A1,transparent 70%);
+    }
+    @media(prefers-color-scheme:dark){
+      .hero-blob-1,.hero-blob-2{opacity:.15}
+    }
+    .hero-eyebrow{
+      display:inline-flex;align-items:center;gap:6px;
+      background:var(--fill2);border:1px solid rgba(13,148,136,.2);
+      color:var(--teal);font-size:.75rem;font-weight:600;
+      padding:5px 12px;border-radius:20px;margin-bottom:20px;letter-spacing:.3px;
+    }
+    .hero-eyebrow-dot{
+      width:6px;height:6px;border-radius:50%;background:var(--teal);
+      animation:pulse 2s ease-in-out infinite
+    }
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.7}}
+    .hero h1{
+      font-size:clamp(1.9rem,4.5vw,3rem);font-weight:800;
+      letter-spacing:-.6px;line-height:1.15;margin-bottom:14px;
+      color:var(--text)
+    }
+    .hero h1 .accent{
+      background:linear-gradient(135deg,var(--teal),var(--blue));
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+    }
+    .hero-sub{
+      font-size:1rem;color:var(--text2);max-width:480px;margin:0 auto 32px;
+      line-height:1.6
+    }
 
-    .filters{max-width:1100px;margin:0 auto;padding:0 20px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-    .seg{display:inline-flex;background:var(--fill);border-radius:10px;padding:2px}
-    .seg-btn{padding:6px 13px;border-radius:8px;font-size:.8rem;font-weight:600;border:none;background:transparent;color:var(--text2);cursor:pointer;font-family:var(--font);transition:.15s}
-    .seg-btn.active{background:var(--card);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.1)}
-    select.city{appearance:none;-webkit-appearance:none;background:var(--card);border:none;border-radius:20px;color:var(--text);padding:7px 28px 7px 12px;font-size:.8rem;font-family:var(--font);box-shadow:var(--shadow);cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
-    select.city:focus{outline:none}
-    a.clear{font-size:.78rem;color:var(--blue);text-decoration:none;margin-left:auto}
+    /* ── STATS ROW ── */
+    .stats{
+      display:inline-flex;align-items:center;gap:0;
+      background:var(--card);border-radius:12px;box-shadow:var(--shadow-md);
+      border:1px solid var(--sep);overflow:hidden;margin-bottom:36px;
+    }
+    .stat{
+      padding:14px 20px;text-align:center;border-right:1px solid var(--sep);
+    }
+    .stat:last-child{border-right:none}
+    .stat-val{font-size:1.2rem;font-weight:800;color:var(--teal);line-height:1}
+    .stat-lbl{font-size:.7rem;font-weight:500;color:var(--text3);margin-top:3px;letter-spacing:.2px;text-transform:uppercase}
+    @media(max-width:500px){.stat{padding:12px 14px}.stat-val{font-size:1rem}.stat-lbl{font-size:.65rem}}
 
-    .grid{max-width:1100px;margin:0 auto;padding:0 20px 60px;display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:12px}
-    @media(max-width:600px){.grid{grid-template-columns:1fr}}
+    /* ── CATEGORY CHIPS (filter) ── */
+    .filter-bar{
+      max-width:900px;margin:0 auto;padding:0 20px 32px;
+      display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center
+    }
+    .filter-form{display:contents}
+    .cat-chip{
+      display:inline-flex;align-items:center;gap:7px;
+      padding:9px 16px;border-radius:10px;font-size:.83rem;font-weight:600;
+      border:1.5px solid var(--sep);background:var(--card);color:var(--text2);
+      cursor:pointer;font-family:var(--font);transition:all .15s;text-decoration:none;
+    }
+    .cat-chip:hover{border-color:var(--teal);color:var(--teal);background:var(--fill2)}
+    .cat-chip.active{
+      border-color:var(--teal);color:var(--teal);
+      background:var(--fill2);box-shadow:var(--shadow-teal)
+    }
+    .cat-icon{width:16px;height:16px;flex-shrink:0;opacity:.75}
+    .cat-chip.active .cat-icon{opacity:1}
+    .city-select{
+      appearance:none;-webkit-appearance:none;
+      background:var(--card);border:1.5px solid var(--sep);
+      border-radius:10px;color:var(--text);
+      padding:9px 32px 9px 14px;font-size:.83rem;font-weight:500;
+      font-family:var(--font);cursor:pointer;outline:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%2394A3B8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 11px center;
+      transition:border-color .15s
+    }
+    .city-select:focus{border-color:var(--teal)}
+    .clear-link{
+      font-size:.78rem;color:var(--teal);text-decoration:none;font-weight:500;
+      padding:4px 8px;border-radius:6px;transition:background .15s
+    }
+    .clear-link:hover{background:var(--fill2)}
 
-    .card{background:var(--card);border-radius:var(--r);overflow:hidden;text-decoration:none;color:var(--text);display:flex;flex-direction:column;box-shadow:var(--shadow);transition:transform .15s,box-shadow .15s}
-    .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-    .card-img{width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--fill)}
-    .no-photo{width:100%;aspect-ratio:16/10;background:var(--fill);display:flex;align-items:center;justify-content:center;font-size:2.2rem}
-    .card-body{padding:13px 14px;flex:1;display:flex;flex-direction:column;gap:5px}
-    .pill-row{display:flex;gap:5px;flex-wrap:wrap}
-    .pill{font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:5px;letter-spacing:.1px}
-    .p-type{background:var(--fill);color:var(--text2)}
-    .p-auction{background:rgba(255,149,0,.12);color:var(--orange)}
-    .p-offer{background:rgba(52,199,89,.1);color:var(--green)}
-    .p-deal{background:rgba(52,199,89,.12);color:var(--green)}
-    .p-fair{background:var(--fill);color:var(--text2)}
-    .p-above{background:rgba(255,149,0,.12);color:var(--orange)}
-    .p-overpriced{background:rgba(255,59,48,.1);color:var(--red)}
-    .p-offers-count{background:rgba(0,122,255,.1);color:var(--blue);margin-left:auto}
-    .card-title{font-size:.92rem;font-weight:600;line-height:1.3;color:var(--text)}
-    .card-meta{font-size:.76rem;color:var(--text2);line-height:1.5}
-    .price-row{margin-top:auto;padding-top:8px;display:flex;align-items:baseline;gap:8px}
-    .card-price{font-size:1rem;font-weight:700}
-    .pct{font-size:.74rem;font-weight:600}
-    .pct-below{color:var(--green)}
-    .pct-above{color:var(--orange)}
+    /* ── SECTION HEADER ── */
+    .section-header{
+      max-width:900px;margin:0 auto;padding:0 24px 16px;
+      display:flex;align-items:center;justify-content:space-between
+    }
+    .section-title{font-size:1rem;font-weight:700;color:var(--text)}
+    .section-count{font-size:.8rem;color:var(--text3);font-weight:500}
 
-    .empty{max-width:1100px;margin:0 auto;padding:64px 20px;text-align:center}
-    .empty h3{font-size:1.05rem;font-weight:600;margin-bottom:6px}
-    .empty p{font-size:.85rem;color:var(--text2);margin-bottom:20px}
+    /* ── LISTING GRID ── */
+    .grid{
+      max-width:900px;margin:0 auto;
+      padding:0 20px 80px;
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(265px,1fr));
+      gap:16px
+    }
+    @media(max-width:600px){.grid{grid-template-columns:1fr;gap:12px}}
+
+    /* ── LISTING CARD ── */
+    .card{
+      background:var(--card);border-radius:var(--r);
+      border:1px solid var(--sep);
+      overflow:hidden;text-decoration:none;color:var(--text);
+      display:flex;flex-direction:column;
+      box-shadow:var(--shadow);
+      transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+      cursor:pointer
+    }
+    .card:hover{
+      transform:translateY(-3px);
+      box-shadow:var(--shadow-lg);
+      border-color:transparent
+    }
+    .card-media{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden}
+    .card-img{
+      width:100%;height:100%;object-fit:cover;
+      transition:transform .35s ease;background:var(--fill)
+    }
+    .card:hover .card-img{transform:scale(1.04)}
+    .no-photo{
+      width:100%;height:100%;background:linear-gradient(135deg,var(--fill),var(--card2));
+      display:flex;align-items:center;justify-content:center
+    }
+    .no-photo svg{width:40px;height:40px;opacity:.2}
+
+    /* Mode badge on image */
+    .mode-badge{
+      position:absolute;top:10px;left:10px;
+      display:flex;align-items:center;gap:4px;
+      font-size:.68rem;font-weight:700;letter-spacing:.3px;text-transform:uppercase;
+      padding:3px 9px;border-radius:5px;
+      backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)
+    }
+    .mode-auction{background:rgba(217,119,6,.9);color:#fff}
+    .mode-offer{background:rgba(0,0,0,.45);color:rgba(255,255,255,.9)}
+    .mode-dot{
+      width:5px;height:5px;border-radius:50%;background:currentColor;
+      animation:blink 1.4s ease-in-out infinite
+    }
+    .mode-auction .mode-dot{animation:none}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+    /* Offer count badge */
+    .offer-badge{
+      position:absolute;bottom:10px;right:10px;
+      font-size:.7rem;font-weight:700;
+      padding:3px 9px;border-radius:5px;
+      background:rgba(3,105,161,.85);color:#fff;
+      backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)
+    }
+
+    /* Card body */
+    .card-body{padding:14px 16px;flex:1;display:flex;flex-direction:column;gap:6px}
+    .card-type-row{display:flex;align-items:center;gap:6px}
+    .type-chip{
+      font-size:.68rem;font-weight:600;padding:2px 7px;border-radius:4px;
+      background:var(--fill);color:var(--text3);letter-spacing:.1px
+    }
+    .verdict-chip{
+      font-size:.68rem;font-weight:700;padding:2px 7px;border-radius:4px;
+      letter-spacing:.1px
+    }
+    .v-deal{background:rgba(5,150,105,.12);color:var(--green)}
+    .v-fair{background:var(--fill);color:var(--text3)}
+    .v-above{background:rgba(217,119,6,.1);color:var(--orange)}
+    .v-overpriced{background:rgba(220,38,38,.08);color:var(--red)}
+
+    .card-title{font-size:.93rem;font-weight:600;line-height:1.35;color:var(--text)}
+    .card-meta{font-size:.76rem;color:var(--text3);line-height:1.5;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+    .meta-sep{color:var(--sep)}
+
+    .card-footer{
+      margin-top:auto;padding-top:10px;
+      border-top:1px solid var(--sep);
+      display:flex;align-items:baseline;gap:8px
+    }
+    .card-price{font-size:1.05rem;font-weight:800;color:var(--text);letter-spacing:-.3px}
+    .price-delta{font-size:.72rem;font-weight:600;padding:1px 6px;border-radius:4px}
+    .delta-below{background:rgba(5,150,105,.1);color:var(--green)}
+    .delta-above{background:rgba(217,119,6,.1);color:var(--orange)}
+
+    /* ── EMPTY STATE ── */
+    .empty{
+      max-width:480px;margin:80px auto 100px;
+      padding:0 24px;text-align:center
+    }
+    .empty-icon{
+      width:64px;height:64px;margin:0 auto 20px;
+      background:var(--fill);border-radius:18px;
+      display:flex;align-items:center;justify-content:center
+    }
+    .empty-icon svg{width:28px;height:28px;opacity:.3}
+    .empty h3{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+    .empty p{font-size:.88rem;color:var(--text2);margin-bottom:24px;line-height:1.6}
+    .btn-primary{
+      display:inline-flex;align-items:center;gap:6px;
+      background:var(--teal);color:#fff;
+      padding:11px 22px;border-radius:10px;font-size:.88rem;
+      font-weight:600;text-decoration:none;font-family:var(--font);
+      transition:all .15s;border:none;cursor:pointer
+    }
+    .btn-primary:hover{background:var(--teal-dark);box-shadow:var(--shadow-teal)}
+
+    /* ── FOOTER GLOW ── */
+    .footer-pad{height:40px}
   </style>
 </head>
 <body>
 
+<!-- ── NAV ── -->
 <nav>
-  <a class="logo" href="/">SuqMasr <span class="logo-ar">مصر</span></a>
+  <a class="logo" href="/">
+    <span class="logo-dot"></span>
+    SuqMasr
+    <span class="logo-ar">مصر</span>
+  </a>
   <div class="space"></div>
+  <div class="nav-links">
   {% if current_user %}
     {% if current_user.role in ('seller','both') %}
-    <a class="btn btn-blue" href="/post">+ Post</a>
+    <a class="nav-btn nav-btn-primary" href="/post">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="8" y1="2" x2="8" y2="14"/><line x1="2" y1="8" x2="14" y2="8"/></svg>
+      <span class="nav-lnk-txt">Post</span>
+    </a>
     {% endif %}
-    <a class="btn" style="background:var(--fill);color:var(--text)" href="/my-listings">My Listings</a>
-    <a class="btn" style="background:var(--fill);color:var(--text)" href="/my-offers">My Offers</a>
-    <a class="btn" style="background:var(--fill);color:var(--text)" href="/watchlist">♡ Watching</a>
-    <a class="btn" style="color:var(--text2);font-size:.8rem" href="/logout">{{ current_user.name.split()[0] }} ↩</a>
+    <a class="nav-btn" href="/my-listings">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><line x1="5" y1="6" x2="11" y2="6"/><line x1="5" y1="9" x2="9" y2="9"/></svg>
+      <span class="nav-lnk-txt">My Listings</span>
+    </a>
+    <a class="nav-btn" href="/my-offers">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3H3a1 1 0 00-1 1v6a1 1 0 001 1h1l2 2 2-2h4a1 1 0 001-1V4a1 1 0 00-1-1z"/></svg>
+      <span class="nav-lnk-txt">My Offers</span>
+    </a>
+    <a class="nav-btn" href="/watchlist">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13.5S2 9.5 2 5.5a3 3 0 016-1 3 3 0 016 1c0 4-6 8-6 8z"/></svg>
+      <span class="nav-lnk-txt">Watching</span>
+    </a>
+    <span class="nav-user">{{ current_user.name.split()[0] }}</span>
+    <a class="nav-btn" href="/logout" style="color:var(--text3)">↩</a>
   {% else %}
-    <a class="btn" style="background:var(--fill);color:var(--text)" href="/login">Login</a>
-    <a class="btn btn-blue" href="/register">Register</a>
+    <a class="nav-btn" href="/login">Login</a>
+    <a class="nav-btn nav-btn-primary" href="/register">Get Started</a>
   {% endif %}
+  </div>
 </nav>
 
-<div class="hero">
-  <h1>Egypt's Price-Transparent Marketplace</h1>
-  <p>Every listing comes with an AI price assessment. No more guessing.</p>
-  <div class="stats">
-    <span class="stat"><b>{{ stats.total }}</b> active listings</span>
-    <span class="stat"><b>{{ stats.cars }}</b> cars</span>
-    <span class="stat"><b>{{ stats.properties }}</b> properties</span>
-    <span class="stat"><b>{{ stats.auctions }}</b> auctions live</span>
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
   </div>
-</div>
+  <div style="position:relative">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      AI Price Assessment on Every Listing
+    </div>
+    <h1>Egypt's Smartest<br><span class="accent">Marketplace</span></h1>
+    <p class="hero-sub">Buy and sell cars &amp; properties with confidence.<br>Every listing comes with an instant market valuation.</p>
 
-<form class="filters" method="get" action="/">
-  <div class="seg">
-    <button type="button" onclick="setType('')"  class="seg-btn {% if not type_filter %}active{% endif %}">All</button>
-    <button type="button" onclick="setType('car')" class="seg-btn {% if type_filter=='car' %}active{% endif %}">Cars</button>
-    <button type="button" onclick="setType('property')" class="seg-btn {% if type_filter=='property' %}active{% endif %}">Properties</button>
-    <button type="button" onclick="setMode('auction')" class="seg-btn {% if mode_filter=='auction' %}active{% endif %}">Auctions</button>
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-val">{{ stats.total }}</div>
+        <div class="stat-lbl">Listings</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">{{ stats.cars }}</div>
+        <div class="stat-lbl">Cars</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">{{ stats.properties }}</div>
+        <div class="stat-lbl">Properties</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">{{ stats.auctions }}</div>
+        <div class="stat-lbl">Auctions</div>
+      </div>
+    </div>
   </div>
-  <select class="city" name="city" onchange="this.form.submit()">
+</section>
+
+<!-- ── FILTERS ── -->
+<form class="filter-bar" method="get" action="/">
+  <input type="hidden" id="hType" name="type" value="{{ type_filter or '' }}"/>
+  <input type="hidden" id="hMode" name="mode" value="{{ mode_filter or '' }}"/>
+
+  <!-- All -->
+  <button type="button" onclick="setType('')" class="cat-chip {% if not type_filter and not mode_filter %}active{% endif %}">
+    <svg class="cat-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/>
+      <rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/>
+    </svg>
+    All
+  </button>
+
+  <!-- Cars -->
+  <button type="button" onclick="setType('car')" class="cat-chip {% if type_filter=='car' %}active{% endif %}">
+    <svg class="cat-icon" viewBox="0 0 20 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1 9l2-5h14l2 5"/><rect x="1" y="9" width="18" height="5" rx="2"/>
+      <circle cx="5" cy="14" r="1.5"/><circle cx="15" cy="14" r="1.5"/>
+    </svg>
+    Cars
+  </button>
+
+  <!-- Properties -->
+  <button type="button" onclick="setType('property')" class="cat-chip {% if type_filter=='property' %}active{% endif %}">
+    <svg class="cat-icon" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1 8L9 1l8 7"/><path d="M3 7v8h4V9h4v6h4V7"/>
+    </svg>
+    Properties
+  </button>
+
+  <!-- Auctions -->
+  <button type="button" onclick="setMode('auction')" class="cat-chip {% if mode_filter=='auction' %}active{% endif %}">
+    <svg class="cat-icon" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 15h12M9 12V6M6 9l3-3 3 3"/>
+      <path d="M4 6l2-2 8 8-2 2-8-8z"/>
+    </svg>
+    Auctions
+  </button>
+
+  <!-- City -->
+  <select class="city-select" name="city" onchange="this.form.submit()">
     <option value="">All Cities</option>
     {% for city in ["Cairo","Giza","Alexandria","North Coast","Ain Sokhna","New Capital"] %}
     <option {% if city_filter==city %}selected{% endif %}>{{ city }}</option>
     {% endfor %}
   </select>
+
   {% if type_filter or city_filter or mode_filter %}
-  <a class="clear" href="/">Clear</a>
+  <a class="clear-link" href="/">✕ Clear</a>
   {% endif %}
-  <input type="hidden" id="hType" name="type" value="{{ type_filter or '' }}"/>
-  <input type="hidden" id="hMode" name="mode" value="{{ mode_filter or '' }}"/>
 </form>
 
+<!-- ── LISTINGS ── -->
 {% if listings %}
+<div class="section-header">
+  <span class="section-title">
+    {% if type_filter=='car' %}Cars{% elif type_filter=='property' %}Properties{% elif mode_filter=='auction' %}Live Auctions{% else %}All Listings{% endif %}
+  </span>
+  <span class="section-count">{{ listings|length }} result{{ 's' if listings|length != 1 }}</span>
+</div>
+
 <div class="grid">
   {% for l in listings %}
   {% set det = l.details %}
   {% set ass = l.assessment %}
   <a class="card" href="/listing/{{ l.id }}">
-    {% if l.cover_photo %}
-    <img class="card-img" src="{{ l.cover_photo | photo_url }}" alt="{{ l.title }}" loading="lazy"/>
-    {% else %}
-    <div class="no-photo">{{ '🚗' if l.type=='car' else '🏠' }}</div>
-    {% endif %}
-    <div class="card-body">
-      <div class="pill-row">
-        <span class="pill p-type">{{ 'Car' if l.type=='car' else 'Property' }}</span>
-        <span class="pill {% if l.mode=='auction' %}p-auction{% else %}p-offer{% endif %}">
-          {{ 'Auction' if l.mode=='auction' else 'Offers' }}
-        </span>
-        {% if ass %}
-        <span class="pill p-{{ ass.verdict }}">
-          {% if ass.verdict=='deal' %}Deal
-          {% elif ass.verdict=='fair' %}Fair
-          {% elif ass.verdict=='above' %}Above Market
-          {% else %}Overpriced{% endif %}
-        </span>
-        {% endif %}
-        {% if l.offer_count %}
-        <span class="pill p-offers-count">{{ l.offer_count }} offer{{ 's' if l.offer_count != 1 else '' }}</span>
+
+    <!-- Image / placeholder -->
+    <div class="card-media">
+      {% if l.cover_photo %}
+      <img class="card-img" src="{{ l.cover_photo | photo_url }}" alt="{{ l.title }}" loading="lazy"/>
+      {% else %}
+      <div class="no-photo">
+        {% if l.type=='car' %}
+        <svg viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 11l3-6h16l3 6"/><rect x="1" y="11" width="22" height="6" rx="2"/>
+          <circle cx="6.5" cy="17" r="2"/><circle cx="17.5" cy="17" r="2"/>
+        </svg>
+        {% else %}
+        <svg viewBox="0 0 22 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M1 10L11 1l10 9"/><path d="M3 8v11h5V12h6v7h5V8"/>
+        </svg>
         {% endif %}
       </div>
+      {% endif %}
+
+      <!-- Mode badge -->
+      <span class="mode-badge {% if l.mode=='auction' %}mode-auction{% else %}mode-offer{% endif %}">
+        {% if l.mode=='auction' %}<span class="mode-dot"></span>Live Auction{% else %}Offers{% endif %}
+      </span>
+
+      <!-- Offer count -->
+      {% if l.offer_count %}
+      <span class="offer-badge">{{ l.offer_count }} offer{{ 's' if l.offer_count != 1 }}</span>
+      {% endif %}
+    </div>
+
+    <!-- Body -->
+    <div class="card-body">
+      <div class="card-type-row">
+        <span class="type-chip">{{ 'Car' if l.type=='car' else 'Property' }}</span>
+        {% if ass %}
+        <span class="verdict-chip v-{{ ass.verdict }}">
+          {%- if ass.verdict=='deal' %}Deal ↓
+          {%- elif ass.verdict=='fair' %}Fair Price
+          {%- elif ass.verdict=='above' %}Above Market
+          {%- else %}Overpriced{%- endif %}
+        </span>
+        {% endif %}
+      </div>
+
       <div class="card-title">{{ l.title }}</div>
+
       <div class="card-meta">
         {% if l.type=='car' %}
-          {{ det.year }} · {{ det.make }} {{ det.model }}
-          {% if det.mileage_km %} · {{ "{:,}".format(det.mileage_km) }} km{% endif %}
+          <span>{{ det.year }}</span>
+          <span class="meta-sep">·</span>
+          <span>{{ det.make }} {{ det.model }}</span>
+          {% if det.mileage_km %}
+          <span class="meta-sep">·</span>
+          <span>{{ "{:,}".format(det.mileage_km) }} km</span>
+          {% endif %}
         {% else %}
-          {{ det.area_label or '' }}{% if det.compound %} · {{ det.compound }}{% endif %}
-          {% if det.size_m2 %} · {{ det.size_m2|int }} m²{% endif %}
-          {% if det.bedrooms %} · {{ det.bedrooms }} BR{% endif %}
+          {% if det.area_label %}<span>{{ det.area_label }}</span>{% endif %}
+          {% if det.compound %}
+          <span class="meta-sep">·</span>
+          <span>{{ det.compound }}</span>
+          {% endif %}
+          {% if det.size_m2 %}
+          <span class="meta-sep">·</span>
+          <span>{{ det.size_m2|int }} m²</span>
+          {% endif %}
+          {% if det.bedrooms %}
+          <span class="meta-sep">·</span>
+          <span>{{ det.bedrooms }} BR</span>
+          {% endif %}
         {% endif %}
       </div>
-      <div class="price-row">
+
+      <div class="card-footer">
         <span class="card-price">{{ fmt_egp(l.asking_price) }}</span>
         {% if ass and ass.pct_vs_market %}
           {% if ass.pct_vs_market < -2 %}
-          <span class="pct pct-below">{{ "%.0f%%"|format(ass.pct_vs_market) }} below market</span>
+          <span class="price-delta delta-below">{{ "%.0f%%"|format(ass.pct_vs_market) }}</span>
           {% elif ass.pct_vs_market > 5 %}
-          <span class="pct pct-above">+{{ "%.0f%%"|format(ass.pct_vs_market) }} above market</span>
+          <span class="price-delta delta-above">+{{ "%.0f%%"|format(ass.pct_vs_market) }}</span>
           {% endif %}
         {% endif %}
       </div>
     </div>
+
   </a>
   {% endfor %}
 </div>
+
 {% else %}
 <div class="empty">
-  <h3>No listings yet</h3>
-  <p>Be the first to post a car or property.</p>
-  <a class="btn btn-blue" href="/post">+ Post a Listing</a>
+  <div class="empty-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+  </div>
+  <h3>No listings found</h3>
+  <p>{% if type_filter or city_filter or mode_filter %}Try removing filters, or be the first to post in this category.{% else %}Be the first to post a car or property.{% endif %}</p>
+  <a class="btn-primary" href="/post">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="8" y1="2" x2="8" y2="14"/><line x1="2" y1="8" x2="14" y2="8"/></svg>
+    Post a Listing
+  </a>
 </div>
 {% endif %}
 
+<div class="footer-pad"></div>
+
 <script>
-function setType(t){document.getElementById('hType').value=t;document.querySelector('.filters').submit()}
-function setMode(m){const h=document.getElementById('hMode');h.value=h.value===m?'':m;document.querySelector('.filters').submit()}
+function setType(t){
+  document.getElementById('hType').value=t;
+  document.getElementById('hMode').value='';
+  document.querySelector('.filter-bar').submit()
+}
+function setMode(m){
+  const h=document.getElementById('hMode');
+  h.value=h.value===m?'':m;
+  document.getElementById('hType').value='';
+  document.querySelector('.filter-bar').submit()
+}
 </script>
 </body>
 </html>
