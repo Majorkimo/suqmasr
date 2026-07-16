@@ -21,6 +21,7 @@ import secrets
 from contextlib import contextmanager
 from pathlib import Path
 from datetime import datetime, UTC
+from werkzeug.security import generate_password_hash, check_password_hash
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 _USE_PG      = bool(DATABASE_URL)
@@ -207,6 +208,7 @@ CREATE TABLE IF NOT EXISTS price_assessments (
 CREATE TABLE IF NOT EXISTS offers (
     id             TEXT PRIMARY KEY,
     listing_id     TEXT REFERENCES listings(id),
+    buyer_user_id  TEXT REFERENCES users(id),
     buyer_name     TEXT NOT NULL,
     buyer_phone    TEXT NOT NULL,
     amount         INTEGER NOT NULL,
@@ -235,13 +237,35 @@ CREATE TABLE IF NOT EXISTS auctions (
     min_increment INTEGER DEFAULT 5000,
     end_at        TEXT NOT NULL,
     status        TEXT DEFAULT 'active'
-)
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    id            TEXT PRIMARY KEY,
+    name          TEXT NOT NULL,
+    phone         TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
+    role          TEXT DEFAULT 'both',
+    created_at    TEXT NOT NULL
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_users_phone ON users(phone)
 """
 
 
 def init_db():
     with _conn() as c:
         c.executescript(_SCHEMA)
+    # Add columns if missing (safe migrations for existing DBs)
+    if not _USE_PG:
+        for stmt in [
+            "ALTER TABLE listings ADD COLUMN user_id TEXT REFERENCES users(id)",
+            "ALTER TABLE offers ADD COLUMN buyer_user_id TEXT REFERENCES users(id)",
+            "CREATE INDEX IF NOT EXISTS idx_off_buyer ON offers(buyer_user_id)",
+        ]:
+            try:
+                with _conn() as c:
+                    c.execute(stmt)
+            except Exception:
+                pass
 
 
 # ── Listings ──────────────────────────────────────────────────────────────────
@@ -253,13 +277,13 @@ def create_listing(data: dict) -> tuple[str, str]:
         c.execute(
             "INSERT INTO listings "
             "(id, type, mode, title, description, asking_price, "
-            " seller_name, seller_phone, city, manage_token, created_at, expires_at) "
-            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)",
+            " seller_name, seller_phone, city, manage_token, created_at, expires_at, user_id) "
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
             (
                 lid, data["type"], data["mode"], data["title"],
                 data.get("description"), data["asking_price"],
                 data["seller_name"], data["seller_phone"], data.get("city"),
-                token, now(), data.get("expires_at"),
+                token, now(), data.get("expires_at"), data.get("user_id"),
             ),
         )
     return lid, token
@@ -432,10 +456,11 @@ def create_offer(listing_id: str, data: dict) -> str:
     with _conn() as c:
         c.execute(
             "INSERT INTO offers "
-            "(id, listing_id, buyer_name, buyer_phone, amount, message, created_at) "
-            "VALUES (?,?,?,?,?,?,?)",
+            "(id, listing_id, buyer_user_id, buyer_name, buyer_phone, amount, message, created_at) "
+            "VALUES (?,?,?,?,?,?,?,?)",
             (
                 oid, listing_id,
+                data.get("buyer_user_id"),
                 data["buyer_name"], data["buyer_phone"],
                 data["amount"], data.get("message", ""), now(),
             ),
@@ -500,6 +525,64 @@ def save_auction(listing_id: str, data: dict):
             "end_at":        data["end_at"],
             "status":        "active",
         })
+
+
+def create_user(name: str, phone: str, password: str, role: str = "both") -> str | None:
+    """Register a new user. Returns user id or None if phone already taken."""
+    uid = new_id()
+    try:
+        with _conn() as c:
+            c.execute(
+                "INSERT INTO users (id, name, phone, password_hash, role, created_at) "
+                "VALUES (?,?,?,?,?,?)",
+                (uid, name.strip(), phone.strip(),
+                 generate_password_hash(password), role, now()),
+            )
+        return uid
+    except Exception:
+        return None
+
+
+def authenticate_user(phone: str, password: str) -> dict | None:
+    """Return user dict if credentials match, else None."""
+    with _conn() as c:
+        row = c.execute(
+            "SELECT * FROM users WHERE phone=?", (phone.strip(),)
+        ).fetchone()
+    if row and check_password_hash(row["password_hash"], password):
+        return {k: v for k, v in row.items() if k != "password_hash"}
+    return None
+
+
+def get_user(uid: str) -> dict | None:
+    with _conn() as c:
+        row = c.execute(
+            "SELECT id, name, phone, role, created_at FROM users WHERE id=?", (uid,)
+        ).fetchone()
+    return row
+
+
+def list_user_listings(user_id: str) -> list[dict]:
+    with _conn() as c:
+        rows = c.execute(
+            "SELECT * FROM listings WHERE user_id=? ORDER BY created_at DESC",
+            (user_id,),
+        ).fetchall()
+    return rows
+
+
+def list_user_offers(user_id: str) -> list[dict]:
+    """Offers where the buyer's user_id matches (stored in buyer_user_id column)."""
+    with _conn() as c:
+        rows = c.execute(
+            """SELECT o.*, l.title, l.asking_price, l.type, l.status AS listing_status
+               FROM offers o
+               JOIN listings l ON l.id = o.listing_id
+               WHERE o.buyer_user_id = ?
+               ORDER BY o.created_at DESC""",
+            (user_id,),
+        ).fetchall()
+    return rows
 
 
 def get_stats() -> dict:

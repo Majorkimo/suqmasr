@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>My Listings — SuqMasr</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#F2F2F7;--card:#fff;--text:#000;--text2:rgba(60,60,67,.6);--text3:rgba(60,60,67,.3);
+      --sep:rgba(60,60,67,.12);--fill:rgba(120,120,128,.12);
+      --blue:#007AFF;--green:#34C759;--orange:#FF9500;--red:#FF3B30;
+      --shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.04);
+      --r:12px;--font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    }
+    @media(prefers-color-scheme:dark){
+      :root{--bg:#000;--card:#1C1C1E;--text:#fff;--text2:rgba(235,235,245,.6);--text3:rgba(235,235,245,.3);--sep:rgba(84,84,88,.6);--fill:rgba(118,118,128,.24);}
+    }
+    body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+    nav{position:sticky;top:0;z-index:100;height:52px;display:flex;align-items:center;padding:0 20px;gap:12px;background:rgba(242,242,247,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid var(--sep)}
+    @media(prefers-color-scheme:dark){nav{background:rgba(0,0,0,.8);}}
+    .logo{font-size:1.05rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.3px}
+    .logo-ar{color:var(--text2);font-size:.9rem;margin-left:3px}
+    .space{flex:1}
+    .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;text-decoration:none;font-family:var(--font);transition:opacity .15s}
+    .btn-blue{background:var(--blue);color:#fff}
+    .btn-ghost{background:var(--fill);color:var(--text)}
+
+    .page{max-width:800px;margin:0 auto;padding:28px 20px 60px}
+    h1{font-size:1.4rem;font-weight:700;letter-spacing:-.3px;margin-bottom:4px}
+    .sub{font-size:.85rem;color:var(--text2);margin-bottom:24px}
+
+    .list{display:flex;flex-direction:column;gap:10px}
+    .row{background:var(--card);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--text)}
+    .row-icon{font-size:1.6rem;flex-shrink:0}
+    .row-body{flex:1;min-width:0}
+    .row-title{font-size:.92rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .row-meta{font-size:.76rem;color:var(--text2);margin-top:2px}
+    .row-price{font-size:.95rem;font-weight:700;flex-shrink:0}
+    .pill{font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:5px;letter-spacing:.1px;display:inline-block;margin-left:6px}
+    .p-active{background:rgba(52,199,89,.1);color:var(--green)}
+    .p-sold{background:var(--fill);color:var(--text2)}
+    .row-actions{display:flex;gap:6px;flex-shrink:0}
+    .act{font-size:.75rem;font-weight:600;padding:5px 10px;border-radius:8px;background:var(--fill);color:var(--text2);text-decoration:none;border:none;cursor:pointer;font-family:var(--font)}
+
+    .empty{text-align:center;padding:64px 20px}
+    .empty h3{font-size:1.05rem;font-weight:600;margin-bottom:6px}
+    .empty p{font-size:.85rem;color:var(--text2);margin-bottom:20px}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">SuqMasr <span class="logo-ar">مصر</span></a>
+  <div class="space"></div>
+  <a class="btn btn-ghost" href="/my-offers">My Offers</a>
+  <a class="btn btn-blue" href="/post">+ Post</a>
+  <a class="btn" style="color:var(--text2);font-size:.8rem" href="/logout">{{ current_user.name.split()[0] }} ↩</a>
+</nav>
+
+<div class="page">
+  <h1>My Listings</h1>
+  <p class="sub">{{ listings|length }} listing{{ 's' if listings|length != 1 else '' }}</p>
+
+  {% if listings %}
+  <div class="list">
+    {% for l in listings %}
+    <div class="row">
+      <div class="row-icon">{{ '🚗' if l.type == 'car' else '🏠' }}</div>
+      <div class="row-body">
+        <div class="row-title">
+          {{ l.title }}
+          <span class="pill {{ 'p-active' if l.status == 'active' else 'p-sold' }}">{{ l.status }}</span>
+        </div>
+        <div class="row-meta">{{ l.city or '—' }} · {{ l.created_at[:10] }}</div>
+      </div>
+      <div class="row-price">{{ fmt_egp(l.asking_price) }}</div>
+      <div class="row-actions">
+        <a class="act" href="/listing/{{ l.id }}">View</a>
+        <a class="act" href="/listing/{{ l.id }}/manage?token={{ l.manage_token }}">Manage</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty">
+    <h3>No listings yet</h3>
+    <p>Post your first car or property.</p>
+    <a class="btn btn-blue" href="/post">+ Post a Listing</a>
+  </div>
+  {% endif %}
+</div>
+</body>
+</html>

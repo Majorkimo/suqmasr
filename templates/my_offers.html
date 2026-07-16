@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>My Offers — SuqMasr</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#F2F2F7;--card:#fff;--text:#000;--text2:rgba(60,60,67,.6);
+      --sep:rgba(60,60,67,.12);--fill:rgba(120,120,128,.12);
+      --blue:#007AFF;--green:#34C759;--orange:#FF9500;--red:#FF3B30;
+      --shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.04);
+      --r:12px;--font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    }
+    @media(prefers-color-scheme:dark){
+      :root{--bg:#000;--card:#1C1C1E;--text:#fff;--text2:rgba(235,235,245,.6);--sep:rgba(84,84,88,.6);--fill:rgba(118,118,128,.24);}
+    }
+    body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+    nav{position:sticky;top:0;z-index:100;height:52px;display:flex;align-items:center;padding:0 20px;gap:12px;background:rgba(242,242,247,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid var(--sep)}
+    @media(prefers-color-scheme:dark){nav{background:rgba(0,0,0,.8);}}
+    .logo{font-size:1.05rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.3px}
+    .logo-ar{color:var(--text2);font-size:.9rem;margin-left:3px}
+    .space{flex:1}
+    .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;text-decoration:none;font-family:var(--font);transition:opacity .15s}
+    .btn-blue{background:var(--blue);color:#fff}
+    .btn-ghost{background:var(--fill);color:var(--text)}
+
+    .page{max-width:800px;margin:0 auto;padding:28px 20px 60px}
+    h1{font-size:1.4rem;font-weight:700;letter-spacing:-.3px;margin-bottom:4px}
+    .sub{font-size:.85rem;color:var(--text2);margin-bottom:24px}
+
+    .list{display:flex;flex-direction:column;gap:10px}
+    .row{background:var(--card);border-radius:var(--r);padding:16px 18px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px}
+    .row-icon{font-size:1.5rem;flex-shrink:0}
+    .row-body{flex:1;min-width:0}
+    .row-listing{font-size:.92rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .row-meta{font-size:.76rem;color:var(--text2);margin-top:2px}
+    .row-right{text-align:right;flex-shrink:0}
+    .row-amount{font-size:.95rem;font-weight:700}
+    .pill{font-size:.7rem;font-weight:600;padding:2px 8px;border-radius:5px;letter-spacing:.1px;display:inline-block;margin-top:4px}
+    .p-pending {background:rgba(255,149,0,.12);color:var(--orange)}
+    .p-accepted{background:rgba(52,199,89,.1);color:var(--green)}
+    .p-rejected{background:rgba(255,59,48,.1);color:var(--red)}
+    .p-countered{background:rgba(0,122,255,.1);color:var(--blue)}
+    .counter-note{font-size:.78rem;color:var(--blue);margin-top:4px}
+
+    .empty{text-align:center;padding:64px 20px}
+    .empty h3{font-size:1.05rem;font-weight:600;margin-bottom:6px}
+    .empty p{font-size:.85rem;color:var(--text2);margin-bottom:20px}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">SuqMasr <span class="logo-ar">مصر</span></a>
+  <div class="space"></div>
+  <a class="btn btn-ghost" href="/my-listings">My Listings</a>
+  <a class="btn" style="color:var(--text2);font-size:.8rem" href="/logout">{{ current_user.name.split()[0] }} ↩</a>
+</nav>
+
+<div class="page">
+  <h1>My Offers</h1>
+  <p class="sub">{{ offers|length }} offer{{ 's' if offers|length != 1 else '' }} made</p>
+
+  {% if offers %}
+  <div class="list">
+    {% for o in offers %}
+    <div class="row">
+      <div class="row-icon">{{ '🚗' if o.type == 'car' else '🏠' }}</div>
+      <div class="row-body">
+        <div class="row-listing">{{ o.title }}</div>
+        <div class="row-meta">{{ o.created_at[:10] }}
+          {% if o.listing_status == 'sold' %} · <span style="color:var(--text2)">Sold</span>{% endif %}
+        </div>
+        {% if o.counter_amount %}
+        <div class="counter-note">Counter offer: {{ fmt_egp(o.counter_amount) }}</div>
+        {% endif %}
+      </div>
+      <div class="row-right">
+        <div class="row-amount">{{ fmt_egp(o.amount) }}</div>
+        <span class="pill p-{{ o.status }}">
+          {% if o.status == 'pending' %}Pending
+          {% elif o.status == 'accepted' %}Accepted ✓
+          {% elif o.status == 'rejected' %}Rejected
+          {% elif o.status == 'countered' %}Countered
+          {% else %}{{ o.status }}{% endif %}
+        </span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty">
+    <h3>No offers yet</h3>
+    <p>Browse listings and make your first offer.</p>
+    <a class="btn btn-blue" href="/">Browse Listings</a>
+  </div>
+  {% endif %}
+</div>
+</body>
+</html>

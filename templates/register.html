@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Register — SuqMasr</title>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#F2F2F7;--card:#fff;--text:#000;--text2:rgba(60,60,67,.6);
+      --sep:rgba(60,60,67,.12);--fill:rgba(120,120,128,.12);
+      --blue:#007AFF;--red:#FF3B30;
+      --shadow:0 1px 3px rgba(0,0,0,.08),0 0 0 .5px rgba(0,0,0,.04);
+      --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    }
+    @media(prefers-color-scheme:dark){
+      :root{--bg:#000;--card:#1C1C1E;--text:#fff;--text2:rgba(235,235,245,.6);--sep:rgba(84,84,88,.6);--fill:rgba(118,118,128,.24);}
+    }
+    body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+    nav{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;padding:0 20px;background:rgba(242,242,247,.85);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid var(--sep);z-index:100}
+    @media(prefers-color-scheme:dark){nav{background:rgba(0,0,0,.8);}}
+    .logo{font-size:1.05rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:-.3px}
+    .logo-ar{color:var(--text2);font-size:.9rem;margin-left:3px}
+
+    .card{background:var(--card);border-radius:18px;padding:32px 28px;width:100%;max-width:400px;box-shadow:var(--shadow)}
+    h1{font-size:1.4rem;font-weight:700;margin-bottom:6px;letter-spacing:-.3px}
+    .sub{font-size:.85rem;color:var(--text2);margin-bottom:28px}
+
+    .field{margin-bottom:16px}
+    label{display:block;font-size:.78rem;font-weight:600;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px}
+    input{width:100%;padding:12px 14px;border-radius:10px;border:.5px solid var(--sep);background:var(--fill);color:var(--text);font-size:.95rem;font-family:var(--font);outline:none;transition:border-color .15s}
+    input:focus{border-color:var(--blue)}
+
+    .role-group{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+    .role-option input[type=radio]{display:none}
+    .role-option label{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;border-radius:10px;border:.5px solid var(--sep);background:var(--fill);cursor:pointer;font-size:.78rem;font-weight:600;color:var(--text2);text-transform:none;letter-spacing:0;transition:.15s}
+    .role-option label .icon{font-size:1.4rem}
+    .role-option input[type=radio]:checked + label{border-color:var(--blue);background:rgba(0,122,255,.1);color:var(--blue)}
+
+    .btn{display:block;width:100%;padding:13px;border-radius:12px;background:var(--blue);color:#fff;font-size:.95rem;font-weight:600;border:none;cursor:pointer;font-family:var(--font);text-align:center;margin-top:8px;transition:opacity .15s}
+    .btn:hover{opacity:.88}
+
+    .error{background:rgba(255,59,48,.1);color:var(--red);border-radius:10px;padding:10px 14px;font-size:.85rem;margin-bottom:18px}
+    .footer{margin-top:20px;text-align:center;font-size:.84rem;color:var(--text2)}
+    .footer a{color:var(--blue);text-decoration:none}
+  </style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">SuqMasr <span class="logo-ar">مصر</span></a>
+</nav>
+
+<div class="card">
+  <h1>Create account</h1>
+  <p class="sub">Join SuqMasr — buy, sell, or both</p>
+
+  {% if error %}
+  <div class="error">{{ error }}</div>
+  {% endif %}
+
+  <form method="post">
+    <div class="field">
+      <label>Full Name</label>
+      <input type="text" name="name" placeholder="Ahmed Hassan" required autofocus/>
+    </div>
+    <div class="field">
+      <label>Phone Number</label>
+      <input type="tel" name="phone" placeholder="01X XXXX XXXX" required/>
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Min. 6 characters" required/>
+    </div>
+    <div class="field">
+      <label>I want to</label>
+      <div class="role-group">
+        <div class="role-option">
+          <input type="radio" name="role" id="r-seller" value="seller"/>
+          <label for="r-seller"><span class="icon">🏷️</span>Sell</label>
+        </div>
+        <div class="role-option">
+          <input type="radio" name="role" id="r-buyer" value="buyer"/>
+          <label for="r-buyer"><span class="icon">🛒</span>Buy</label>
+        </div>
+        <div class="role-option">
+          <input type="radio" name="role" id="r-both" value="both" checked/>
+          <label for="r-both"><span class="icon">⚡</span>Both</label>
+        </div>
+      </div>
+    </div>
+    <button class="btn" type="submit">Create Account</button>
+  </form>
+
+  <p class="footer">Already have an account? <a href="/login">Log in</a></p>
+</div>
+</body>
+</html>

@@ -5,8 +5,12 @@ Port 5055.
 
 import os
 import uuid
+from functools import wraps
 from pathlib import Path
-from flask import Flask, render_template, request, jsonify, redirect, url_for
+from flask import (
+    Flask, render_template, request, jsonify,
+    redirect, url_for, session, flash,
+)
 from werkzeug.utils import secure_filename
 
 from db import (
@@ -14,6 +18,8 @@ from db import (
     save_car_details, save_property_details, save_photos, save_assessment,
     save_auction, create_offer, place_bid, respond_offer,
     update_listing_status, get_stats,
+    create_user, authenticate_user, get_user,
+    list_user_listings, list_user_offers,
 )
 from pricing.cars import (
     get_car_market_price, score_car_asking, CAR_MAKES, get_models_for_make,
@@ -28,7 +34,23 @@ from tier_data import TIER_MULTIPLIERS, TIER_LABELS
 from locations import COMPOUND_TERRITORY_MAP, TERRITORY_LABELS
 
 app = Flask(__name__)
-app.secret_key = os.urandom(24)
+app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
+
+
+# ── Auth helpers ──────────────────────────────────────────────────────────────
+
+def current_user():
+    uid = session.get("user_id")
+    return get_user(uid) if uid else None
+
+
+def login_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not session.get("user_id"):
+            return redirect(url_for("login", next=request.path))
+        return f(*args, **kwargs)
+    return decorated
 
 # ── Cloudinary (Vercel) vs local uploads ─────────────────────────────────────
 
@@ -62,6 +84,11 @@ def photo_url_filter(value):
 
 
 app.jinja_env.filters["photo_url"] = photo_url_filter
+
+
+@app.context_processor
+def inject_user():
+    return {"current_user": current_user()}
 ALLOWED_EXT  = {"jpg", "jpeg", "png", "webp", "heic"}
 MAX_PHOTOS   = 12
 
@@ -246,16 +273,18 @@ def post_submit():
     mode         = f.get("mode")           # 'offer' | 'auction'
 
     # ── Base listing ──────────────────────────────────────────────────────
+    u = current_user()
     lid, token = create_listing({
         "type":         listing_type,
         "mode":         mode,
         "title":        f.get("title", "").strip(),
         "description":  f.get("description", "").strip(),
         "asking_price": int(f.get("asking_price") or 0),
-        "seller_name":  f.get("seller_name", "").strip(),
-        "seller_phone": f.get("seller_phone", "").strip(),
+        "seller_name":  u["name"] if u else f.get("seller_name", "").strip(),
+        "seller_phone": u["phone"] if u else f.get("seller_phone", "").strip(),
         "city":         f.get("city", "").strip(),
         "expires_at":   None,
+        "user_id":      u["id"] if u else None,
     })
 
     # ── Photos ────────────────────────────────────────────────────────────
@@ -364,6 +393,11 @@ def make_offer(lid):
     data = request.json or {}
     if not data.get("buyer_name") or not data.get("buyer_phone") or not data.get("amount"):
         return jsonify({"error": "Name, phone and amount are required"}), 400
+    u = current_user()
+    if u:
+        data["buyer_user_id"] = u["id"]
+        data.setdefault("buyer_name",  u["name"])
+        data.setdefault("buyer_phone", u["phone"])
     oid = create_offer(lid, data)
     return jsonify({"ok": True, "offer_id": oid})
 
@@ -460,6 +494,73 @@ def assess():
 @app.route("/api/locations")
 def locations_api():
     return jsonify({"cities": CITIES, "areas": AREAS, "compounds": COMPOUNDS})
+
+
+# ── Auth routes ───────────────────────────────────────────────────────────────
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if session.get("user_id"):
+        return redirect(url_for("index"))
+    error = None
+    if request.method == "POST":
+        name     = request.form.get("name", "").strip()
+        phone    = request.form.get("phone", "").strip()
+        password = request.form.get("password", "")
+        role     = request.form.get("role", "both")
+        if not name or not phone or not password:
+            error = "All fields are required."
+        elif len(password) < 6:
+            error = "Password must be at least 6 characters."
+        else:
+            uid = create_user(name, phone, password, role)
+            if uid is None:
+                error = "This phone number is already registered."
+            else:
+                session["user_id"]   = uid
+                session["user_name"] = name
+                session["user_role"] = role
+                return redirect(url_for("index"))
+    return render_template("register.html", error=error)
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if session.get("user_id"):
+        return redirect(url_for("index"))
+    error = None
+    if request.method == "POST":
+        phone    = request.form.get("phone", "").strip()
+        password = request.form.get("password", "")
+        user     = authenticate_user(phone, password)
+        if user:
+            session["user_id"]   = user["id"]
+            session["user_name"] = user["name"]
+            session["user_role"] = user["role"]
+            next_url = request.args.get("next") or url_for("index")
+            return redirect(next_url)
+        error = "Invalid phone number or password."
+    return render_template("login.html", error=error)
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("index"))
+
+
+@app.route("/my-listings")
+@login_required
+def my_listings():
+    listings = list_user_listings(session["user_id"])
+    return render_template("my_listings.html", listings=listings, fmt_egp=fmt_egp)
+
+
+@app.route("/my-offers")
+@login_required
+def my_offers():
+    offers = list_user_offers(session["user_id"])
+    return render_template("my_offers.html", offers=offers, fmt_egp=fmt_egp)
 
 
 if __name__ == "__main__":

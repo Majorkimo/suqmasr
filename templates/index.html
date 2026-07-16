@@ -94,7 +94,17 @@
 <nav>
   <a class="logo" href="/">SuqMasr <span class="logo-ar">مصر</span></a>
   <div class="space"></div>
-  <a class="btn btn-blue" href="/post">+ Post a Listing</a>
+  {% if current_user %}
+    {% if current_user.role in ('seller','both') %}
+    <a class="btn btn-blue" href="/post">+ Post</a>
+    {% endif %}
+    <a class="btn" style="background:var(--fill);color:var(--text)" href="/my-listings">My Listings</a>
+    <a class="btn" style="background:var(--fill);color:var(--text)" href="/my-offers">My Offers</a>
+    <a class="btn" style="color:var(--text2);font-size:.8rem" href="/logout">{{ current_user.name.split()[0] }} ↩</a>
+  {% else %}
+    <a class="btn" style="background:var(--fill);color:var(--text)" href="/login">Login</a>
+    <a class="btn btn-blue" href="/register">Register</a>
+  {% endif %}
 </nav>
 
 <div class="hero">
