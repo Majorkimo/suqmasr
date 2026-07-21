@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Tawla 31 — SuqMasr</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#F8FAFB;--card:#fff;--card2:#F1F5F9;
+      --text:#0F172A;--text2:#475569;--text3:#94A3B8;
+      --sep:#E2E8F0;--fill:#F1F5F9;--fill2:rgba(15,118,110,.06);
+      --teal:#0D9488;--teal-light:#14B8A6;--teal-dark:#0F766E;
+      --blue:#0369A1;--green:#059669;--orange:#D97706;--red:#DC2626;
+      --shadow:0 1px 3px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04);
+      --shadow-md:0 4px 6px rgba(15,23,42,.07),0 2px 4px rgba(15,23,42,.05);
+      --shadow-lg:0 10px 24px rgba(15,23,42,.1),0 4px 8px rgba(15,23,42,.06);
+      --shadow-teal:0 4px 14px rgba(13,148,136,.25);
+      --r:14px;--r-sm:8px;--r-xs:6px;
+      --font:'Inter',system-ui,-apple-system,sans-serif;
+      --board:#134E4A;--board2:#0F3D3A;--pt-a:#14B8A6;--pt-b:#F1F5F9;
+      --frame:#0B2E2B;
+    }
+    @media(prefers-color-scheme:dark){
+      :root{
+        --bg:#0A0F1A;--card:#111827;--card2:#1E293B;
+        --text:#F1F5F9;--text2:#94A3B8;--text3:#475569;
+        --sep:#1E293B;--fill:#1E293B;--fill2:rgba(20,184,166,.08);
+        --shadow:0 1px 3px rgba(0,0,0,.4),0 0 0 .5px rgba(255,255,255,.04);
+        --shadow-md:0 4px 8px rgba(0,0,0,.4),0 0 0 .5px rgba(255,255,255,.04);
+        --shadow-lg:0 12px 28px rgba(0,0,0,.5),0 0 0 .5px rgba(255,255,255,.04);
+        --shadow-teal:0 4px 14px rgba(13,148,136,.35);
+        --board:#0F3D3A;--board2:#0B2E2B;--pt-a:#0D9488;--pt-b:#1E293B;
+        --frame:#071F1D;
+      }
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+    nav{
+      position:sticky;top:0;z-index:200;height:58px;
+      display:flex;align-items:center;padding:0 24px;gap:8px;
+      background:rgba(248,250,251,.92);
+      backdrop-filter:saturate(180%) blur(24px);
+      -webkit-backdrop-filter:saturate(180%) blur(24px);
+      border-bottom:1px solid var(--sep);
+    }
+    @media(prefers-color-scheme:dark){nav{background:rgba(10,15,26,.9)}}
+    .logo{font-size:1.1rem;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-.5px;display:flex;align-items:center;gap:6px}
+    .logo-dot{width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-light));flex-shrink:0}
+    .logo-ar{color:var(--teal);font-weight:600;font-size:.88rem}
+    nav .space{flex:1}
+    .nav-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;text-decoration:none;font-family:var(--font);transition:all .15s;white-space:nowrap;color:var(--text2);background:transparent}
+    .nav-btn:hover{background:var(--fill);color:var(--text)}
+
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 20px 60px}
+    .page-head{text-align:center;margin-bottom:22px}
+    .page-head h1{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;letter-spacing:-.5px}
+    .page-head h1 .ar{color:var(--teal)}
+    .page-head p{color:var(--text2);font-size:.9rem;margin-top:6px}
+
+    .game{display:grid;grid-template-columns:1fr 260px;gap:18px;align-items:start}
+    @media(max-width:900px){.game{grid-template-columns:1fr}}
+
+    /* ── BOARD ── */
+    .board-frame{background:var(--frame);border-radius:var(--r);padding:10px;box-shadow:var(--shadow-lg)}
+    .board{display:flex;gap:0;background:var(--board);border-radius:8px;overflow:hidden;user-select:none;-webkit-user-select:none}
+    .half{flex:6;display:flex;flex-direction:column}
+    .midbar{flex:0 0 44px;background:var(--frame);display:flex;flex-direction:column;position:relative}
+    .offcol{flex:0 0 44px;background:var(--board2);display:flex;flex-direction:column;border-left:2px solid var(--frame)}
+    .row{display:flex;height:190px}
+    .row + .row{margin-top:14px}
+    @media(max-width:640px){.row{height:135px}.midbar,.offcol{flex-basis:34px}}
+    .pt{flex:1;position:relative;cursor:default}
+    .pt .tri{position:absolute;inset:0;pointer-events:none}
+    .pt.top .tri{clip-path:polygon(0 0,100% 0,50% 88%)}
+    .pt.bot .tri{clip-path:polygon(50% 12%,0 100%,100% 100%)}
+    .pt.shade-a .tri{background:var(--pt-a);opacity:.55}
+    .pt.shade-b .tri{background:var(--pt-b);opacity:.8}
+    .pt.src{cursor:pointer}
+    .pt.src .tri{outline:0}
+    .pt.tgt{cursor:pointer}
+    .pt.tgt::after{content:"";position:absolute;inset:4px;border-radius:8px;border:2.5px dashed var(--teal-light);background:rgba(20,184,166,.16);animation:tgt .9s ease-in-out infinite}
+    @keyframes tgt{0%,100%{opacity:.9}50%{opacity:.45}}
+    .pt .num{position:absolute;left:0;right:0;text-align:center;font-size:.55rem;font-weight:700;color:rgba(255,255,255,.35);pointer-events:none}
+    .pt.top .num{bottom:2px}
+    .pt.bot .num{top:2px}
+
+    .chk{position:absolute;left:50%;transform:translateX(-50%);width:82%;max-width:34px;aspect-ratio:1;border-radius:50%;pointer-events:none;box-shadow:inset 0 -2px 4px rgba(0,0,0,.25),0 1px 2px rgba(0,0,0,.35)}
+    .chk.W{background:radial-gradient(circle at 35% 30%,#FFFDF5,#E7DFC8 60%,#C9BE9E);border:1.5px solid #B3A780}
+    .chk.B{background:radial-gradient(circle at 35% 30%,#2DD4BF,#0F766E 55%,#134E4A);border:1.5px solid #0B3B36}
+    .chk.sel{box-shadow:0 0 0 3px var(--teal-light),0 2px 6px rgba(0,0,0,.4)}
+    .chk .cnt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800}
+    .chk.W .cnt{color:#6B5F3E}
+    .chk.B .cnt{color:#CFFCF5}
+
+    .barzone{flex:1;position:relative;cursor:default}
+    .barzone.src{cursor:pointer}
+    .barzone.src::after{content:"";position:absolute;inset:3px;border-radius:8px;border:2.5px dashed var(--teal-light);animation:tgt .9s ease-in-out infinite}
+    .offzone{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+    .offzone.tgt{cursor:pointer}
+    .offzone.tgt::after{content:"";position:absolute;inset:3px;border-radius:8px;border:2.5px dashed var(--teal-light);background:rgba(20,184,166,.16);animation:tgt .9s ease-in-out infinite}
+    .off-stack{width:70%;max-width:26px;height:7px;border-radius:3px;box-shadow:0 1px 1px rgba(0,0,0,.3)}
+    .off-stack.W{background:linear-gradient(#FFFDF5,#C9BE9E)}
+    .off-stack.B{background:linear-gradient(#2DD4BF,#134E4A)}
+    .off-lbl{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.5)}
+
+    /* ── SIDE PANEL ── */
+    .panel{display:flex;flex-direction:column;gap:12px}
+    .card{background:var(--card);border:1px solid var(--sep);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+    .score-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .score-head h3{font-size:.85rem;font-weight:700}
+    .score-head .goal{font-size:.7rem;font-weight:700;color:var(--teal);background:var(--fill2);border:1px solid rgba(13,148,136,.2);padding:3px 8px;border-radius:12px}
+    .score-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid var(--sep)}
+    .score-row .who{display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600}
+    .dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
+    .dot.W{background:radial-gradient(circle at 35% 30%,#FFFDF5,#C9BE9E);border:1px solid #B3A780}
+    .dot.B{background:radial-gradient(circle at 35% 30%,#2DD4BF,#134E4A);border:1px solid #0B3B36}
+    .score-row .pts-val{font-size:1.15rem;font-weight:800;font-variant-numeric:tabular-nums}
+    .pipline{display:flex;justify-content:space-between;font-size:.7rem;color:var(--text3);margin-top:8px}
+
+    .status{min-height:38px;display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;color:var(--text2)}
+    .status .sdot{width:8px;height:8px;border-radius:50%;background:var(--teal);animation:pulse 1.6s ease-in-out infinite;flex-shrink:0}
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
+
+    .dice{display:flex;gap:8px;justify-content:center;padding:6px 0;min-height:52px}
+    .die{width:40px;height:40px;border-radius:9px;background:#fff;border:1px solid #D9DFE7;box-shadow:var(--shadow-md);position:relative;transition:opacity .2s}
+    @media(prefers-color-scheme:dark){.die{background:#F1F5F9}}
+    .die.used{opacity:.28}
+    .die.cpu{background:#134E4A;border-color:#0B2E2B}
+    .die .pip{position:absolute;width:7px;height:7px;border-radius:50%;background:#0F172A;transform:translate(-50%,-50%)}
+    .die.cpu .pip{background:#5EEAD4}
+
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:11px 16px;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;border:none;font-family:var(--font);transition:all .15s}
+    .btn-primary{background:var(--teal);color:#fff}
+    .btn-primary:hover{background:var(--teal-dark);box-shadow:var(--shadow-teal)}
+    .btn-primary:disabled{opacity:.4;cursor:default;box-shadow:none}
+    .btn-ghost{background:var(--fill);color:var(--text2)}
+    .btn-ghost:hover{color:var(--text)}
+    .btn-ghost:disabled{opacity:.4;cursor:default}
+    .btnrow{display:flex;gap:8px}
+
+    .rules{font-size:.76rem;color:var(--text2);line-height:1.55}
+    .rules b{color:var(--text)}
+    .rules ul{padding-left:16px;margin-top:6px}
+    .rules li{margin-bottom:3px}
+
+    /* ── OVERLAY ── */
+    .overlay{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;background:rgba(10,15,26,.55);backdrop-filter:blur(6px);padding:20px}
+    .overlay.show{display:flex}
+    .modal{background:var(--card);border:1px solid var(--sep);border-radius:var(--r);padding:30px 28px;max-width:380px;width:100%;text-align:center;box-shadow:var(--shadow-lg)}
+    .modal .big{font-size:2.4rem;margin-bottom:8px}
+    .modal h2{font-size:1.3rem;font-weight:800;margin-bottom:6px}
+    .modal p{font-size:.88rem;color:var(--text2);margin-bottom:18px}
+    .modal .mars{display:inline-block;background:rgba(217,119,6,.12);color:var(--orange);font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:12px;margin-bottom:12px}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/"><span class="logo-dot"></span>SuqMasr <span class="logo-ar">سوق مصر</span></a>
+  <span class="space"></span>
+  <a class="nav-btn" href="/">← Marketplace</a>
+</nav>
+
+<div class="wrap">
+  <div class="page-head">
+    <h1>Tawla 31 <span class="ar">طاولة ٣١</span></h1>
+    <p>Egyptian backgammon — first to <b>31 points</b> wins the match. Win a game for 1 point, win by Mars for 2.</p>
+  </div>
+
+  <div class="game">
+    <div>
+      <div class="board-frame">
+        <div class="board" id="board">
+          <div class="half">
+            <div class="row" id="row-tl"></div>
+            <div class="row" id="row-bl"></div>
+          </div>
+          <div class="midbar">
+            <div class="barzone" id="bar-B"></div>
+            <div class="barzone" id="bar-W"></div>
+          </div>
+          <div class="half">
+            <div class="row" id="row-tr"></div>
+            <div class="row" id="row-br"></div>
+          </div>
+          <div class="offcol">
+            <div class="offzone" id="off-B"><span class="off-lbl" id="off-B-lbl">0</span></div>
+            <div class="offzone" id="off-W"><span class="off-lbl" id="off-W-lbl">0</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="card">
+        <div class="score-head">
+          <h3>Match score</h3>
+          <span class="goal">First to 31</span>
+        </div>
+        <div class="score-row">
+          <span class="who"><span class="dot W"></span>You</span>
+          <span class="pts-val" id="score-you">0</span>
+        </div>
+        <div class="score-row">
+          <span class="who"><span class="dot B"></span>Computer</span>
+          <span class="pts-val" id="score-cpu">0</span>
+        </div>
+        <div class="pipline"><span id="pip-you">Pips: 167</span><span id="pip-cpu">Pips: 167</span></div>
+      </div>
+
+      <div class="card">
+        <div class="status" id="status"><span class="sdot"></span><span id="status-txt">Ready to play.</span></div>
+        <div class="dice" id="dice"></div>
+        <div class="btnrow" style="margin-top:6px">
+          <button class="btn btn-primary" id="btn-roll">Roll dice</button>
+          <button class="btn btn-ghost" id="btn-undo" disabled>Undo</button>
+        </div>
+        <div class="btnrow" style="margin-top:8px">
+          <button class="btn btn-ghost" id="btn-reset">Reset match</button>
+        </div>
+      </div>
+
+      <div class="card rules">
+        <b>How to play</b>
+        <ul>
+          <li>Your checkers are <b>cream</b>, moving toward the bottom-right (points 6→1), then off the board.</li>
+          <li>Click a checker, then a highlighted destination. Doubles give four moves.</li>
+          <li>Landing on a single enemy checker hits it to the bar — it must re-enter first.</li>
+          <li>Bear off all 15 checkers to win: <b>1 point</b>, or <b>2 points (Mars)</b> if the opponent bore off none.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="big" id="ov-emoji">🎲</div>
+    <div id="ov-mars" style="display:none"><span class="mars">MARS — double points!</span></div>
+    <h2 id="ov-title"></h2>
+    <p id="ov-text"></p>
+    <button class="btn btn-primary" id="ov-btn">Next game</button>
+  </div>
+</div>
+
+<script>
+(() => {
+"use strict";
+
+// ── State ────────────────────────────────────────────────────────────────────
+// pts[1..24]: >0 white (you) count, <0 black (computer) count.
+// White moves 24 → 1 and bears off from 1-6. Black moves 1 → 24, bears off from 19-24.
+let S = null;              // game state
+let match = loadMatch();   // {you, cpu}
+let phase = "idle";        // idle | opening | await-roll | player-move | cpu | over | match-over
+let selected = null;       // selected source: point number or "bar"
+let legalFirst = [];       // legal moves for current remaining dice
+let undoStack = [];
+let busy = false;
+
+const MATCH_GOAL = 31;
+const $ = id => document.getElementById(id);
+
+function newState(){
+  const pts = new Array(25).fill(0);
+  pts[24] = 2;  pts[13] = 5;  pts[8] = 3;  pts[6] = 5;    // white
+  pts[1] = -2;  pts[12] = -5; pts[17] = -3; pts[19] = -5; // black
+  return {pts, barW:0, barB:0, offW:0, offB:0, dice:[], rolled:[], turn:null};
+}
+const cloneS = s => ({pts:s.pts.slice(), barW:s.barW, barB:s.barB, offW:s.offW, offB:s.offB,
+                      dice:s.dice.slice(), rolled:s.rolled.slice(), turn:s.turn});
+
+function loadMatch(){
+  try{
+    const m = JSON.parse(localStorage.getItem("tawla31_match"));
+    if(m && Number.isInteger(m.you) && Number.isInteger(m.cpu)) return m;
+  }catch(e){}
+  return {you:0, cpu:0};
+}
+const saveMatch = () => localStorage.setItem("tawla31_match", JSON.stringify(match));
+
+// ── Rules ────────────────────────────────────────────────────────────────────
+const rollDie = () => 1 + Math.floor(Math.random()*6);
+
+function allHomeW(s){
+  if(s.barW > 0) return false;
+  for(let p=7;p<=24;p++) if(s.pts[p] > 0) return false;
+  return true;
+}
+function allHomeB(s){
+  if(s.barB > 0) return false;
+  for(let p=1;p<=18;p++) if(s.pts[p] < 0) return false;
+  return true;
+}
+
+// Single-die legal moves for one color. Move: {from: point|"bar", to: point|"off", die}
+function movesForDie(s, color, die){
+  const out = [];
+  if(color === "W"){
+    if(s.barW > 0){
+      const to = 25 - die;
+      if(s.pts[to] >= -1) out.push({from:"bar", to, die});
+      return out;
+    }
+    const home = allHomeW(s);
+    for(let p=1;p<=24;p++){
+      if(s.pts[p] <= 0) continue;
+      const t = p - die;
+      if(t >= 1){
+        if(s.pts[t] >= -1) out.push({from:p, to:t, die});
+      }else if(home){
+        if(p === die) out.push({from:p, to:"off", die});
+        else{ // die > p: only if no checker on a higher home point
+          let higher = false;
+          for(let q=p+1;q<=6;q++) if(s.pts[q] > 0){ higher = true; break; }
+          if(!higher) out.push({from:p, to:"off", die});
+        }
+      }
+    }
+  }else{
+    if(s.barB > 0){
+      const to = die;
+      if(s.pts[to] <= 1) out.push({from:"bar", to, die});
+      return out;
+    }
+    const home = allHomeB(s);
+    for(let p=1;p<=24;p++){
+      if(s.pts[p] >= 0) continue;
+      const t = p + die;
+      if(t <= 24){
+        if(s.pts[t] <= 1) out.push({from:p, to:t, die});
+      }else if(home){
+        const dist = 25 - p;
+        if(dist === die) out.push({from:p, to:"off", die});
+        else{
+          let farther = false;
+          for(let q=19;q<p;q++) if(s.pts[q] < 0){ farther = true; break; }
+          if(!farther) out.push({from:p, to:"off", die});
+        }
+      }
+    }
+  }
+  return out;
+}
+
+function applyMove(s, color, m){ // mutates s
+  if(color === "W"){
+    if(m.from === "bar") s.barW--; else s.pts[m.from]--;
+    if(m.to === "off") s.offW++;
+    else{
+      if(s.pts[m.to] === -1){ s.pts[m.to] = 0; s.barB++; }
+      s.pts[m.to]++;
+    }
+  }else{
+    if(m.from === "bar") s.barB--; else s.pts[m.from]++;
+    if(m.to === "off") s.offB++;
+    else{
+      if(s.pts[m.to] === 1){ s.pts[m.to] = 0; s.barW++; }
+      s.pts[m.to]--;
+    }
+  }
+  return s;
+}
+
+// Enumerate maximal move sequences (backgammon rule: use as many dice as
+// possible; with one usable die of two, prefer the larger).
+function enumerate(s, color, dice){
+  const seqs = [];
+  let maxUsed = 0;
+  const CAP = 4000;
+  function dfs(state, rem, moves){
+    let any = false;
+    const tried = new Set();
+    for(let i=0;i<rem.length && seqs.length<CAP;i++){
+      const d = rem[i];
+      if(tried.has(d)) continue;
+      tried.add(d);
+      const ms = movesForDie(state, color, d);
+      for(const m of ms){
+        any = true;
+        const ns = applyMove(cloneS(state), color, m);
+        const nr = rem.slice(0,i).concat(rem.slice(i+1));
+        dfs(ns, nr, moves.concat([m]));
+      }
+    }
+    if(!any){
+      if(moves.length > maxUsed) maxUsed = moves.length;
+      if(seqs.length < CAP) seqs.push({moves, state});
+    }
+  }
+  dfs(s, dice, []);
+  let best = seqs.filter(q => q.moves.length === maxUsed);
+  if(maxUsed === 1 && dice.length === 2 && dice[0] !== dice[1]){
+    const hi = Math.max(dice[0], dice[1]);
+    const hiSeqs = best.filter(q => q.moves[0].die === hi);
+    if(hiSeqs.length) best = hiSeqs;
+  }
+  return {maxUsed, seqs: best};
+}
+
+function pips(s, color){
+  let t = 0;
+  for(let p=1;p<=24;p++){
+    if(color==="W" && s.pts[p] > 0) t += p * s.pts[p];
+    if(color==="B" && s.pts[p] < 0) t += (25-p) * (-s.pts[p]);
+  }
+  t += 25 * (color==="W" ? s.barW : s.barB);
+  return t;
+}
+
+// ── Computer evaluation ──────────────────────────────────────────────────────
+function evalB(s){
+  let score = 0;
+  score += s.offB * 45;
+  score += s.barW * 24;                 // white on the bar is great for black
+  score -= pips(s, "B");
+  for(let p=1;p<=24;p++){
+    const v = s.pts[p];
+    if(v === -1){                       // black blot
+      let exposed = s.barW > 0;
+      if(!exposed) for(let q=p+1;q<=24;q++) if(s.pts[q] > 0){ exposed = true; break; }
+      score -= exposed ? (p >= 13 ? 14 : 8) : 2;
+    }else if(v <= -2){                  // made point
+      score += (p >= 19 ? 5 : 3);
+    }
+  }
+  score += Math.random() * 0.5;         // tiebreak
+  return score;
+}
+
+// ── DOM: board construction ──────────────────────────────────────────────────
+const ptEls = {};
+function buildBoard(){
+  const mk = (row, nums, isTop) => {
+    const el = $(row);
+    nums.forEach((n,i) => {
+      const d = document.createElement("div");
+      d.className = `pt ${isTop?"top":"bot"} ${ (i%2===0) === isTop ? "shade-a":"shade-b"}`;
+      d.dataset.pt = n;
+      d.innerHTML = `<div class="tri"></div><div class="num">${n}</div>`;
+      d.addEventListener("click", () => onPointClick(n));
+      el.appendChild(d);
+      ptEls[n] = d;
+    });
+  };
+  mk("row-tl",[13,14,15,16,17,18],true);
+  mk("row-tr",[19,20,21,22,23,24],true);
+  mk("row-bl",[12,11,10,9,8,7],false);
+  mk("row-br",[6,5,4,3,2,1],false);
+  $("bar-W").addEventListener("click", () => onPointClick("bar"));
+  $("off-W").addEventListener("click", () => onOffClick());
+}
+
+function renderCheckers(){
+  for(let p=1;p<=24;p++){
+    const el = ptEls[p];
+    el.querySelectorAll(".chk").forEach(c => c.remove());
+    const v = S.pts[p];
+    if(v === 0) continue;
+    const color = v > 0 ? "W" : "B";
+    const n = Math.abs(v);
+    const show = Math.min(n, 5);
+    const isTop = el.classList.contains("top");
+    for(let i=0;i<show;i++){
+      const c = document.createElement("div");
+      c.className = `chk ${color}`;
+      const off = i * 17;
+      if(isTop) c.style.top = off + "%"; else c.style.bottom = off + "%";
+      if(i === show-1){
+        if(n > 5) c.innerHTML = `<span class="cnt">${n}</span>`;
+        if(selected === p) c.classList.add("sel");
+      }
+      el.appendChild(c);
+    }
+  }
+  // bar
+  for(const [zone, cnt, color] of [["bar-W", S.barW, "W"], ["bar-B", S.barB, "B"]]){
+    const el = $(zone);
+    el.querySelectorAll(".chk").forEach(c => c.remove());
+    const show = Math.min(cnt, 4);
+    for(let i=0;i<show;i++){
+      const c = document.createElement("div");
+      c.className = `chk ${color}`;
+      c.style.top = (10 + i*20) + "%";
+      if(i === show-1 && cnt > 4) c.innerHTML = `<span class="cnt">${cnt}</span>`;
+      if(i === show-1 && selected === "bar" && color === "W") c.classList.add("sel");
+      el.appendChild(c);
+    }
+  }
+  // off trays
+  for(const [zone, cnt, color] of [["off-W", S.offW, "W"], ["off-B", S.offB, "B"]]){
+    const el = $(zone);
+    el.querySelectorAll(".off-stack").forEach(c => c.remove());
+    const lbl = $(zone + "-lbl");
+    lbl.textContent = cnt;
+    for(let i=0;i<Math.min(cnt,8);i++){
+      const st = document.createElement("div");
+      st.className = `off-stack ${color}`;
+      el.insertBefore(st, lbl);
+    }
+  }
+  $("pip-you").textContent = "Pips: " + pips(S, "W");
+  $("pip-cpu").textContent = "Pips: " + pips(S, "B");
+}
+
+function renderDice(){
+  const box = $("dice");
+  box.innerHTML = "";
+  if(!S || !S.rolled.length) return;
+  const remaining = S.dice.slice();
+  const isCpu = S.turn === "B";
+  for(const d of S.rolled){
+    const idx = remaining.indexOf(d);
+    const used = idx === -1;
+    if(!used) remaining.splice(idx, 1);
+    box.appendChild(dieEl(d, used, isCpu));
+  }
+}
+const PIP_POS = {
+  1:[[50,50]], 2:[[27,27],[73,73]], 3:[[27,27],[50,50],[73,73]],
+  4:[[27,27],[73,27],[27,73],[73,73]], 5:[[27,27],[73,27],[50,50],[27,73],[73,73]],
+  6:[[27,25],[73,25],[27,50],[73,50],[27,75],[73,75]]
+};
+function dieEl(v, used, cpu){
+  const d = document.createElement("div");
+  d.className = "die" + (used ? " used":"") + (cpu ? " cpu":"");
+  for(const [x,y] of PIP_POS[v]){
+    const p = document.createElement("span");
+    p.className = "pip";
+    p.style.left = x + "%"; p.style.top = y + "%";
+    d.appendChild(p);
+  }
+  return d;
+}
+
+function renderScore(){
+  $("score-you").textContent = match.you;
+  $("score-cpu").textContent = match.cpu;
+}
+
+function setStatus(txt){ $("status-txt").textContent = txt; }
+
+function renderHighlights(){
+  document.querySelectorAll(".pt.tgt,.pt.src").forEach(e => e.classList.remove("tgt","src"));
+  $("bar-W").classList.remove("src");
+  $("off-W").classList.remove("tgt");
+  if(phase !== "player-move") return;
+  if(selected === null){
+    const sources = new Set(legalFirst.map(m => m.from));
+    for(const f of sources){
+      if(f === "bar") $("bar-W").classList.add("src");
+      else ptEls[f].classList.add("src");
+    }
+  }else{
+    for(const m of legalFirst.filter(m => m.from === selected)){
+      if(m.to === "off") $("off-W").classList.add("tgt");
+      else ptEls[m.to].classList.add("tgt");
+    }
+  }
+}
+
+function render(){
+  renderCheckers();
+  renderDice();
+  renderScore();
+  renderHighlights();
+  $("btn-roll").disabled = phase !== "await-roll";
+  $("btn-undo").disabled = !(phase === "player-move" && undoStack.length);
+}
+
+// ── Player interaction ───────────────────────────────────────────────────────
+function refreshLegal(){
+  const {maxUsed, seqs} = enumerate(S, "W", S.dice);
+  if(maxUsed === 0){ legalFirst = []; return false; }
+  const seen = new Set();
+  legalFirst = [];
+  for(const q of seqs){
+    const m = q.moves[0];
+    const key = m.from + ">" + m.to + ">" + m.die;
+    if(!seen.has(key)){ seen.add(key); legalFirst.push(m); }
+  }
+  return true;
+}
+
+function onPointClick(p){
+  if(phase !== "player-move" || busy) return;
+  if(selected === null || selected === p){
+    if(legalFirst.some(m => m.from === p)){
+      selected = (selected === p) ? null : p;
+      render();
+    }
+    return;
+  }
+  // try move selected -> p (prefer the smaller die if both reach)
+  const cands = legalFirst.filter(m => m.from === selected && m.to === p);
+  if(cands.length){
+    cands.sort((a,b) => a.die - b.die);
+    doPlayerMove(cands[0]);
+  }else if(legalFirst.some(m => m.from === p)){
+    selected = p; render();
+  }
+}
+function onOffClick(){
+  if(phase !== "player-move" || busy || selected === null) return;
+  const cands = legalFirst.filter(m => m.from === selected && m.to === "off");
+  if(cands.length){
+    cands.sort((a,b) => a.die - b.die);
+    doPlayerMove(cands[0]);
+  }
+}
+
+function doPlayerMove(m){
+  undoStack.push(cloneS(S));
+  applyMove(S, "W", m);
+  S.dice.splice(S.dice.indexOf(m.die), 1);
+  selected = null;
+  if(S.offW === 15){ render(); return endGame("W"); }
+  if(S.dice.length === 0 || !refreshLegal()){
+    render();
+    endPlayerTurn();
+  }else{
+    render();
+  }
+}
+
+function endPlayerTurn(){
+  if(S.dice.length > 0) setStatus("No more legal moves — computer's turn.");
+  undoStack = [];
+  phase = "cpu";
+  render();
+  setTimeout(cpuTurn, 800);
+}
+
+$("btn-undo").addEventListener("click", () => {
+  if(phase !== "player-move" || !undoStack.length) return;
+  S = undoStack.pop();
+  selected = null;
+  refreshLegal();
+  render();
+});
+
+$("btn-roll").addEventListener("click", () => {
+  if(phase !== "await-roll") return;
+  const a = rollDie(), b = rollDie();
+  startTurn("W", a, b);
+});
+
+$("btn-reset").addEventListener("click", () => {
+  if(!confirm("Reset the match score and start over?")) return;
+  match = {you:0, cpu:0};
+  saveMatch();
+  hideOverlay();
+  newRound();
+});
+
+// ── Turn engine ──────────────────────────────────────────────────────────────
+function startTurn(color, a, b){
+  S.turn = color;
+  S.rolled = (a === b) ? [a,a,a,a] : [a,b];
+  S.dice = S.rolled.slice();
+  selected = null;
+  undoStack = [];
+  if(color === "W"){
+    phase = "player-move";
+    if(!refreshLegal()){
+      setStatus(`You rolled ${a}–${b}, but have no legal moves.`);
+      render();
+      return setTimeout(endPlayerTurn, 1300);
+    }
+    setStatus(a === b ? `You rolled double ${a}s — four moves!` : `You rolled ${a}–${b}. Your move.`);
+    render();
+  }else{
+    phase = "cpu";
+    setStatus(a === b ? `Computer rolled double ${a}s.` : `Computer rolled ${a}–${b}.`);
+    render();
+    setTimeout(cpuPlay, 900);
+  }
+}
+
+function cpuTurn(){
+  if(phase === "over" || phase === "match-over") return;
+  const a = rollDie(), b = rollDie();
+  startTurn("B", a, b);
+}
+
+function cpuPlay(){
+  const {maxUsed, seqs} = enumerate(S, "B", S.dice);
+  if(maxUsed === 0){
+    setStatus("Computer has no legal moves. Your turn — roll!");
+    S.dice = [];
+    renderDice();
+    phase = "await-roll";
+    render();
+    return;
+  }
+  let best = seqs[0], bestScore = -Infinity;
+  for(const q of seqs){
+    const sc = evalB(q.state);
+    if(sc > bestScore){ bestScore = sc; best = q; }
+  }
+  busy = true;
+  let i = 0;
+  const step = () => {
+    if(i < best.moves.length){
+      const m = best.moves[i++];
+      applyMove(S, "B", m);
+      S.dice.splice(S.dice.indexOf(m.die), 1);
+      render();
+      if(S.offB === 15){ busy = false; return endGame("B"); }
+      setTimeout(step, 550);
+    }else{
+      busy = false;
+      phase = "await-roll";
+      setStatus("Your turn — roll the dice!");
+      render();
+    }
+  };
+  setTimeout(step, 350);
+}
+
+// ── Rounds & match ───────────────────────────────────────────────────────────
+function newRound(){
+  S = newState();
+  phase = "opening";
+  hideOverlay();
+  setStatus("Opening roll…");
+  render();
+  const open = () => {
+    const a = rollDie(), b = rollDie();
+    const box = $("dice");
+    box.innerHTML = "";
+    box.appendChild(dieEl(a, false, false));
+    box.appendChild(dieEl(b, false, true));
+    if(a === b){
+      setStatus(`Both rolled ${a} — rolling again…`);
+      return setTimeout(open, 1100);
+    }
+    if(a > b){
+      setStatus(`You rolled ${a} vs ${b} — you start!`);
+      setTimeout(() => startTurn("W", a, b), 1100);
+    }else{
+      setStatus(`Computer rolled ${b} vs ${a} — it starts.`);
+      setTimeout(() => startTurn("B", a, b), 1100);
+    }
+  };
+  setTimeout(open, 500);
+}
+
+function endGame(winner){
+  phase = "over";
+  const mars = winner === "W" ? S.offB === 0 : S.offW === 0;
+  const gained = mars ? 2 : 1;
+  if(winner === "W") match.you += gained; else match.cpu += gained;
+  saveMatch();
+  renderScore();
+
+  const youWonMatch = match.you >= MATCH_GOAL;
+  const cpuWonMatch = match.cpu >= MATCH_GOAL;
+  $("ov-mars").style.display = mars ? "" : "none";
+
+  if(youWonMatch || cpuWonMatch){
+    phase = "match-over";
+    $("ov-emoji").textContent = youWonMatch ? "🏆" : "🤖";
+    $("ov-title").textContent = youWonMatch ? "You win the match!" : "Computer wins the match";
+    $("ov-text").textContent = `Final score ${match.you} – ${match.cpu}. ` +
+      (youWonMatch ? "Tawla champion of Suq Masr!" : "Better luck next time!");
+    $("ov-btn").textContent = "New match";
+  }else{
+    $("ov-emoji").textContent = winner === "W" ? "🎉" : "🤖";
+    $("ov-title").textContent = winner === "W" ? `You win the game (+${gained})` : `Computer wins (+${gained})`;
+    $("ov-text").textContent = `Match score: ${match.you} – ${match.cpu}. First to ${MATCH_GOAL} takes the match.`;
+    $("ov-btn").textContent = "Next game";
+  }
+  setStatus(winner === "W" ? "You won this game!" : "Computer won this game.");
+  showOverlay();
+}
+
+$("ov-btn").addEventListener("click", () => {
+  if(phase === "match-over"){
+    match = {you:0, cpu:0};
+    saveMatch();
+  }
+  newRound();
+});
+
+const showOverlay = () => $("overlay").classList.add("show");
+const hideOverlay = () => $("overlay").classList.remove("show");
+
+// ── Boot ─────────────────────────────────────────────────────────────────────
+buildBoard();
+renderScore();
+newRound();
+
+})();
+</script>
+</body>
+</html>
