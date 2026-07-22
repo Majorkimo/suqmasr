@@ -23,6 +23,8 @@ from db import (
     check_and_close_auction,
     create_user, authenticate_user, get_user,
     list_user_listings, list_user_offers,
+    create_game_match, join_game_match, get_game_match,
+    save_game_state, list_user_games,
 )
 from pricing.cars import (
     get_car_market_price, score_car_asking, CAR_MAKES, get_models_for_make,
@@ -268,7 +270,88 @@ def landing():
 
 @app.route("/tawla")
 def tawla():
-    return render_template("tawla.html")
+    return render_template("tawla.html", user=current_user())
+
+
+# ── Online games API ─────────────────────────────────────────────────────────
+
+def _api_user():
+    uid = session.get("user_id")
+    return get_user(uid) if uid else None
+
+
+def _game_payload(row):
+    p1 = get_user(row["p1_id"]) if row["p1_id"] else None
+    p2 = get_user(row["p2_id"]) if row["p2_id"] else None
+    return {
+        "code": row["code"], "game_type": row["game_type"],
+        "status": row["status"], "seq": row["seq"],
+        "state": row["state"],
+        "score1": row["score1"], "score2": row["score2"],
+        "winner_id": row["winner_id"],
+        "p1": {"id": row["p1_id"], "name": p1["name"] if p1 else "?"},
+        "p2": {"id": row["p2_id"], "name": p2["name"] if p2 else None} if row["p2_id"] else None,
+    }
+
+
+@app.route("/api/games", methods=["POST"])
+def api_game_create():
+    user = _api_user()
+    if not user:
+        return jsonify({"error": "login_required"}), 401
+    game_type = (request.json or {}).get("game_type", "tawla31")
+    code = create_game_match(user["id"], game_type)
+    return jsonify({"code": code})
+
+
+@app.route("/api/games/join", methods=["POST"])
+def api_game_join():
+    user = _api_user()
+    if not user:
+        return jsonify({"error": "login_required"}), 401
+    code = ((request.json or {}).get("code") or "").strip().upper()
+    row, err = join_game_match(code, user["id"])
+    if err:
+        return jsonify({"error": err}), 400
+    return jsonify(_game_payload(row))
+
+
+@app.route("/api/games/<code>", methods=["GET"])
+def api_game_get(code):
+    user = _api_user()
+    if not user:
+        return jsonify({"error": "login_required"}), 401
+    row = get_game_match(code)
+    if not row or user["id"] not in (row["p1_id"], row["p2_id"]):
+        return jsonify({"error": "not_found"}), 404
+    return jsonify(_game_payload(row))
+
+
+@app.route("/api/games/<code>", methods=["POST"])
+def api_game_save(code):
+    user = _api_user()
+    if not user:
+        return jsonify({"error": "login_required"}), 401
+    body = request.json or {}
+    ok, err = save_game_state(
+        code.strip().upper(), user["id"],
+        int(body.get("seq", -1)), body.get("state") or "",
+        int(body.get("score1", 0)), int(body.get("score2", 0)),
+        status=body.get("status"), winner_id=body.get("winner_id"),
+    )
+    if not ok:
+        status_code = {"conflict": 409, "forbidden": 403,
+                       "not_found": 404, "finished": 410}.get(err, 400)
+        return jsonify({"error": err}), status_code
+    return jsonify({"ok": True})
+
+
+@app.route("/games/history")
+@login_required
+def games_history():
+    user = current_user()
+    games = list_user_games(user["id"])
+    return render_template("game_history.html", games=games, user=user)
 
 
 @app.route("/post", methods=["GET"])

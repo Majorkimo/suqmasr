@@ -62,10 +62,11 @@
     .page-head h1 .ar{color:var(--teal)}
     .page-head p{color:var(--text2);font-size:.9rem;margin-top:6px}
 
-    .game{display:grid;grid-template-columns:1fr 260px;gap:18px;align-items:start}
+    .game{display:grid;grid-template-columns:1fr 280px;gap:18px;align-items:start}
     @media(max-width:900px){.game{grid-template-columns:1fr}}
 
     /* ── BOARD ── */
+    .board-wrap{position:relative}
     .board-frame{background:var(--frame);border-radius:var(--r);padding:10px;box-shadow:var(--shadow-lg)}
     .board{display:flex;gap:0;background:var(--board);border-radius:8px;overflow:hidden;user-select:none;-webkit-user-select:none}
     .half{flex:6;display:flex;flex-direction:column}
@@ -104,6 +105,11 @@
     .off-stack.B{background:linear-gradient(#2DD4BF,#134E4A)}
     .off-lbl{font-size:.6rem;font-weight:700;color:rgba(255,255,255,.5)}
 
+    .pause-cover{position:absolute;inset:0;border-radius:var(--r);display:none;align-items:center;justify-content:center;background:rgba(7,31,29,.82);backdrop-filter:blur(8px);z-index:5;flex-direction:column;gap:14px}
+    .pause-cover.show{display:flex}
+    .pause-cover .pz{font-size:2rem}
+    .pause-cover span{color:#CFFCF5;font-weight:700}
+
     /* ── SIDE PANEL ── */
     .panel{display:flex;flex-direction:column;gap:12px}
     .card{background:var(--card);border:1px solid var(--sep);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
@@ -111,7 +117,8 @@
     .score-head h3{font-size:.85rem;font-weight:700}
     .score-head .goal{font-size:.7rem;font-weight:700;color:var(--teal);background:var(--fill2);border:1px solid rgba(13,148,136,.2);padding:3px 8px;border-radius:12px}
     .score-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-top:1px solid var(--sep)}
-    .score-row .who{display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600}
+    .score-row .who{display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;min-width:0}
+    .score-row .who .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .dot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
     .dot.W{background:radial-gradient(circle at 35% 30%,#FFFDF5,#C9BE9E);border:1px solid #B3A780}
     .dot.B{background:radial-gradient(circle at 35% 30%,#2DD4BF,#134E4A);border:1px solid #0B3B36}
@@ -122,6 +129,12 @@
     .status .sdot{width:8px;height:8px;border-radius:50%;background:var(--teal);animation:pulse 1.6s ease-in-out infinite;flex-shrink:0}
     @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:.6}}
 
+    .timerline{display:flex;align-items:center;justify-content:space-between;margin:4px 0 2px}
+    .timer{font-size:1.5rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.5px}
+    .timer.low{color:var(--red);animation:pulse 1s ease-in-out infinite}
+    .timer-lbl{font-size:.7rem;color:var(--text3);font-weight:600}
+    .code-pill{font-size:.75rem;font-weight:800;letter-spacing:2px;background:var(--fill2);border:1px solid rgba(13,148,136,.2);color:var(--teal);padding:3px 9px;border-radius:10px}
+
     .dice{display:flex;gap:8px;justify-content:center;padding:6px 0;min-height:52px}
     .die{width:40px;height:40px;border-radius:9px;background:#fff;border:1px solid #D9DFE7;box-shadow:var(--shadow-md);position:relative;transition:opacity .2s}
     @media(prefers-color-scheme:dark){.die{background:#F1F5F9}}
@@ -130,7 +143,7 @@
     .die .pip{position:absolute;width:7px;height:7px;border-radius:50%;background:#0F172A;transform:translate(-50%,-50%)}
     .die.cpu .pip{background:#5EEAD4}
 
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:11px 16px;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;border:none;font-family:var(--font);transition:all .15s}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:11px 16px;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;border:none;font-family:var(--font);transition:all .15s;text-decoration:none}
     .btn-primary{background:var(--teal);color:#fff}
     .btn-primary:hover{background:var(--teal-dark);box-shadow:var(--shadow-teal)}
     .btn-primary:disabled{opacity:.4;cursor:default;box-shadow:none}
@@ -144,13 +157,21 @@
     .rules ul{padding-left:16px;margin-top:6px}
     .rules li{margin-bottom:3px}
 
-    /* ── OVERLAY ── */
+    /* ── OVERLAYS ── */
     .overlay{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;background:rgba(10,15,26,.55);backdrop-filter:blur(6px);padding:20px}
     .overlay.show{display:flex}
-    .modal{background:var(--card);border:1px solid var(--sep);border-radius:var(--r);padding:30px 28px;max-width:380px;width:100%;text-align:center;box-shadow:var(--shadow-lg)}
+    .modal{background:var(--card);border:1px solid var(--sep);border-radius:var(--r);padding:30px 28px;max-width:400px;width:100%;text-align:center;box-shadow:var(--shadow-lg)}
     .modal .big{font-size:2.4rem;margin-bottom:8px}
     .modal h2{font-size:1.3rem;font-weight:800;margin-bottom:6px}
     .modal p{font-size:.88rem;color:var(--text2);margin-bottom:18px}
+    .modal .field{width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid var(--sep);background:var(--card2);color:var(--text);font-family:var(--font);font-size:1rem;font-weight:700;text-align:center;letter-spacing:4px;text-transform:uppercase;margin-bottom:10px;outline:none}
+    .modal .field:focus{border-color:var(--teal)}
+    .modal .err{color:var(--red);font-size:.78rem;font-weight:600;min-height:18px;margin-bottom:6px}
+    .modal .stack{display:flex;flex-direction:column;gap:8px}
+    .modal .divider{display:flex;align-items:center;gap:10px;color:var(--text3);font-size:.72rem;font-weight:700;margin:12px 0}
+    .modal .divider::before,.modal .divider::after{content:"";flex:1;height:1px;background:var(--sep)}
+    .modal .bigcode{font-size:2rem;font-weight:800;letter-spacing:8px;color:var(--teal);margin:8px 0 14px}
+    .modal .waiting{display:flex;align-items:center;justify-content:center;gap:8px;color:var(--text2);font-size:.85rem;font-weight:600}
   </style>
 </head>
 <body>
@@ -158,18 +179,19 @@
 <nav>
   <a class="logo" href="/"><span class="logo-dot"></span>SuqMasr <span class="logo-ar">سوق مصر</span></a>
   <span class="space"></span>
+  {% if user %}<a class="nav-btn" href="/games/history">My Games</a>{% endif %}
   <a class="nav-btn" href="/">← Marketplace</a>
 </nav>
 
 <div class="wrap">
   <div class="page-head">
     <h1>Tawla 31 <span class="ar">طاولة ٣١</span></h1>
-    <p>The Egyptian race game — no hitting, a single checker blocks a point. Win a round and score
+    <p>The Egyptian race game — no hitting, a single checker blocks a point. Score
        <b>one point per checker</b> the opponent still has on the board. First to <b>31</b> takes the match.</p>
   </div>
 
   <div class="game">
-    <div>
+    <div class="board-wrap">
       <div class="board-frame">
         <div class="board" id="board">
           <div class="half">
@@ -187,6 +209,10 @@
           </div>
         </div>
       </div>
+      <div class="pause-cover" id="pause-cover">
+        <div class="pz">⏸️</div><span>Game paused</span>
+        <button class="btn btn-primary" style="width:auto;padding:10px 26px" id="btn-resume">Resume</button>
+      </div>
     </div>
 
     <div class="panel">
@@ -196,107 +222,143 @@
           <span class="goal">First to 31</span>
         </div>
         <div class="score-row">
-          <span class="who"><span class="dot W"></span>You</span>
-          <span class="pts-val" id="score-you">0</span>
+          <span class="who"><span class="dot W"></span><span class="nm" id="name-W">You</span></span>
+          <span class="pts-val" id="score-W">0</span>
         </div>
         <div class="score-row">
-          <span class="who"><span class="dot B"></span>Computer</span>
-          <span class="pts-val" id="score-cpu">0</span>
+          <span class="who"><span class="dot B"></span><span class="nm" id="name-B">Computer</span></span>
+          <span class="pts-val" id="score-B">0</span>
         </div>
-        <div class="pipline"><span id="pip-you">Pips: 300</span><span id="pip-cpu">Pips: 300</span></div>
+        <div class="pipline"><span id="pip-W">Pips: 360</span><span id="pip-B">Pips: 360</span></div>
       </div>
 
       <div class="card">
-        <div class="status" id="status"><span class="sdot"></span><span id="status-txt">Ready to play.</span></div>
+        <div class="timerline">
+          <div>
+            <div class="timer" id="timer">2:00</div>
+            <div class="timer-lbl" id="timer-lbl">Turn timer</div>
+          </div>
+          <span class="code-pill" id="code-pill" style="display:none"></span>
+        </div>
+        <div class="status" id="status"><span class="sdot"></span><span id="status-txt">Choose a game mode.</span></div>
         <div class="dice" id="dice"></div>
         <div class="btnrow" style="margin-top:6px">
-          <button class="btn btn-primary" id="btn-roll">Roll dice</button>
+          <button class="btn btn-primary" id="btn-roll" disabled>Roll dice</button>
           <button class="btn btn-ghost" id="btn-undo" disabled>Undo</button>
         </div>
         <div class="btnrow" style="margin-top:8px">
-          <button class="btn btn-ghost" id="btn-reset">Reset match</button>
+          <button class="btn btn-ghost" id="btn-pause" disabled>Pause</button>
+          <button class="btn btn-ghost" id="btn-menu">Menu</button>
         </div>
       </div>
 
       <div class="card rules">
         <b>How to play Tawla 31</b>
         <ul>
-          <li>All 15 of your <b>cream</b> checkers start stacked on point 24 (top right). You move them
-              the long way round to points 6→1, then bear them off. The computer runs the opposite way.</li>
-          <li><b>No hitting:</b> a point holding even one enemy checker is blocked — you can never land there.</li>
-          <li><b>The runner:</b> your first checker must reach your home board (points 1–6) before any
-              other checker may move.</li>
-          <li>You may not lock the opponent in completely — a move that leaves them no possible move with
-              any dice is not allowed.</li>
-          <li>Bear off all 15 first to win the round: you score <b>1 point per checker</b> the opponent
-              still has on the board (up to 15). First to 31 points wins the match.</li>
+          <li>All 15 of your checkers start stacked on your head point. You run them the long way
+              round into your home board, then bear them off. Your opponent runs the opposite way.</li>
+          <li><b>No hitting:</b> a point holding even one enemy checker is blocked.</li>
+          <li><b>The runner:</b> your first checker must reach your home board before any other
+              checker may move.</li>
+          <li>You may not lock the opponent in completely.</li>
+          <li><b>2-minute turns:</b> if your time runs out, the computer finishes the round for you.</li>
+          <li>Bear off all 15 first: you score <b>1 point per checker</b> the opponent still has on
+              the board. First to 31 points wins the match.</li>
         </ul>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Mode select / lobby -->
+<div class="overlay show" id="menu-overlay">
+  <div class="modal" id="menu-modal">
+    <div class="big">🎲</div>
+    <h2>Tawla 31</h2>
+    <p>Play against the computer, or open an online table and invite a friend with a code.</p>
+    <div class="stack">
+      <button class="btn btn-primary" id="m-cpu">Play vs Computer</button>
+      {% if user %}
+      <button class="btn btn-ghost" id="m-create">Open online table</button>
+      <div class="divider">or join a friend</div>
+      <input class="field" id="m-code" maxlength="5" placeholder="CODE"/>
+      <button class="btn btn-ghost" id="m-join">Join with code</button>
+      {% else %}
+      <a class="btn btn-ghost" href="/login?next=/tawla">Log in to play online</a>
+      {% endif %}
+    </div>
+    <div class="err" id="m-err"></div>
+  </div>
+  <div class="modal" id="wait-modal" style="display:none">
+    <div class="big">☕</div>
+    <h2>Table is open</h2>
+    <p>Share this code — your friend enters it under “Join with code”.</p>
+    <div class="bigcode" id="wait-code"></div>
+    <div class="waiting"><span class="sdot" style="width:8px;height:8px;border-radius:50%;background:var(--teal);animation:pulse 1.6s infinite"></span> Waiting for a player…</div>
+    <div style="margin-top:16px"><button class="btn btn-ghost" id="wait-cancel">Back</button></div>
+  </div>
+</div>
+
+<!-- Round / match result -->
 <div class="overlay" id="overlay">
   <div class="modal">
     <div class="big" id="ov-emoji">🎲</div>
     <h2 id="ov-title"></h2>
     <p id="ov-text"></p>
-    <button class="btn btn-primary" id="ov-btn">Next round</button>
+    <div class="stack">
+      <button class="btn btn-primary" id="ov-btn">Next round</button>
+      <a class="btn btn-ghost" id="ov-history" href="/games/history" style="display:none">Game history</a>
+    </div>
   </div>
 </div>
 
 <script>
+window.ME = {{ ({"id": user.id, "name": user.name} if user else None) | tojson }};
+</script>
+<script>
 (() => {
 "use strict";
 
-// ── State ────────────────────────────────────────────────────────────────────
-// Tawla 31 (Egyptian, fevga family): no hitting, single checker blocks a point.
-// pts[1..24]: >0 white (you) count, <0 black (computer) count.
-// White: head on 24, moves 24 → 1, home 1-6.  Black: head on 1, moves 1 → 24, home 19-24.
-const HEAD_W = 24, HEAD_B = 1;
-let S = null;
-let match = loadMatch();   // {you, cpu}
-let phase = "idle";        // idle | opening | await-roll | player-move | cpu | over | match-over
-let selected = null;       // selected source point
-let legalFirst = [];       // legal moves for current remaining dice
-let undoStack = [];
-let busy = false;
-
+// ── Config ───────────────────────────────────────────────────────────────────
+const qs = new URLSearchParams(location.search);
+const TURN_MS = (parseInt(qs.get("timer"), 10) || 120) * 1000;
+const POLL_MS = 2000;
+const GRACE_MS = 4000;
 const MATCH_GOAL = 31;
+const HEAD_W = 24, HEAD_B = 1;
 const $ = id => document.getElementById(id);
 
-function newState(){
+// ── Session state ────────────────────────────────────────────────────────────
+let mode = null;           // 'cpu' | 'online'
+let myColor = "W";         // online: W if p1 else B
+let S = null;              // round state {pts, offW, offB, dice, rolled, turn}
+let scores = {W:0, B:0};   // match points
+let phase = "idle";        // idle | await-roll | player-move | opp | over | match-over
+let selected = null;
+let legalFirst = [];
+let undoStack = [];
+let busy = false;
+let takeover = {W:false, B:false};   // side timed out → AI finishes the round
+let deadline = null;       // epoch ms end of current turn
+let paused = false, pauseRemain = 0;
+let online = null;         // {code, seq, p1, p2, status, finished}
+let pollTimer = null, pushing = false;
+
+// ── Core rules (Tawla 31, fevga family) ──────────────────────────────────────
+const rollDie = () => 1 + Math.floor(Math.random()*6);
+
+function newRoundState(){
   const pts = new Array(25).fill(0);
-  pts[HEAD_W] = 15;
-  pts[HEAD_B] = -15;
+  pts[HEAD_W] = 15; pts[HEAD_B] = -15;
   return {pts, offW:0, offB:0, dice:[], rolled:[], turn:null};
 }
 const cloneS = s => ({pts:s.pts.slice(), offW:s.offW, offB:s.offB,
                       dice:s.dice.slice(), rolled:s.rolled.slice(), turn:s.turn});
 
-function loadMatch(){
-  try{
-    const m = JSON.parse(localStorage.getItem("tawla31_match"));
-    if(m && Number.isInteger(m.you) && Number.isInteger(m.cpu)) return m;
-  }catch(e){}
-  return {you:0, cpu:0};
-}
-const saveMatch = () => localStorage.setItem("tawla31_match", JSON.stringify(match));
+function allHomeW(s){ for(let p=7;p<=24;p++) if(s.pts[p] > 0) return false; return true; }
+function allHomeB(s){ for(let p=1;p<=18;p++) if(s.pts[p] < 0) return false; return true; }
 
-// ── Rules ────────────────────────────────────────────────────────────────────
-const rollDie = () => 1 + Math.floor(Math.random()*6);
-
-function allHomeW(s){
-  for(let p=7;p<=24;p++) if(s.pts[p] > 0) return false;
-  return true;
-}
-function allHomeB(s){
-  for(let p=1;p<=18;p++) if(s.pts[p] < 0) return false;
-  return true;
-}
-// Runner phase: until one of your checkers has completed the circuit into your
-// home board, only a single checker (the runner) may be off the head.
-function runnerW(s){ // returns "free", or the point of the sole moveable checker
+function runnerW(s){
   if(s.offW > 0) return "free";
   for(let p=1;p<=6;p++) if(s.pts[p] > 0) return "free";
   for(let p=1;p<=24;p++) if(p !== HEAD_W && s.pts[p] > 0) return p;
@@ -309,8 +371,6 @@ function runnerB(s){
   return HEAD_B;
 }
 
-// Single-die legal moves for one color. Move: {from: point, to: point|"off", die}
-// noFreezeCheck skips the anti-lock rule (used when probing the opponent's replies).
 function movesForDie(s, color, die, noFreezeCheck){
   const out = [];
   if(color === "W"){
@@ -355,8 +415,6 @@ function movesForDie(s, color, die, noFreezeCheck){
   return out.filter(m => !freezesOpponent(applyMove(cloneS(s), color, m), color));
 }
 
-// Anti-lock rule: a move may not leave the opponent with no possible move for
-// ANY die value while they still have checkers on the board.
 function freezesOpponent(s, color){
   const opp = color === "W" ? "B" : "W";
   if(opp === "W" ? s.offW === 15 : s.offB === 15) return false;
@@ -366,7 +424,7 @@ function freezesOpponent(s, color){
   return true;
 }
 
-function applyMove(s, color, m){ // mutates s
+function applyMove(s, color, m){
   if(color === "W"){
     s.pts[m.from]--;
     if(m.to === "off") s.offW++; else s.pts[m.to]++;
@@ -377,8 +435,6 @@ function applyMove(s, color, m){ // mutates s
   return s;
 }
 
-// Enumerate maximal move sequences (use as many dice as possible; with only
-// one playable die of two, the larger must be played).
 function enumerate(s, color, dice){
   const seqs = [];
   let maxUsed = 0;
@@ -394,8 +450,7 @@ function enumerate(s, color, dice){
       for(const m of ms){
         any = true;
         const ns = applyMove(cloneS(state), color, m);
-        const nr = rem.slice(0,i).concat(rem.slice(i+1));
-        dfs(ns, nr, moves.concat([m]));
+        dfs(ns, rem.slice(0,i).concat(rem.slice(i+1)), moves.concat([m]));
       }
     }
     if(!any){
@@ -422,25 +477,32 @@ function pips(s, color){
   return t;
 }
 
-// ── Computer evaluation ──────────────────────────────────────────────────────
-function evalB(s){
-  let score = 40 * s.offB - pips(s, "B");
-  // Held points block white permanently (no hitting) — spread beats stacking.
+// ── AI evaluation (used for the computer and for timed-out takeovers) ────────
+function evalFor(s, color){
+  const off = color === "W" ? s.offW : s.offB;
+  let score = 40 * off - pips(s, color);
   let run = 0;
-  const whiteRear = (() => { for(let p=24;p>=1;p--) if(s.pts[p] > 0) return p; return 0; })();
-  for(let p=1;p<=24;p++){
-    if(s.pts[p] < 0){
-      score += 2;
-      run++;
-      score += run * 1.1;                       // consecutive walls compound
-      if(p <= 7 && whiteRear > p) score += 2.5; // blocks in white's approach to home
-    }else run = 0;
+  if(color === "B"){
+    const whiteRear = (() => { for(let p=24;p>=1;p--) if(s.pts[p] > 0) return p; return 0; })();
+    for(let p=1;p<=24;p++){
+      if(s.pts[p] < 0){
+        score += 2; run++; score += run * 1.1;
+        if(p <= 7 && whiteRear > p) score += 2.5;
+      }else run = 0;
+    }
+  }else{
+    const blackRear = (() => { for(let p=1;p<=24;p++) if(s.pts[p] < 0) return p; return 25; })();
+    for(let p=1;p<=24;p++){
+      if(s.pts[p] > 0){
+        score += 2; run++; score += run * 1.1;
+        if(p >= 18 && blackRear < p) score += 2.5;
+      }else run = 0;
+    }
   }
-  score += Math.random() * 0.5;
-  return score;
+  return score + Math.random() * 0.5;
 }
 
-// ── DOM: board construction ──────────────────────────────────────────────────
+// ── DOM: board ───────────────────────────────────────────────────────────────
 const ptEls = {};
 function buildBoard(){
   const mk = (row, nums, isTop) => {
@@ -448,7 +510,6 @@ function buildBoard(){
     nums.forEach((n,i) => {
       const d = document.createElement("div");
       d.className = `pt ${isTop?"top":"bot"} ${ (i%2===0) === isTop ? "shade-a":"shade-b"}`;
-      d.dataset.pt = n;
       d.innerHTML = `<div class="tri"></div><div class="num">${n}</div>`;
       d.addEventListener("click", () => onPointClick(n));
       el.appendChild(d);
@@ -459,15 +520,16 @@ function buildBoard(){
   mk("row-tr",[19,20,21,22,23,24],true);
   mk("row-bl",[12,11,10,9,8,7],false);
   mk("row-br",[6,5,4,3,2,1],false);
-  $("off-W").addEventListener("click", () => onOffClick());
+  $("off-W").addEventListener("click", () => onOffClick("W"));
+  $("off-B").addEventListener("click", () => onOffClick("B"));
 }
 
 function renderCheckers(){
   for(let p=1;p<=24;p++){
     const el = ptEls[p];
     el.querySelectorAll(".chk").forEach(c => c.remove());
-    const v = S.pts[p];
-    if(v === 0) continue;
+    const v = S ? S.pts[p] : 0;
+    if(!v) continue;
     const color = v > 0 ? "W" : "B";
     const n = Math.abs(v);
     const show = Math.min(n, 5);
@@ -484,7 +546,7 @@ function renderCheckers(){
       el.appendChild(c);
     }
   }
-  for(const [zone, cnt, color] of [["off-W", S.offW, "W"], ["off-B", S.offB, "B"]]){
+  for(const [zone, cnt, color] of [["off-W", S?S.offW:0, "W"], ["off-B", S?S.offB:0, "B"]]){
     const el = $(zone);
     el.querySelectorAll(".off-stack").forEach(c => c.remove());
     const lbl = $(zone + "-lbl");
@@ -495,31 +557,18 @@ function renderCheckers(){
       el.insertBefore(st, lbl);
     }
   }
-  $("pip-you").textContent = "Pips: " + pips(S, "W");
-  $("pip-cpu").textContent = "Pips: " + pips(S, "B");
+  $("pip-W").textContent = S ? "Pips: " + pips(S, "W") : "";
+  $("pip-B").textContent = S ? "Pips: " + pips(S, "B") : "";
 }
 
-function renderDice(){
-  const box = $("dice");
-  box.innerHTML = "";
-  if(!S || !S.rolled.length) return;
-  const remaining = S.dice.slice();
-  const isCpu = S.turn === "B";
-  for(const d of S.rolled){
-    const idx = remaining.indexOf(d);
-    const used = idx === -1;
-    if(!used) remaining.splice(idx, 1);
-    box.appendChild(dieEl(d, used, isCpu));
-  }
-}
 const PIP_POS = {
   1:[[50,50]], 2:[[27,27],[73,73]], 3:[[27,27],[50,50],[73,73]],
   4:[[27,27],[73,27],[27,73],[73,73]], 5:[[27,27],[73,27],[50,50],[27,73],[73,73]],
   6:[[27,25],[73,25],[27,50],[73,50],[27,75],[73,75]]
 };
-function dieEl(v, used, cpu){
+function dieEl(v, used, dark){
   const d = document.createElement("div");
-  d.className = "die" + (used ? " used":"") + (cpu ? " cpu":"");
+  d.className = "die" + (used ? " used":"") + (dark ? " cpu":"");
   for(const [x,y] of PIP_POS[v]){
     const p = document.createElement("span");
     p.className = "pip";
@@ -528,10 +577,33 @@ function dieEl(v, used, cpu){
   }
   return d;
 }
+function renderDice(){
+  const box = $("dice");
+  box.innerHTML = "";
+  if(!S || !S.rolled.length) return;
+  const remaining = S.dice.slice();
+  const dark = S.turn === "B";
+  for(const d of S.rolled){
+    const idx = remaining.indexOf(d);
+    const used = idx === -1;
+    if(!used) remaining.splice(idx, 1);
+    box.appendChild(dieEl(d, used, dark));
+  }
+}
 
 function renderScore(){
-  $("score-you").textContent = match.you;
-  $("score-cpu").textContent = match.cpu;
+  $("score-W").textContent = scores.W;
+  $("score-B").textContent = scores.B;
+  if(mode === "online" && online){
+    $("name-W").textContent = online.p1.name + (myColor==="W" ? " (you)" : "");
+    $("name-B").textContent = (online.p2 ? online.p2.name : "…") + (myColor==="B" ? " (you)" : "");
+    $("code-pill").style.display = "";
+    $("code-pill").textContent = online.code;
+  }else{
+    $("name-W").textContent = "You";
+    $("name-B").textContent = "Computer";
+    $("code-pill").style.display = "none";
+  }
 }
 
 function setStatus(txt){ $("status-txt").textContent = txt; }
@@ -539,13 +611,14 @@ function setStatus(txt){ $("status-txt").textContent = txt; }
 function renderHighlights(){
   document.querySelectorAll(".pt.tgt,.pt.src").forEach(e => e.classList.remove("tgt","src"));
   $("off-W").classList.remove("tgt");
-  if(phase !== "player-move") return;
+  $("off-B").classList.remove("tgt");
+  if(phase !== "player-move" || takeover[myColor]) return;
   if(selected === null){
     const sources = new Set(legalFirst.map(m => m.from));
     for(const f of sources) ptEls[f].classList.add("src");
   }else{
     for(const m of legalFirst.filter(m => m.from === selected)){
-      if(m.to === "off") $("off-W").classList.add("tgt");
+      if(m.to === "off") $("off-" + myColor).classList.add("tgt");
       else ptEls[m.to].classList.add("tgt");
     }
   }
@@ -556,13 +629,78 @@ function render(){
   renderDice();
   renderScore();
   renderHighlights();
-  $("btn-roll").disabled = phase !== "await-roll";
-  $("btn-undo").disabled = !(phase === "player-move" && undoStack.length);
+  $("btn-roll").disabled = !(phase === "await-roll" && !paused && !takeover[myColor]);
+  $("btn-undo").disabled = !(phase === "player-move" && undoStack.length && !paused);
+  $("btn-pause").disabled = !(mode === "cpu" && (phase === "await-roll" || phase === "player-move"));
+  $("btn-pause").textContent = paused ? "Resume" : "Pause";
+}
+
+// ── Timer ────────────────────────────────────────────────────────────────────
+setInterval(() => {
+  const t = $("timer");
+  if(paused){ t.classList.remove("low"); return; }
+  if(deadline === null || phase === "idle" || phase === "over" || phase === "match-over"){
+    t.textContent = fmtMs(TURN_MS); t.classList.remove("low"); return;
+  }
+  const left = Math.max(0, deadline - Date.now());
+  t.textContent = fmtMs(left);
+  t.classList.toggle("low", left <= 20000 && left > 0);
+  if(left === 0) onTimeout();
+}, 250);
+
+function fmtMs(ms){
+  const s = Math.ceil(ms/1000);
+  return Math.floor(s/60) + ":" + String(s%60).padStart(2,"0");
+}
+function armTimer(){ deadline = Date.now() + TURN_MS; }
+
+function onTimeout(){
+  if(busy || paused) return;
+  if(mode === "cpu"){
+    if((phase === "await-roll" || phase === "player-move") && !takeover.W){
+      takeover.W = true;
+      deadline = null;
+      setStatus("Time's up — the computer finishes the round for you.");
+      selected = null;
+      render();
+      if(phase === "await-roll") cpuModeAutoRoll();
+      else aiFinishTurn("W", afterMyTurnCpu);
+    }
+  }else if(mode === "online" && online && !online.finished){
+    const turnColor = S && S.turn;
+    if(!turnColor) return;
+    if(takeover[turnColor]) return;
+    if(Date.now() < (deadline || 0) + (turnColor === myColor ? 0 : GRACE_MS)) return;
+    takeover[turnColor] = true;
+    deadline = null;
+    setStatus(turnColor === myColor
+      ? "Time's up — the computer finishes the round for you."
+      : "Opponent's time is up — the computer plays for them.");
+    render();
+    driveOnline();
+  }
+}
+
+// ── Pause (vs computer only) ─────────────────────────────────────────────────
+$("btn-pause").addEventListener("click", togglePause);
+$("btn-resume").addEventListener("click", togglePause);
+function togglePause(){
+  if(mode !== "cpu") return;
+  if(!paused && !(phase === "await-roll" || phase === "player-move")) return;
+  paused = !paused;
+  if(paused){
+    pauseRemain = Math.max(0, (deadline || Date.now()) - Date.now());
+    $("pause-cover").classList.add("show");
+  }else{
+    deadline = Date.now() + pauseRemain;
+    $("pause-cover").classList.remove("show");
+  }
+  render();
 }
 
 // ── Player interaction ───────────────────────────────────────────────────────
 function refreshLegal(){
-  const {maxUsed, seqs} = enumerate(S, "W", S.dice);
+  const {maxUsed, seqs} = enumerate(S, myColor, S.dice);
   if(maxUsed === 0){ legalFirst = []; return false; }
   const seen = new Set();
   legalFirst = [];
@@ -575,7 +713,7 @@ function refreshLegal(){
 }
 
 function onPointClick(p){
-  if(phase !== "player-move" || busy) return;
+  if(phase !== "player-move" || busy || paused || takeover[myColor]) return;
   if(selected === null || selected === p){
     if(legalFirst.some(m => m.from === p)){
       selected = (selected === p) ? null : p;
@@ -591,8 +729,9 @@ function onPointClick(p){
     selected = p; render();
   }
 }
-function onOffClick(){
-  if(phase !== "player-move" || busy || selected === null) return;
+function onOffClick(color){
+  if(color !== myColor) return;
+  if(phase !== "player-move" || busy || paused || selected === null || takeover[myColor]) return;
   const cands = legalFirst.filter(m => m.from === selected && m.to === "off");
   if(cands.length){
     cands.sort((a,b) => a.die - b.die);
@@ -602,28 +741,27 @@ function onOffClick(){
 
 function doPlayerMove(m){
   undoStack.push(cloneS(S));
-  applyMove(S, "W", m);
+  applyMove(S, myColor, m);
   S.dice.splice(S.dice.indexOf(m.die), 1);
   selected = null;
-  if(S.offW === 15){ render(); return endGame("W"); }
+  const myOff = myColor === "W" ? S.offW : S.offB;
+  if(myOff === 15){ render(); return endRound(myColor); }
   if(S.dice.length === 0 || !refreshLegal()){
     render();
-    endPlayerTurn();
+    endMyTurn();
   }else{
     render();
   }
 }
 
-function endPlayerTurn(){
-  if(S.dice.length > 0) setStatus("No more legal moves — computer's turn.");
+function endMyTurn(){
   undoStack = [];
-  phase = "cpu";
-  render();
-  setTimeout(cpuTurn, 800);
+  if(mode === "cpu") afterMyTurnCpu();
+  else afterMyTurnOnline();
 }
 
 $("btn-undo").addEventListener("click", () => {
-  if(phase !== "player-move" || !undoStack.length) return;
+  if(phase !== "player-move" || !undoStack.length || paused) return;
   S = undoStack.pop();
   selected = null;
   refreshLegal();
@@ -631,88 +769,105 @@ $("btn-undo").addEventListener("click", () => {
 });
 
 $("btn-roll").addEventListener("click", () => {
-  if(phase !== "await-roll") return;
+  if(phase !== "await-roll" || paused || takeover[myColor]) return;
   const a = rollDie(), b = rollDie();
-  startTurn("W", a, b);
-});
-
-$("btn-reset").addEventListener("click", () => {
-  if(!confirm("Reset the match score and start over?")) return;
-  match = {you:0, cpu:0};
-  saveMatch();
-  hideOverlay();
-  newRound();
+  beginMove(myColor, a, b);
+  if(mode === "online") pushState("move");
 });
 
 // ── Turn engine ──────────────────────────────────────────────────────────────
-function startTurn(color, a, b){
+function beginMove(color, a, b){
   S.turn = color;
   S.rolled = (a === b) ? [a,a,a,a] : [a,b];
   S.dice = S.rolled.slice();
   selected = null;
   undoStack = [];
-  if(color === "W"){
+  if(color === myColor){
     phase = "player-move";
     if(!refreshLegal()){
-      setStatus(`You rolled ${a}–${b}, but every move is blocked.`);
+      setStatus(`Rolled ${a}–${b} — every move is blocked.`);
       render();
-      return setTimeout(endPlayerTurn, 1300);
+      setTimeout(() => { if(phase === "player-move") endMyTurn(); }, 1200);
+      return;
     }
     setStatus(a === b ? `You rolled double ${a}s — four moves!` : `You rolled ${a}–${b}. Your move.`);
-    render();
   }else{
-    phase = "cpu";
-    setStatus(a === b ? `Computer rolled double ${a}s.` : `Computer rolled ${a}–${b}.`);
-    render();
-    setTimeout(cpuPlay, 900);
+    phase = "opp";
+    setStatus(a === b ? `Opponent rolled double ${a}s.` : `Opponent rolled ${a}–${b}.`);
   }
+  render();
 }
 
-function cpuTurn(){
-  if(phase === "over" || phase === "match-over") return;
-  const a = rollDie(), b = rollDie();
-  startTurn("B", a, b);
-}
-
-function cpuPlay(){
-  const {maxUsed, seqs} = enumerate(S, "B", S.dice);
-  if(maxUsed === 0){
-    setStatus("Computer is blocked — no legal moves. Your turn, roll!");
-    S.dice = [];
-    renderDice();
-    phase = "await-roll";
-    render();
-    return;
-  }
+// AI plays the current turn for `color` with whatever dice remain, then onDone().
+function aiFinishTurn(color, onDone){
+  const {maxUsed, seqs} = enumerate(S, color, S.dice);
+  if(maxUsed === 0){ S.dice = []; render(); return onDone(); }
   let best = seqs[0], bestScore = -Infinity;
   for(const q of seqs){
-    const sc = evalB(q.state);
+    const sc = evalFor(q.state, color);
     if(sc > bestScore){ bestScore = sc; best = q; }
   }
   busy = true;
   let i = 0;
+  const fast = takeover.W || takeover.B;
   const step = () => {
     if(i < best.moves.length){
       const m = best.moves[i++];
-      applyMove(S, "B", m);
+      applyMove(S, color, m);
       S.dice.splice(S.dice.indexOf(m.die), 1);
       render();
-      if(S.offB === 15){ busy = false; return endGame("B"); }
-      setTimeout(step, 550);
+      const off = color === "W" ? S.offW : S.offB;
+      if(off === 15){ busy = false; return endRound(color); }
+      setTimeout(step, fast ? 280 : 550);
     }else{
       busy = false;
-      phase = "await-roll";
-      setStatus("Your turn — roll the dice!");
-      render();
+      onDone();
     }
   };
-  setTimeout(step, 350);
+  setTimeout(step, fast ? 150 : 350);
 }
 
-// ── Rounds & match ───────────────────────────────────────────────────────────
-function newRound(){
-  S = newState();
-  phase = "opening";
+// ── CPU-mode flow ────────────────────────────────────────────────────────────
+function afterMyTurnCpu(){
+  if(phase === "over" || phase === "match-over") return;
+  phase = "opp";
+  render();
+  setTimeout(() => {
+    const a = rollDie(), b = rollDie();
+    beginMove("B", a, b);
+    aiFinishTurn("B", () => {
+      if(phase === "over" || phase === "match-over") return;
+      startMyTurnCpu();
+    });
+  }, takeover.W ? 250 : 800);
+}
+
+function startMyTurnCpu(){
+  phase = "await-roll";
+  armTimer();
+  if(takeover.W){
+    setStatus("Computer plays your turn…");
+    render();
+    return cpuModeAutoRoll();
+  }
+  setStatus("Your turn — roll the dice!");
+  render();
+}
+
+function cpuModeAutoRoll(){
+  setTimeout(() => {
+    const a = rollDie(), b = rollDie();
+    beginMove("W", a, b);
+    aiFinishTurn("W", afterMyTurnCpu);
+  }, 350);
+}
+
+function startRoundCpu(){
+  S = newRoundState();
+  takeover = {W:false, B:false};
+  paused = false;
+  $("pause-cover").classList.remove("show");
+  phase = "idle";
   hideOverlay();
   setStatus("Opening roll…");
   render();
@@ -724,66 +879,342 @@ function newRound(){
     box.appendChild(dieEl(b, false, true));
     if(a === b){
       setStatus(`Both rolled ${a} — rolling again…`);
-      return setTimeout(open, 1100);
+      return setTimeout(open, 1000);
     }
     if(a > b){
       setStatus(`You rolled ${a} vs ${b} — you start!`);
-      setTimeout(() => startTurn("W", a, b), 1100);
+      setTimeout(() => { armTimer(); beginMove("W", a, b); }, 1000);
     }else{
       setStatus(`Computer rolled ${b} vs ${a} — it starts.`);
-      setTimeout(() => startTurn("B", a, b), 1100);
+      setTimeout(() => {
+        beginMove("B", a, b);
+        aiFinishTurn("B", startMyTurnCpu);
+      }, 1000);
     }
   };
-  setTimeout(open, 500);
+  setTimeout(open, 400);
 }
 
-function endGame(winner){
-  phase = "over";
-  const gained = winner === "W" ? 15 - S.offB : 15 - S.offW;
-  if(winner === "W") match.you += gained; else match.cpu += gained;
-  saveMatch();
-  renderScore();
+// ── Online flow ──────────────────────────────────────────────────────────────
+async function api(path, body){
+  const res = await fetch(path, body === undefined ? {} : {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  return {ok: res.ok, status: res.status, data};
+}
 
-  const youWonMatch = match.you >= MATCH_GOAL;
-  const cpuWonMatch = match.cpu >= MATCH_GOAL;
+function netSnapshot(extra){
+  return JSON.stringify(Object.assign({
+    round: S,
+    phase: (phase === "await-roll" || (phase === "opp" && !S.rolled.length)) ? "roll" : "move",
+    deadline,
+    takeover,
+    roundResult: null,
+  }, extra || {}));
+}
 
-  if(youWonMatch || cpuWonMatch){
-    phase = "match-over";
-    $("ov-emoji").textContent = youWonMatch ? "🏆" : "🤖";
-    $("ov-title").textContent = youWonMatch ? "You win the match!" : "Computer wins the match";
-    $("ov-text").textContent = `Final score ${match.you} – ${match.cpu}. ` +
-      (youWonMatch ? "Tawla champion of Suq Masr!" : "Better luck next time!");
-    $("ov-btn").textContent = "New match";
-  }else{
-    $("ov-emoji").textContent = winner === "W" ? "🎉" : "🤖";
-    $("ov-title").textContent = winner === "W"
-      ? `You win the round (+${gained})`
-      : `Computer wins the round (+${gained})`;
-    $("ov-text").textContent = (winner === "W"
-      ? `The computer still had ${gained} checker${gained===1?"":"s"} on the board. `
-      : `You still had ${gained} checker${gained===1?"":"s"} on the board. `) +
-      `Match score: ${match.you} – ${match.cpu}. First to ${MATCH_GOAL} takes the match.`;
-    $("ov-btn").textContent = "Next round";
+async function pushState(phaseName, extra){
+  if(!online || pushing) return;
+  pushing = true;
+  const body = {
+    seq: online.seq + 1,
+    state: netSnapshot(Object.assign({phase: phaseName}, extra || {})),
+    score1: scores.W, score2: scores.B,
+  };
+  if(extra && extra.roundResult && extra.roundResult.matchOver){
+    body.status = "finished";
+    body.winner_id = extra.roundResult.winner === "W" ? online.p1.id : online.p2.id;
   }
-  setStatus(winner === "W" ? "You won this round!" : "Computer won this round.");
+  const r = await api(`/api/games/${online.code}`, body);
+  pushing = false;
+  if(r.ok){ online.seq += 1; }
+  else if(r.status === 409){ await pollOnce(true); }
+}
+
+function applyNet(payload){
+  online.seq = payload.seq;
+  online.status = payload.status;
+  online.p1 = payload.p1; online.p2 = payload.p2;
+  scores.W = payload.score1; scores.B = payload.score2;
+  if(!payload.state){ renderScore(); return; }
+  const net = JSON.parse(payload.state);
+  S = net.round;
+  takeover = net.takeover || {W:false, B:false};
+  deadline = net.deadline || null;
+  selected = null;
+  undoStack = [];
+  if(net.roundResult){
+    return showRoundResult(net.roundResult);
+  }
+  if(payload.status === "finished"){ online.finished = true; }
+  if(S.turn === myColor){
+    if(net.phase === "roll"){
+      phase = "await-roll";
+      setStatus("Your turn — roll the dice!");
+      if(takeover[myColor]) driveOnline();
+    }else{
+      phase = "player-move";
+      if(!refreshLegal()){
+        render();
+        return endMyTurn();
+      }
+      setStatus("Your move.");
+      if(takeover[myColor]) driveOnline();
+    }
+  }else{
+    phase = "opp";
+    setStatus(net.phase === "roll" ? "Waiting for opponent to roll…" : "Opponent is moving…");
+  }
+  render();
+}
+
+// Executes AI turns for any side flagged takeover (and my own if flagged).
+function driveOnline(){
+  if(busy || !S || !S.turn || (online && online.finished)) return;
+  const c = S.turn;
+  if(!takeover[c]) return;
+  const finish = () => {
+    if(phase === "over" || phase === "match-over") return;
+    handTurnOver(c === "W" ? "B" : "W");
+  };
+  if(!S.rolled.length || !S.dice.length){
+    const a = rollDie(), b = rollDie();
+    S.turn = c;
+    S.rolled = (a === b) ? [a,a,a,a] : [a,b];
+    S.dice = S.rolled.slice();
+    render();
+    aiFinishTurn(c, finish);
+  }else{
+    aiFinishTurn(c, finish);
+  }
+}
+
+function handTurnOver(nextColor){
+  S.turn = nextColor;
+  S.rolled = []; S.dice = [];
+  armTimer();
+  if(nextColor === myColor){
+    phase = takeover[myColor] ? "opp" : "await-roll";
+    setStatus(takeover[myColor] ? "Computer plays your turn…" : "Your turn — roll the dice!");
+  }else{
+    phase = "opp";
+    setStatus("Waiting for opponent…");
+  }
+  render();
+  pushState("roll");
+  if(takeover[nextColor]) setTimeout(driveOnline, 600);
+}
+
+function afterMyTurnOnline(){
+  handTurnOver(myColor === "W" ? "B" : "W");
+}
+
+async function pollOnce(force){
+  if(!online) return;
+  const r = await api(`/api/games/${online.code}`);
+  if(!r.ok) return;
+  const p = r.data;
+  if(p.status === "active" && !online.p2 && p.p2){
+    online.p2 = p.p2;
+    if(myColor === "W" && !p.state){
+      hideMenu();
+      return initOnlineRound(true);
+    }
+  }
+  if(p.seq > online.seq || force){
+    if(busy) return;                    // don't clobber mid-animation
+    if(S && S.turn === myColor && (phase === "player-move") && p.seq <= online.seq) return;
+    hideMenu();
+    applyNet(p);
+  }
+}
+
+function startPolling(){
+  stopPolling();
+  pollTimer = setInterval(() => {
+    if(!online || online.finished) return stopPolling();
+    if(phase === "player-move" && !takeover[myColor]) return; // my local turn
+    pollOnce();
+  }, POLL_MS);
+}
+function stopPolling(){ if(pollTimer){ clearInterval(pollTimer); pollTimer = null; } }
+
+function initOnlineRound(push){
+  S = newRoundState();
+  takeover = {W:false, B:false};
+  phase = "idle";
+  hideOverlay();
+  setStatus("Opening roll…");
+  render();
+  let a = rollDie(), b = rollDie();
+  while(a === b){ a = rollDie(); b = rollDie(); }
+  const starter = a > b ? "W" : "B";
+  armTimer();
+  beginMove(starter, a, b);
+  if(push) pushState("move");
+  if(starter !== myColor) setStatus(`Opponent rolled higher (${Math.max(a,b)}) and starts.`);
+  else setStatus(`You rolled higher (${Math.max(a,b)}) — you start!`);
+  render();
+}
+
+// ── Round & match end ────────────────────────────────────────────────────────
+function endRound(winner){
+  phase = "over";
+  deadline = null;
+  const gained = winner === "W" ? 15 - S.offB : 15 - S.offW;
+  scores[winner] += gained;
+  const matchOver = scores[winner] >= MATCH_GOAL;
+  const result = {winner, gained, matchOver};
+  if(mode === "online" && online){
+    pushState("move", {roundResult: result});
+  }
+  showRoundResult(result);
+}
+
+function showRoundResult(result){
+  phase = result.matchOver ? "match-over" : "over";
+  deadline = null;
+  renderScore();
+  const iWon = result.winner === myColor;
+  const oppName = mode === "online" && online
+    ? (myColor === "W" ? (online.p2 ? online.p2.name : "Opponent") : online.p1.name)
+    : "The computer";
+  if(result.matchOver){
+    if(mode === "online" && online) online.finished = true;
+    $("ov-emoji").textContent = iWon ? "🏆" : "😔";
+    $("ov-title").textContent = iWon ? "You win the match!" : `${oppName} wins the match`;
+    $("ov-text").textContent = `Final score ${scores.W} – ${scores.B}.` +
+      (iWon ? " Tawla champion of Suq Masr!" : " Better luck next time!");
+    $("ov-btn").textContent = mode === "cpu" ? "New match" : "Back to menu";
+    $("ov-history").style.display = (mode === "online" && window.ME) ? "" : "none";
+  }else{
+    $("ov-emoji").textContent = iWon ? "🎉" : "🤖";
+    $("ov-title").textContent = iWon
+      ? `You win the round (+${result.gained})`
+      : `${oppName} wins the round (+${result.gained})`;
+    $("ov-text").textContent =
+      `${iWon ? oppName : "You"} still had ${result.gained} checker${result.gained===1?"":"s"} on the board. ` +
+      `Match score: ${scores.W} – ${scores.B}. First to ${MATCH_GOAL} wins.`;
+    $("ov-btn").textContent = "Next round";
+    $("ov-history").style.display = "none";
+  }
+  setStatus(iWon ? "You won this round!" : "Round lost.");
+  render();
   showOverlay();
 }
 
 $("ov-btn").addEventListener("click", () => {
-  if(phase === "match-over"){
-    match = {you:0, cpu:0};
-    saveMatch();
+  hideOverlay();
+  if(mode === "cpu"){
+    if(phase === "match-over"){ scores = {W:0, B:0}; }
+    startRoundCpu();
+  }else if(mode === "online"){
+    if(phase === "match-over" || (online && online.finished)){
+      resetToMenu();
+    }else{
+      initOnlineRound(true);
+    }
   }
-  newRound();
 });
 
+// ── Menu / lobby ─────────────────────────────────────────────────────────────
 const showOverlay = () => $("overlay").classList.add("show");
 const hideOverlay = () => $("overlay").classList.remove("show");
+const hideMenu = () => $("menu-overlay").classList.remove("show");
+function showMenu(waiting){
+  $("menu-overlay").classList.add("show");
+  $("menu-modal").style.display = waiting ? "none" : "";
+  $("wait-modal").style.display = waiting ? "" : "none";
+}
+
+function resetToMenu(){
+  stopPolling();
+  online = null;
+  mode = null;
+  S = null;
+  scores = {W:0, B:0};
+  phase = "idle";
+  deadline = null;
+  paused = false;
+  takeover = {W:false, B:false};
+  $("pause-cover").classList.remove("show");
+  hideOverlay();
+  setStatus("Choose a game mode.");
+  render();
+  showMenu(false);
+}
+
+$("btn-menu").addEventListener("click", () => {
+  if(mode === "online" && online && !online.finished){
+    if(!confirm("Leave this online match? The table stays open — you can rejoin with the code.")) return;
+  }
+  resetToMenu();
+});
+
+$("m-cpu").addEventListener("click", () => {
+  mode = "cpu"; myColor = "W";
+  scores = {W:0, B:0};
+  hideMenu();
+  renderScore();
+  startRoundCpu();
+});
+
+const mCreate = $("m-create");
+if(mCreate) mCreate.addEventListener("click", async () => {
+  $("m-err").textContent = "";
+  const r = await api("/api/games", {game_type: "tawla31"});
+  if(!r.ok){ $("m-err").textContent = "Could not open a table — are you logged in?"; return; }
+  mode = "online"; myColor = "W";
+  scores = {W:0, B:0};
+  online = {code: r.data.code, seq: 0, p1: {id: window.ME.id, name: window.ME.name}, p2: null, finished: false};
+  $("wait-code").textContent = r.data.code;
+  showMenu(true);
+  renderScore();
+  startPolling();
+});
+
+const mJoin = $("m-join");
+if(mJoin) mJoin.addEventListener("click", async () => {
+  $("m-err").textContent = "";
+  const code = $("m-code").value.trim().toUpperCase();
+  if(code.length < 4){ $("m-err").textContent = "Enter the 5-letter table code."; return; }
+  const r = await api("/api/games/join", {code});
+  if(!r.ok){ $("m-err").textContent = r.data.error || "Could not join."; return; }
+  mode = "online";
+  const p = r.data;
+  myColor = p.p1.id === window.ME.id ? "W" : "B";
+  online = {code: p.code, seq: 0, p1: p.p1, p2: p.p2, finished: p.status === "finished"};
+  hideMenu();
+  renderScore();
+  setStatus("Joined table " + p.code + " — syncing…");
+  applyNetOrWait(p);
+  startPolling();
+});
+
+function applyNetOrWait(p){
+  if(p.state){ applyNet(p); }
+  else if(myColor === "W" && p.p2){ initOnlineRound(true); }
+  else setStatus("Waiting for the host to start…");
+}
+
+const waitCancel = $("wait-cancel");
+if(waitCancel) waitCancel.addEventListener("click", () => resetToMenu());
 
 // ── Boot ─────────────────────────────────────────────────────────────────────
 buildBoard();
 renderScore();
-newRound();
+render();
+showMenu(false);
+
+// Rejoin via ?table=CODE links
+const tableParam = qs.get("table");
+if(tableParam && window.ME){
+  $("m-code").value = tableParam.toUpperCase();
+  mJoin.click();
+}
 
 })();
 </script>
