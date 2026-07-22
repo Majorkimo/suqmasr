@@ -268,24 +268,7 @@ CREATE TABLE IF NOT EXISTS users (
     role          TEXT DEFAULT 'both',
     created_at    TEXT NOT NULL
 );
-CREATE UNIQUE INDEX IF NOT EXISTS idx_users_phone ON users(phone);
-
-CREATE TABLE IF NOT EXISTS game_matches (
-    code        TEXT PRIMARY KEY,
-    game_type   TEXT NOT NULL DEFAULT 'tawla31',
-    p1_id       TEXT NOT NULL REFERENCES users(id),
-    p2_id       TEXT REFERENCES users(id),
-    state       TEXT,
-    seq         INTEGER NOT NULL DEFAULT 0,
-    status      TEXT NOT NULL DEFAULT 'waiting',
-    winner_id   TEXT,
-    score1      INTEGER NOT NULL DEFAULT 0,
-    score2      INTEGER NOT NULL DEFAULT 0,
-    created_at  TEXT NOT NULL,
-    updated_at  TEXT NOT NULL
-);
-CREATE INDEX IF NOT EXISTS idx_gm_p1 ON game_matches(p1_id);
-CREATE INDEX IF NOT EXISTS idx_gm_p2 ON game_matches(p2_id)
+CREATE UNIQUE INDEX IF NOT EXISTS idx_users_phone ON users(phone)
 """
 
 
@@ -896,103 +879,6 @@ def list_user_offers(user_id: str) -> list[dict]:
         ).fetchall()
     return rows
 
-
-
-
-# ── Online games ──────────────────────────────────────────────────────────────
-
-_CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"  # no 0/O/1/I
-
-
-def _game_code() -> str:
-    return "".join(secrets.choice(_CODE_ALPHABET) for _ in range(5))
-
-
-def create_game_match(user_id: str, game_type: str = "tawla31") -> str:
-    """Open a new online match and return its join code."""
-    for _ in range(20):
-        code = _game_code()
-        try:
-            with _conn() as c:
-                c.execute(
-                    "INSERT INTO game_matches "
-                    "(code, game_type, p1_id, status, created_at, updated_at) "
-                    "VALUES (?,?,?,?,?,?)",
-                    (code, game_type, user_id, "waiting", now(), now()),
-                )
-            return code
-        except Exception:
-            continue
-    raise RuntimeError("could not allocate a game code")
-
-
-def get_game_match(code: str) -> dict | None:
-    with _conn() as c:
-        return c.execute(
-            "SELECT * FROM game_matches WHERE code=?", (code.strip().upper(),)
-        ).fetchone()
-
-
-def join_game_match(code: str, user_id: str) -> tuple[dict | None, str | None]:
-    """Join as second player (or re-open a match you are part of)."""
-    code = code.strip().upper()
-    with _conn() as c:
-        row = c.execute("SELECT * FROM game_matches WHERE code=?", (code,)).fetchone()
-        if not row:
-            return None, "No table found with that code."
-        if user_id in (row["p1_id"], row["p2_id"]):
-            return row, None                     # rejoining own match
-        if row["p2_id"]:
-            return None, "That table is already full."
-        if row["status"] != "waiting":
-            return None, "That match has already started."
-        c.execute(
-            "UPDATE game_matches SET p2_id=?, status='active', updated_at=? "
-            "WHERE code=?",
-            (user_id, now(), code),
-        )
-        row = c.execute("SELECT * FROM game_matches WHERE code=?", (code,)).fetchone()
-    return row, None
-
-
-def save_game_state(code: str, user_id: str, seq: int, state: str,
-                    score1: int, score2: int,
-                    status: str | None = None,
-                    winner_id: str | None = None) -> tuple[bool, str | None]:
-    """Store a new game state. seq must be exactly current seq + 1 (optimistic
-    lock so two clients cannot clobber each other)."""
-    with _conn() as c:
-        row = c.execute("SELECT * FROM game_matches WHERE code=?", (code,)).fetchone()
-        if not row:
-            return False, "not_found"
-        if user_id not in (row["p1_id"], row["p2_id"]):
-            return False, "forbidden"
-        if row["status"] == "finished":
-            return False, "finished"
-        if seq != row["seq"] + 1:
-            return False, "conflict"
-        c.execute(
-            "UPDATE game_matches SET state=?, seq=?, score1=?, score2=?, "
-            "status=?, winner_id=?, updated_at=? WHERE code=? AND seq=?",
-            (state, seq, score1, score2, status or row["status"],
-             winner_id or row["winner_id"], now(), code, row["seq"]),
-        )
-    return True, None
-
-
-def list_user_games(user_id: str, limit: int = 50) -> list[dict]:
-    """All matches (active + finished) the user is part of, newest first."""
-    with _conn() as c:
-        return c.execute(
-            """SELECT g.*, u1.name AS p1_name, u2.name AS p2_name
-               FROM game_matches g
-               JOIN users u1 ON u1.id = g.p1_id
-               LEFT JOIN users u2 ON u2.id = g.p2_id
-               WHERE g.p1_id=? OR g.p2_id=?
-               ORDER BY g.updated_at DESC
-               LIMIT ?""",
-            (user_id, user_id, limit),
-        ).fetchall()
 
 
 
