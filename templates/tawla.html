@@ -69,11 +69,11 @@
     .board-frame{background:var(--frame);border-radius:var(--r);padding:10px;box-shadow:var(--shadow-lg)}
     .board{display:flex;gap:0;background:var(--board);border-radius:8px;overflow:hidden;user-select:none;-webkit-user-select:none}
     .half{flex:6;display:flex;flex-direction:column}
-    .midbar{flex:0 0 44px;background:var(--frame);display:flex;flex-direction:column;position:relative}
+    .midbar{flex:0 0 26px;background:var(--frame)}
     .offcol{flex:0 0 44px;background:var(--board2);display:flex;flex-direction:column;border-left:2px solid var(--frame)}
     .row{display:flex;height:190px}
     .row + .row{margin-top:14px}
-    @media(max-width:640px){.row{height:135px}.midbar,.offcol{flex-basis:34px}}
+    @media(max-width:640px){.row{height:135px}.midbar{flex-basis:18px}.offcol{flex-basis:34px}}
     .pt{flex:1;position:relative;cursor:default}
     .pt .tri{position:absolute;inset:0;pointer-events:none}
     .pt.top .tri{clip-path:polygon(0 0,100% 0,50% 88%)}
@@ -81,7 +81,6 @@
     .pt.shade-a .tri{background:var(--pt-a);opacity:.55}
     .pt.shade-b .tri{background:var(--pt-b);opacity:.8}
     .pt.src{cursor:pointer}
-    .pt.src .tri{outline:0}
     .pt.tgt{cursor:pointer}
     .pt.tgt::after{content:"";position:absolute;inset:4px;border-radius:8px;border:2.5px dashed var(--teal-light);background:rgba(20,184,166,.16);animation:tgt .9s ease-in-out infinite}
     @keyframes tgt{0%,100%{opacity:.9}50%{opacity:.45}}
@@ -97,9 +96,6 @@
     .chk.W .cnt{color:#6B5F3E}
     .chk.B .cnt{color:#CFFCF5}
 
-    .barzone{flex:1;position:relative;cursor:default}
-    .barzone.src{cursor:pointer}
-    .barzone.src::after{content:"";position:absolute;inset:3px;border-radius:8px;border:2.5px dashed var(--teal-light);animation:tgt .9s ease-in-out infinite}
     .offzone{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
     .offzone.tgt{cursor:pointer}
     .offzone.tgt::after{content:"";position:absolute;inset:3px;border-radius:8px;border:2.5px dashed var(--teal-light);background:rgba(20,184,166,.16);animation:tgt .9s ease-in-out infinite}
@@ -155,7 +151,6 @@
     .modal .big{font-size:2.4rem;margin-bottom:8px}
     .modal h2{font-size:1.3rem;font-weight:800;margin-bottom:6px}
     .modal p{font-size:.88rem;color:var(--text2);margin-bottom:18px}
-    .modal .mars{display:inline-block;background:rgba(217,119,6,.12);color:var(--orange);font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:12px;margin-bottom:12px}
   </style>
 </head>
 <body>
@@ -169,7 +164,8 @@
 <div class="wrap">
   <div class="page-head">
     <h1>Tawla 31 <span class="ar">طاولة ٣١</span></h1>
-    <p>Egyptian backgammon — first to <b>31 points</b> wins the match. Win a game for 1 point, win by Mars for 2.</p>
+    <p>The Egyptian race game — no hitting, a single checker blocks a point. Win a round and score
+       <b>one point per checker</b> the opponent still has on the board. First to <b>31</b> takes the match.</p>
   </div>
 
   <div class="game">
@@ -180,10 +176,7 @@
             <div class="row" id="row-tl"></div>
             <div class="row" id="row-bl"></div>
           </div>
-          <div class="midbar">
-            <div class="barzone" id="bar-B"></div>
-            <div class="barzone" id="bar-W"></div>
-          </div>
+          <div class="midbar"></div>
           <div class="half">
             <div class="row" id="row-tr"></div>
             <div class="row" id="row-br"></div>
@@ -210,7 +203,7 @@
           <span class="who"><span class="dot B"></span>Computer</span>
           <span class="pts-val" id="score-cpu">0</span>
         </div>
-        <div class="pipline"><span id="pip-you">Pips: 167</span><span id="pip-cpu">Pips: 167</span></div>
+        <div class="pipline"><span id="pip-you">Pips: 300</span><span id="pip-cpu">Pips: 300</span></div>
       </div>
 
       <div class="card">
@@ -226,12 +219,17 @@
       </div>
 
       <div class="card rules">
-        <b>How to play</b>
+        <b>How to play Tawla 31</b>
         <ul>
-          <li>Your checkers are <b>cream</b>, moving toward the bottom-right (points 6→1), then off the board.</li>
-          <li>Click a checker, then a highlighted destination. Doubles give four moves.</li>
-          <li>Landing on a single enemy checker hits it to the bar — it must re-enter first.</li>
-          <li>Bear off all 15 checkers to win: <b>1 point</b>, or <b>2 points (Mars)</b> if the opponent bore off none.</li>
+          <li>All 15 of your <b>cream</b> checkers start stacked on point 24 (top right). You move them
+              the long way round to points 6→1, then bear them off. The computer runs the opposite way.</li>
+          <li><b>No hitting:</b> a point holding even one enemy checker is blocked — you can never land there.</li>
+          <li><b>The runner:</b> your first checker must reach your home board (points 1–6) before any
+              other checker may move.</li>
+          <li>You may not lock the opponent in completely — a move that leaves them no possible move with
+              any dice is not allowed.</li>
+          <li>Bear off all 15 first to win the round: you score <b>1 point per checker</b> the opponent
+              still has on the board (up to 15). First to 31 points wins the match.</li>
         </ul>
       </div>
     </div>
@@ -241,10 +239,9 @@
 <div class="overlay" id="overlay">
   <div class="modal">
     <div class="big" id="ov-emoji">🎲</div>
-    <div id="ov-mars" style="display:none"><span class="mars">MARS — double points!</span></div>
     <h2 id="ov-title"></h2>
     <p id="ov-text"></p>
-    <button class="btn btn-primary" id="ov-btn">Next game</button>
+    <button class="btn btn-primary" id="ov-btn">Next round</button>
   </div>
 </div>
 
@@ -253,12 +250,14 @@
 "use strict";
 
 // ── State ────────────────────────────────────────────────────────────────────
+// Tawla 31 (Egyptian, fevga family): no hitting, single checker blocks a point.
 // pts[1..24]: >0 white (you) count, <0 black (computer) count.
-// White moves 24 → 1 and bears off from 1-6. Black moves 1 → 24, bears off from 19-24.
-let S = null;              // game state
+// White: head on 24, moves 24 → 1, home 1-6.  Black: head on 1, moves 1 → 24, home 19-24.
+const HEAD_W = 24, HEAD_B = 1;
+let S = null;
 let match = loadMatch();   // {you, cpu}
 let phase = "idle";        // idle | opening | await-roll | player-move | cpu | over | match-over
-let selected = null;       // selected source: point number or "bar"
+let selected = null;       // selected source point
 let legalFirst = [];       // legal moves for current remaining dice
 let undoStack = [];
 let busy = false;
@@ -268,11 +267,11 @@ const $ = id => document.getElementById(id);
 
 function newState(){
   const pts = new Array(25).fill(0);
-  pts[24] = 2;  pts[13] = 5;  pts[8] = 3;  pts[6] = 5;    // white
-  pts[1] = -2;  pts[12] = -5; pts[17] = -3; pts[19] = -5; // black
-  return {pts, barW:0, barB:0, offW:0, offB:0, dice:[], rolled:[], turn:null};
+  pts[HEAD_W] = 15;
+  pts[HEAD_B] = -15;
+  return {pts, offW:0, offB:0, dice:[], rolled:[], turn:null};
 }
-const cloneS = s => ({pts:s.pts.slice(), barW:s.barW, barB:s.barB, offW:s.offW, offB:s.offB,
+const cloneS = s => ({pts:s.pts.slice(), offW:s.offW, offB:s.offB,
                       dice:s.dice.slice(), rolled:s.rolled.slice(), turn:s.turn});
 
 function loadMatch(){
@@ -288,34 +287,44 @@ const saveMatch = () => localStorage.setItem("tawla31_match", JSON.stringify(mat
 const rollDie = () => 1 + Math.floor(Math.random()*6);
 
 function allHomeW(s){
-  if(s.barW > 0) return false;
   for(let p=7;p<=24;p++) if(s.pts[p] > 0) return false;
   return true;
 }
 function allHomeB(s){
-  if(s.barB > 0) return false;
   for(let p=1;p<=18;p++) if(s.pts[p] < 0) return false;
   return true;
 }
+// Runner phase: until one of your checkers has completed the circuit into your
+// home board, only a single checker (the runner) may be off the head.
+function runnerW(s){ // returns "free", or the point of the sole moveable checker
+  if(s.offW > 0) return "free";
+  for(let p=1;p<=6;p++) if(s.pts[p] > 0) return "free";
+  for(let p=1;p<=24;p++) if(p !== HEAD_W && s.pts[p] > 0) return p;
+  return HEAD_W;
+}
+function runnerB(s){
+  if(s.offB > 0) return "free";
+  for(let p=19;p<=24;p++) if(s.pts[p] < 0) return "free";
+  for(let p=1;p<=24;p++) if(p !== HEAD_B && s.pts[p] < 0) return p;
+  return HEAD_B;
+}
 
-// Single-die legal moves for one color. Move: {from: point|"bar", to: point|"off", die}
-function movesForDie(s, color, die){
+// Single-die legal moves for one color. Move: {from: point, to: point|"off", die}
+// noFreezeCheck skips the anti-lock rule (used when probing the opponent's replies).
+function movesForDie(s, color, die, noFreezeCheck){
   const out = [];
   if(color === "W"){
-    if(s.barW > 0){
-      const to = 25 - die;
-      if(s.pts[to] >= -1) out.push({from:"bar", to, die});
-      return out;
-    }
+    const only = runnerW(s);
     const home = allHomeW(s);
     for(let p=1;p<=24;p++){
       if(s.pts[p] <= 0) continue;
+      if(only !== "free" && p !== only) continue;
       const t = p - die;
       if(t >= 1){
-        if(s.pts[t] >= -1) out.push({from:p, to:t, die});
+        if(s.pts[t] >= 0) out.push({from:p, to:t, die});
       }else if(home){
         if(p === die) out.push({from:p, to:"off", die});
-        else{ // die > p: only if no checker on a higher home point
+        else{
           let higher = false;
           for(let q=p+1;q<=6;q++) if(s.pts[q] > 0){ higher = true; break; }
           if(!higher) out.push({from:p, to:"off", die});
@@ -323,17 +332,14 @@ function movesForDie(s, color, die){
       }
     }
   }else{
-    if(s.barB > 0){
-      const to = die;
-      if(s.pts[to] <= 1) out.push({from:"bar", to, die});
-      return out;
-    }
+    const only = runnerB(s);
     const home = allHomeB(s);
     for(let p=1;p<=24;p++){
       if(s.pts[p] >= 0) continue;
+      if(only !== "free" && p !== only) continue;
       const t = p + die;
       if(t <= 24){
-        if(s.pts[t] <= 1) out.push({from:p, to:t, die});
+        if(s.pts[t] <= 0) out.push({from:p, to:t, die});
       }else if(home){
         const dist = 25 - p;
         if(dist === die) out.push({from:p, to:"off", die});
@@ -345,30 +351,34 @@ function movesForDie(s, color, die){
       }
     }
   }
-  return out;
+  if(noFreezeCheck) return out;
+  return out.filter(m => !freezesOpponent(applyMove(cloneS(s), color, m), color));
+}
+
+// Anti-lock rule: a move may not leave the opponent with no possible move for
+// ANY die value while they still have checkers on the board.
+function freezesOpponent(s, color){
+  const opp = color === "W" ? "B" : "W";
+  if(opp === "W" ? s.offW === 15 : s.offB === 15) return false;
+  for(let d=1;d<=6;d++){
+    if(movesForDie(s, opp, d, true).length) return false;
+  }
+  return true;
 }
 
 function applyMove(s, color, m){ // mutates s
   if(color === "W"){
-    if(m.from === "bar") s.barW--; else s.pts[m.from]--;
-    if(m.to === "off") s.offW++;
-    else{
-      if(s.pts[m.to] === -1){ s.pts[m.to] = 0; s.barB++; }
-      s.pts[m.to]++;
-    }
+    s.pts[m.from]--;
+    if(m.to === "off") s.offW++; else s.pts[m.to]++;
   }else{
-    if(m.from === "bar") s.barB--; else s.pts[m.from]++;
-    if(m.to === "off") s.offB++;
-    else{
-      if(s.pts[m.to] === 1){ s.pts[m.to] = 0; s.barW++; }
-      s.pts[m.to]--;
-    }
+    s.pts[m.from]++;
+    if(m.to === "off") s.offB++; else s.pts[m.to]--;
   }
   return s;
 }
 
-// Enumerate maximal move sequences (backgammon rule: use as many dice as
-// possible; with one usable die of two, prefer the larger).
+// Enumerate maximal move sequences (use as many dice as possible; with only
+// one playable die of two, the larger must be played).
 function enumerate(s, color, dice){
   const seqs = [];
   let maxUsed = 0;
@@ -409,27 +419,24 @@ function pips(s, color){
     if(color==="W" && s.pts[p] > 0) t += p * s.pts[p];
     if(color==="B" && s.pts[p] < 0) t += (25-p) * (-s.pts[p]);
   }
-  t += 25 * (color==="W" ? s.barW : s.barB);
   return t;
 }
 
 // ── Computer evaluation ──────────────────────────────────────────────────────
 function evalB(s){
-  let score = 0;
-  score += s.offB * 45;
-  score += s.barW * 24;                 // white on the bar is great for black
-  score -= pips(s, "B");
+  let score = 40 * s.offB - pips(s, "B");
+  // Held points block white permanently (no hitting) — spread beats stacking.
+  let run = 0;
+  const whiteRear = (() => { for(let p=24;p>=1;p--) if(s.pts[p] > 0) return p; return 0; })();
   for(let p=1;p<=24;p++){
-    const v = s.pts[p];
-    if(v === -1){                       // black blot
-      let exposed = s.barW > 0;
-      if(!exposed) for(let q=p+1;q<=24;q++) if(s.pts[q] > 0){ exposed = true; break; }
-      score -= exposed ? (p >= 13 ? 14 : 8) : 2;
-    }else if(v <= -2){                  // made point
-      score += (p >= 19 ? 5 : 3);
-    }
+    if(s.pts[p] < 0){
+      score += 2;
+      run++;
+      score += run * 1.1;                       // consecutive walls compound
+      if(p <= 7 && whiteRear > p) score += 2.5; // blocks in white's approach to home
+    }else run = 0;
   }
-  score += Math.random() * 0.5;         // tiebreak
+  score += Math.random() * 0.5;
   return score;
 }
 
@@ -452,7 +459,6 @@ function buildBoard(){
   mk("row-tr",[19,20,21,22,23,24],true);
   mk("row-bl",[12,11,10,9,8,7],false);
   mk("row-br",[6,5,4,3,2,1],false);
-  $("bar-W").addEventListener("click", () => onPointClick("bar"));
   $("off-W").addEventListener("click", () => onOffClick());
 }
 
@@ -478,21 +484,6 @@ function renderCheckers(){
       el.appendChild(c);
     }
   }
-  // bar
-  for(const [zone, cnt, color] of [["bar-W", S.barW, "W"], ["bar-B", S.barB, "B"]]){
-    const el = $(zone);
-    el.querySelectorAll(".chk").forEach(c => c.remove());
-    const show = Math.min(cnt, 4);
-    for(let i=0;i<show;i++){
-      const c = document.createElement("div");
-      c.className = `chk ${color}`;
-      c.style.top = (10 + i*20) + "%";
-      if(i === show-1 && cnt > 4) c.innerHTML = `<span class="cnt">${cnt}</span>`;
-      if(i === show-1 && selected === "bar" && color === "W") c.classList.add("sel");
-      el.appendChild(c);
-    }
-  }
-  // off trays
   for(const [zone, cnt, color] of [["off-W", S.offW, "W"], ["off-B", S.offB, "B"]]){
     const el = $(zone);
     el.querySelectorAll(".off-stack").forEach(c => c.remove());
@@ -547,15 +538,11 @@ function setStatus(txt){ $("status-txt").textContent = txt; }
 
 function renderHighlights(){
   document.querySelectorAll(".pt.tgt,.pt.src").forEach(e => e.classList.remove("tgt","src"));
-  $("bar-W").classList.remove("src");
   $("off-W").classList.remove("tgt");
   if(phase !== "player-move") return;
   if(selected === null){
     const sources = new Set(legalFirst.map(m => m.from));
-    for(const f of sources){
-      if(f === "bar") $("bar-W").classList.add("src");
-      else ptEls[f].classList.add("src");
-    }
+    for(const f of sources) ptEls[f].classList.add("src");
   }else{
     for(const m of legalFirst.filter(m => m.from === selected)){
       if(m.to === "off") $("off-W").classList.add("tgt");
@@ -596,7 +583,6 @@ function onPointClick(p){
     }
     return;
   }
-  // try move selected -> p (prefer the smaller die if both reach)
   const cands = legalFirst.filter(m => m.from === selected && m.to === p);
   if(cands.length){
     cands.sort((a,b) => a.die - b.die);
@@ -668,7 +654,7 @@ function startTurn(color, a, b){
   if(color === "W"){
     phase = "player-move";
     if(!refreshLegal()){
-      setStatus(`You rolled ${a}–${b}, but have no legal moves.`);
+      setStatus(`You rolled ${a}–${b}, but every move is blocked.`);
       render();
       return setTimeout(endPlayerTurn, 1300);
     }
@@ -691,7 +677,7 @@ function cpuTurn(){
 function cpuPlay(){
   const {maxUsed, seqs} = enumerate(S, "B", S.dice);
   if(maxUsed === 0){
-    setStatus("Computer has no legal moves. Your turn — roll!");
+    setStatus("Computer is blocked — no legal moves. Your turn, roll!");
     S.dice = [];
     renderDice();
     phase = "await-roll";
@@ -753,15 +739,13 @@ function newRound(){
 
 function endGame(winner){
   phase = "over";
-  const mars = winner === "W" ? S.offB === 0 : S.offW === 0;
-  const gained = mars ? 2 : 1;
+  const gained = winner === "W" ? 15 - S.offB : 15 - S.offW;
   if(winner === "W") match.you += gained; else match.cpu += gained;
   saveMatch();
   renderScore();
 
   const youWonMatch = match.you >= MATCH_GOAL;
   const cpuWonMatch = match.cpu >= MATCH_GOAL;
-  $("ov-mars").style.display = mars ? "" : "none";
 
   if(youWonMatch || cpuWonMatch){
     phase = "match-over";
@@ -772,11 +756,16 @@ function endGame(winner){
     $("ov-btn").textContent = "New match";
   }else{
     $("ov-emoji").textContent = winner === "W" ? "🎉" : "🤖";
-    $("ov-title").textContent = winner === "W" ? `You win the game (+${gained})` : `Computer wins (+${gained})`;
-    $("ov-text").textContent = `Match score: ${match.you} – ${match.cpu}. First to ${MATCH_GOAL} takes the match.`;
-    $("ov-btn").textContent = "Next game";
+    $("ov-title").textContent = winner === "W"
+      ? `You win the round (+${gained})`
+      : `Computer wins the round (+${gained})`;
+    $("ov-text").textContent = (winner === "W"
+      ? `The computer still had ${gained} checker${gained===1?"":"s"} on the board. `
+      : `You still had ${gained} checker${gained===1?"":"s"} on the board. `) +
+      `Match score: ${match.you} – ${match.cpu}. First to ${MATCH_GOAL} takes the match.`;
+    $("ov-btn").textContent = "Next round";
   }
-  setStatus(winner === "W" ? "You won this game!" : "Computer won this game.");
+  setStatus(winner === "W" ? "You won this round!" : "Computer won this round.");
   showOverlay();
 }
 
